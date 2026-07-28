@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웨이브넷 웹 전산(Admin) 활용 가이드</title>
+<style>
+  :root{
+    --navy:#1a3a6b; --navy-light:#2a5298; --red:#C0392B; --red-bg:#FCEBEA;
+    --orange:#D85A30; --blue:#2a5298; --blue-bg:#EAF1FB; --gray-line:#d0d4da;
+    --gray-bg:#f4f6f8; --gray-lbl:#eef1f4; --text:#222; --text-sec:#666;
+    --text-ter:#999; --green:#0F6E56; --warn-bg:#FFF6E5; --warn-text:#8a6100;
+    --lock-bg:#ededed; --lock-text:#777; --tip:#F39C12; --tip-dark:#D9820B;
+    --usim:#7a4fb0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; padding:0; font-family:'Malgun Gothic','맑은 고딕',-apple-system,sans-serif; color:var(--text); background:#e9ecef; line-height:1.5; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 14px 60px;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%); color:#fff; padding:30px 30px; border-radius:0 0 18px 18px; margin-bottom:18px; box-shadow:0 6px 20px rgba(26,58,107,0.18);}
+  .hero .brand{font-size:13px; letter-spacing:3px; opacity:0.8; font-weight:700; margin-bottom:7px;}
+  .hero h1{margin:0 0 7px; font-size:25px; font-weight:800; letter-spacing:-0.5px;}
+  .hero p{margin:0; font-size:14px; opacity:0.9;}
+  .hero-intent{margin-top:14px !important; padding-top:13px; border-top:1px solid rgba(255,255,255,0.22); font-size:13px !important; line-height:1.65; opacity:0.92 !important;}
+  .hero-intent b{color:#ffe08a; font-weight:700;}
+
+  /* 진입경로 */
+  .path{background:#fff; border-radius:12px; padding:14px 18px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.05); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .path .pl{font-size:12px; color:var(--text-ter); font-weight:700; margin-right:4px;}
+  .crumb{background:var(--gray-bg); border-radius:6px; padding:5px 11px; font-size:13px; font-weight:600;}
+  .crumb.hl{background:var(--red); color:#fff;}
+  .arrow{color:var(--text-ter); font-size:13px;}
+
+  /* 진행 흐름 */
+  .flow{display:flex; align-items:stretch; gap:0; flex-wrap:wrap; margin-bottom:10px;}
+  .flow-step{flex:1; min-width:110px; background:#fff; border:1px solid var(--gray-line); border-radius:11px; padding:12px 13px; text-align:center;}
+  .flow-step .fnum{display:inline-flex; width:24px; height:24px; border-radius:50%; background:var(--navy); color:#fff; font-size:12px; font-weight:800; align-items:center; justify-content:center; margin-bottom:5px;}
+  .flow-step .ft{font-size:13px; font-weight:700; display:block;}
+  .flow-step .fs{font-size:11px; color:var(--text-sec); display:block; margin-top:2px;}
+  .flow-arrow{display:flex; align-items:center; color:var(--text-ter); font-size:18px; padding:0 7px;}
+
+  /* 목차 */
+  .toc{background:#fff; border-radius:14px; padding:16px 20px; margin:18px 0 16px; box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+  .toc-title{font-size:13px; font-weight:800; color:var(--navy); margin:0 0 11px;}
+  .toc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px;}
+  .toc-item{display:flex; align-items:center; gap:9px; padding:9px 12px; border-radius:9px; background:var(--gray-bg); text-decoration:none; color:var(--text); font-size:13px; font-weight:600; transition:all 0.12s ease; border:1px solid transparent;}
+  .toc-item:hover{background:var(--blue-bg); border-color:#bcd0ee; transform:translateX(2px);}
+  .toc-num{width:22px; height:22px; border-radius:7px; background:var(--navy); color:#fff; font-size:12px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .toc-item .um{margin-left:auto;}
+
+  /* 치트시트 */
+  .cheat{background:linear-gradient(135deg,#fff7ef 0%,#fdeee0 100%); border:1.5px solid #f0c89a; border-radius:14px; padding:17px 20px; margin-bottom:16px;}
+  .cheat-title{font-size:14px; font-weight:800; color:#9a5a1a; margin:0 0 11px;}
+  .cheat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:9px;}
+  .cheat-item{display:flex; align-items:flex-start; gap:8px; font-size:13px; line-height:1.5; background:rgba(255,255,255,0.7); border-radius:9px; padding:9px 11px;}
+  .cheat-item .ck{color:var(--red); font-weight:800; flex-shrink:0;}
+  .cheat-item b{color:var(--text);}
+
+  /* 범례 */
+  .legend{display:flex; gap:14px; flex-wrap:wrap; background:#fff; border-radius:10px; padding:11px 18px; margin-bottom:18px; font-size:12px; color:var(--text-sec); box-shadow:0 2px 8px rgba(0,0,0,0.05); align-items:center;}
+  .legend b{color:var(--text);}
+  .tag-req{color:var(--red); font-weight:800;}
+  .tag-eg{color:var(--red); font-weight:700;}
+  .tag-cond{display:inline-block; background:var(--red-bg); color:var(--red); font-weight:700; border-radius:4px; padding:1px 6px; font-size:11px;}
+  .tag-lock{display:inline-flex; align-items:center; gap:3px; background:var(--lock-bg); color:var(--lock-text); border-radius:4px; padding:1px 6px; font-size:11px; font-weight:700;}
+  .usim-badge{display:inline-flex; align-items:center; gap:3px; background:var(--usim); color:#fff; border-radius:5px; padding:2px 9px; font-size:11px; font-weight:700; white-space:nowrap;}
+
+  /* ===== 메인 폼 (실제 화면 재현, 하나로 연결) ===== */
+  .form{border:1px solid var(--gray-line); border-top:none; border-radius:10px; overflow:visible; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+  /* 블록 헤더 (✓ 고객 정보) */
+  .bk{display:flex; align-items:center; gap:7px; background:#fafbfc; border-top:1px solid var(--gray-line); padding:9px 13px; font-size:14px; font-weight:800; scroll-margin-top:10px;}
+  .form > .bk:first-child{border-top:none;}
+  .bk .chk{color:var(--red); font-size:15px;}
+  .bk .bnote{font-size:11px; font-weight:600; color:var(--red); margin-left:2px;}
+  .bk .bnote.gray{color:var(--text-ter); font-weight:500;}
+
+  .row{display:flex; border-top:1px solid var(--gray-line);}
+  .row > .lbl{width:120px; min-width:120px; background:var(--gray-lbl); padding:9px 10px; font-size:13px; display:flex; align-items:center; gap:3px; border-right:1px solid var(--gray-line); font-weight:600;}
+  .row > .val{flex:1; padding:9px 10px; font-size:13px; display:flex; align-items:center; flex-wrap:wrap; gap:5px; border-right:1px solid var(--gray-line);}
+  .row > .val.last{border-right:none;}
+  .inp{border:1px solid var(--gray-line); border-radius:5px; height:29px; padding:0 8px; font-size:13px; display:inline-flex; align-items:center; background:#fff; min-width:46px;}
+  .eg{color:var(--red); font-weight:700;}
+  .req{color:var(--red); font-weight:700;}
+  .num{display:inline-flex; width:19px; height:19px; border-radius:50%; background:var(--blue); color:#fff; font-size:11px; font-weight:700; align-items:center; justify-content:center; margin-right:2px; flex-shrink:0;}
+  .radio{width:13px; height:13px; border-radius:50%; border:1.5px solid #aaa; display:inline-block; vertical-align:-2px; margin-right:3px;}
+  .radio.on{border-color:var(--blue); background:radial-gradient(var(--blue) 40%, transparent 45%);}
+  .chkbox{width:13px; height:13px; border-radius:3px; border:1.5px solid #aaa; display:inline-block; vertical-align:-2px; margin-right:3px;}
+  .sel{border:1px solid var(--gray-line); border-radius:5px; height:29px; padding:0 8px; font-size:13px; display:inline-flex; align-items:center; gap:6px; background:var(--gray-bg); color:var(--text-sec);}
+  .sel.hl{border:1.5px solid var(--blue); background:var(--blue-bg); color:var(--blue); font-weight:700;}
+  .btn{background:var(--orange); color:#fff; border-radius:5px; height:27px; padding:0 10px; font-size:12px; display:inline-flex; align-items:center; font-weight:600;}
+  .blue-txt{color:var(--blue); font-size:11px;}
+  .key{font-weight:700; color:var(--text);}
+  .cond{display:inline-block; background:var(--red-bg); color:var(--red); font-weight:700; border-radius:4px; padding:1px 6px; font-size:11px;}
+  .lock{display:inline-flex; align-items:center; gap:3px; background:var(--lock-bg); color:var(--lock-text); border-radius:4px; padding:2px 7px; font-size:11px; font-weight:700;}
+  .dim{opacity:0.5;}
+  .save-row{display:flex; justify-content:flex-end; padding:12px 14px; background:#fafbfc; border-top:1px solid var(--gray-line);}
+  .save-btn{background:var(--gray-bg); border:1px solid var(--gray-line); border-radius:6px; padding:7px 18px; font-size:13px; font-weight:700;}
+
+  /* 툴팁 아이콘 */
+  .info{position:relative; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; background:var(--tip); color:#fff; font-size:12px; font-weight:800; cursor:pointer; margin-left:2px; flex-shrink:0; font-style:normal; user-select:none; box-shadow:0 0 0 0 rgba(243,156,18,0.6); animation:tipPulse 2.4s infinite; transition:transform 0.12s ease, background 0.12s ease;}
+  @keyframes tipPulse{0%{box-shadow:0 0 0 0 rgba(243,156,18,0.5);}70%{box-shadow:0 0 0 6px rgba(243,156,18,0);}100%{box-shadow:0 0 0 0 rgba(243,156,18,0);}}
+  .info:hover{background:var(--tip-dark); transform:scale(1.15); animation:none;}
+  .info .tip{visibility:hidden; opacity:0; position:absolute; bottom:145%; left:50%; transform:translateX(-50%) translateY(4px); background:#2b2f36; color:#fff; text-align:left; border-radius:9px; padding:11px 13px; font-size:12.5px; font-weight:400; line-height:1.65; width:max-content; max-width:290px; z-index:50; box-shadow:0 8px 24px rgba(0,0,0,0.28); transition:opacity 0.16s ease, transform 0.16s ease; pointer-events:none;}
+  .info .tip::after{content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:7px solid transparent; border-top-color:#2b2f36;}
+  .info .tip .cond{background:#4a3a3a; color:#ffb4ac;}
+  .info .tip .key{color:#ffd966;}
+  .info .tip .lock{background:#444; color:#ccc;}
+  .info:hover .tip, .info:focus .tip, .info.show .tip{visibility:visible; opacity:1; transform:translateX(-50%) translateY(0);}
+  .info.tl .tip{left:auto; right:-6px; transform:translateX(0) translateY(4px);}
+  .info.tl .tip::after{left:auto; right:10px; transform:none;}
+  .info.tl:hover .tip, .info.tl:focus .tip, .info.tl.show .tip{transform:translateX(0) translateY(0);}
+
+  /* 참고 섹션 (폼 아래) */
+  .ref{margin-top:26px;}
+  .ref-head{display:flex; align-items:center; gap:8px; margin-bottom:12px;}
+  .ref-head .rno{width:26px; height:26px; border-radius:8px; background:var(--navy); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .ref-head h2{margin:0; font-size:17px; font-weight:800;}
+  .ref-card{background:#fff; border:1px solid var(--gray-line); border-radius:12px; padding:16px 18px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:14px;}
+  .sub-label{margin:0 0 8px; font-size:13px; font-weight:700; color:var(--text-sec);}
+  .note-box{border-radius:10px; padding:11px 14px; font-size:12.5px; line-height:1.65; margin-top:10px;}
+  .note-info{background:var(--blue-bg); color:var(--blue);}
+  .note-warn{background:var(--warn-bg); color:var(--warn-text);}
+  .note-icon{font-weight:800; margin-right:5px;}
+  .mini-tbl{border:1px solid var(--gray-line); border-radius:9px; overflow:hidden;}
+  .mini-tbl .row > .lbl{background:var(--gray-lbl);}
+  .carrier-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+  .carrier{background:var(--gray-bg); border-radius:9px; padding:10px; display:flex; flex-direction:column; align-items:center; gap:4px;}
+  .carrier .c-name{font-weight:800; font-size:13px;}
+  .carrier .c-val{color:var(--red); font-weight:700; font-size:12.5px;}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; margin-top:6px;}
+  .steps{display:flex; flex-direction:column; gap:7px;}
+  .step{display:flex; align-items:center; gap:9px; font-size:13px;}
+  .step-no{background:var(--blue-bg); color:var(--blue); border-radius:50%; width:20px; height:20px; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;}
+
+  /* 접수양식 */
+  .form-tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:0;}
+  .ftab{border:1px solid var(--gray-line); background:#fff; color:var(--text-sec); border-radius:8px 8px 0 0; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; transition:all 0.12s ease;}
+  .ftab:hover{background:var(--gray-bg);}
+  .ftab.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .form-card{display:none; border:1.5px solid var(--gray-line); border-radius:0 12px 12px 12px; overflow:hidden; background:#fff;}
+  .form-card.active{display:block;}
+  .form-head{display:flex; align-items:center; justify-content:space-between; padding:11px 15px; background:var(--gray-bg); border-bottom:1px solid var(--gray-line);}
+  .form-title{font-size:14px; font-weight:800;}
+  .copy-btn{border:none; background:var(--orange); color:#fff; border-radius:7px; padding:7px 15px; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:5px; transition:all 0.12s ease;}
+  .copy-btn:hover{background:#bf4a22;}
+  .copy-btn.done{background:var(--green);}
+  .form-src{margin:0; padding:15px 17px; font-family:'Malgun Gothic','맑은 고딕',monospace; font-size:13px; line-height:1.85; color:var(--text); white-space:pre-wrap; word-break:break-all; background:#fff;}
+
+  /* 방법B mock */
+  .mock{border:1.5px solid var(--gray-line); border-radius:10px; overflow:hidden; background:#fff; font-size:12px;}
+  .mock-gnb{display:flex; gap:2px; background:var(--navy); padding:0;}
+  .mock-gnb-item{color:#cdd6e6; padding:9px 12px; font-size:12px; font-weight:600; white-space:nowrap;}
+  .mock-gnb-item.on{background:#fff; color:var(--navy); font-weight:800; border:2px solid var(--red); border-bottom:none; border-radius:5px 5px 0 0;}
+  .mock-sub{display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--gray-line);}
+  .mock-sub-item{font-size:12px; font-weight:700; border:2px solid var(--red); border-radius:5px; padding:3px 9px;}
+  .mock-tr{display:flex; align-items:center; gap:6px; padding:7px 10px; border-bottom:1px solid #eef0f3;}
+  .mock-th{background:var(--gray-lbl); font-weight:700; color:var(--text-sec);}
+  .mock-tr-hl{background:#FFFBF0;}
+  .mock-radio{width:13px; height:13px; border-radius:50%; border:1.5px solid #aaa; display:inline-block;}
+  .mock-radio.on{border-color:var(--blue); background:radial-gradient(var(--blue) 42%, #fff 46%); box-shadow:0 0 0 2px rgba(42,82,152,0.2);}
+  .mock-inet{background:#fff; border:2px solid var(--red); color:var(--red); font-weight:800; border-radius:4px; padding:1px 6px; font-size:11px;}
+  .mock-btnrow{display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--gray-bg);}
+  .mock-fbtn{background:#fff; border:2px solid var(--red); color:#C0392B; font-weight:800; border-radius:5px; padding:4px 12px; font-size:12px;}
+  .mock-anno{display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--blue); color:#fff; font-size:12px; font-weight:800; align-items:center; justify-content:center; flex-shrink:0;}
+
+  .footer{text-align:center; font-size:12px; color:var(--text-ter); margin-top:36px; padding-top:20px; border-top:1px solid var(--gray-line);}
+
+  /* 대형 가이드 전환 탭 */
+  .maintabs{display:flex; gap:8px; margin-bottom:18px;}
+  .mtab{
+    flex:1; border:1.5px solid var(--gray-line); background:#fff; color:var(--text-sec);
+    border-radius:12px; padding:15px 18px; font-size:15px; font-weight:800; cursor:pointer;
+    font-family:inherit; transition:all 0.14s ease; display:flex; align-items:center; justify-content:center; gap:9px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  }
+  .mtab:hover{background:var(--gray-bg);}
+  .mtab.active{background:var(--navy); color:#fff; border-color:var(--navy); box-shadow:0 4px 14px rgba(26,58,107,0.25);}
+  .mtab .mt-no{width:26px; height:26px; border-radius:8px; background:var(--gray-lbl); color:var(--text-sec); font-size:13px; font-weight:800; display:inline-flex; align-items:center; justify-content:center;}
+  .mtab.active .mt-no{background:rgba(255,255,255,0.22); color:#fff;}
+  .guide-page{display:none;}
+  .guide-page.active{display:block;}
+  .soon{background:#fff; border:1.5px dashed var(--gray-line); border-radius:14px; padding:48px 24px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+  .soon .si{font-size:34px; margin-bottom:10px;}
+  .soon .st{font-size:16px; font-weight:800; margin-bottom:6px;}
+  .soon .ss{font-size:13px; color:var(--text-sec); line-height:1.7;}
+
+  /* FAQ */
+  .faq-group-title{display:flex; align-items:center; gap:8px; margin:22px 0 12px;}
+  .faq-group-title:first-child{margin-top:4px;}
+  .faq-group-title .fgno{width:26px; height:26px; border-radius:8px; background:var(--navy); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .faq-group-title h2{margin:0; font-size:17px; font-weight:800;}
+  .faq{background:#fff; border:1px solid var(--gray-line); border-radius:12px; margin-bottom:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+  .faq-q{display:flex; align-items:flex-start; gap:11px; padding:14px 16px; cursor:pointer; font-weight:700; font-size:14px; line-height:1.5; background:#fff; transition:background 0.12s ease;}
+  .faq-q:hover{background:var(--gray-bg);}
+  .faq-q .qmark{flex-shrink:0; min-width:30px; height:24px; padding:0 7px; border-radius:7px; background:var(--blue); color:#fff; font-size:12.5px; font-weight:800; display:flex; align-items:center; justify-content:center; letter-spacing:0.3px;}
+  .faq-q .qtext{flex:1;}
+  .faq-q .qarrow{flex-shrink:0; color:var(--text-ter); font-size:13px; transition:transform 0.2s ease; margin-top:4px;}
+  .faq.open .faq-q .qarrow{transform:rotate(180deg);}
+  .faq-a{display:flex; align-items:flex-start; gap:11px; padding:0 16px; font-size:13.5px; line-height:1.7; color:var(--text); max-height:0; overflow:hidden; transition:max-height 0.25s ease, padding 0.25s ease;}
+  .faq.open .faq-a{max-height:400px; padding:0 16px 15px;}
+  .faq-a .amark{flex-shrink:0; width:24px; height:24px; border-radius:7px; background:var(--green); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .faq-a .atext{flex:1; padding-top:2px;}
+  .faq-a .atext b{color:var(--navy); background:#e9f0fa; border-radius:4px; padding:1px 5px;}
+  .faq-a .hl{background:#fff3cd; color:#8a6100; border-radius:3px; padding:1px 5px; font-weight:700;}
+  .faq-toolbar{display:flex; justify-content:flex-end; gap:8px; margin-bottom:12px;}
+  .faq-toolbar button{border:1px solid var(--gray-line); background:#fff; border-radius:8px; padding:7px 13px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--text-sec);}
+  .faq-toolbar button:hover{background:var(--gray-bg);}
+
+  @media (max-width:680px){
+    .row{flex-wrap:wrap;}
+    .row > .lbl{width:100px; min-width:100px; font-size:12px;}
+    .row > .val{font-size:12px; min-width:60%;}
+    .carrier-grid{grid-template-columns:repeat(2,1fr);}
+    .hero{padding:24px 18px;} .hero h1{font-size:20px;}
+    .flow{flex-direction:column;} .flow-arrow{transform:rotate(90deg);}
+  }
+
+  /* 검색 */
+  .search-wrap{position:relative; margin-bottom:16px;}
+  .search-box{display:flex; align-items:center; gap:8px; background:#fff; border:1.5px solid var(--gray-line); border-radius:12px; padding:11px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+  .search-box:focus-within{border-color:var(--blue); box-shadow:0 2px 12px rgba(42,82,152,0.18);}
+  .search-box .si{font-size:16px; color:var(--text-ter);}
+  .search-box input{flex:1; border:none; outline:none; font-size:14px; font-family:inherit; color:var(--text); background:transparent;}
+  .search-box input::placeholder{color:var(--text-ter);}
+  .search-clear{cursor:pointer; color:var(--text-ter); font-size:18px; line-height:1; padding:0 4px; display:none;}
+  .search-clear.show{display:inline;}
+  .search-info{font-size:12px; color:var(--text-sec); margin:8px 2px 0; display:none;}
+  .search-info.show{display:block;}
+  .search-chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:9px;}
+  .schip{background:var(--gray-bg); border:1px solid var(--gray-line); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--text-sec); cursor:pointer; font-weight:600; transition:all 0.12s ease;}
+  .schip:hover{background:var(--blue-bg); border-color:#bcd0ee; color:var(--blue);}
+  mark.sh{background:#ffe680; color:inherit; border-radius:3px; padding:0 1px; box-shadow:0 0 0 2px #ffe680;}
+  .row.search-hit, .bk.search-hit, .cheat-item.search-hit, .ftab.search-hit{outline:2px solid #f5c518; outline-offset:1px; border-radius:6px;}
+  .search-dim{opacity:0.32; transition:opacity 0.2s ease;}
+
+  /* 스티키 탭바 */
+  .sticky-nav{position:sticky; top:0; z-index:200; background:rgba(233,236,239,0.96); backdrop-filter:blur(6px); padding:10px 0; margin:0 0 4px; display:none;}
+  .sticky-nav.show{display:block;}
+  .sticky-inner{max-width:1180px; margin:0 auto; padding:0 14px; display:flex; gap:8px; align-items:center;}
+  .snav-tab{flex:0 0 auto; border:1.5px solid var(--gray-line); background:#fff; color:var(--text-sec); border-radius:9px; padding:8px 14px; font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;}
+  .snav-tab.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .snav-jump{margin-left:auto; display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+  .snav-jump a{font-size:12px; color:var(--text-sec); text-decoration:none; background:#fff; border:1px solid var(--gray-line); border-radius:7px; padding:5px 10px; font-weight:600;}
+  .snav-jump a:hover{background:var(--blue-bg); color:var(--blue);}
+  @media (max-width:680px){ .snav-jump{display:none;} }
+
+  /* 첫 진입 안내 토스트 */
+  .tip-toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(14px); background:#2b2f36; color:#fff; padding:13px 20px; border-radius:30px; font-size:13.5px; font-weight:600; box-shadow:0 8px 28px rgba(0,0,0,0.3); z-index:999; display:flex; align-items:center; gap:10px; opacity:0; transition:opacity 0.3s ease, transform 0.3s ease; pointer-events:none; max-width:90vw;}
+  .tip-toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  .tip-toast .ti-ic{display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--tip); color:#fff; font-size:13px; font-weight:800; align-items:center; justify-content:center; flex-shrink:0; font-style:normal;}
+  .tip-toast .tclose{cursor:pointer; opacity:0.6; pointer-events:auto; padding-left:6px;}
+
+  /* ===== 하이브리드 블록 카드 ===== */
+  .block{background:#fff; border-radius:16px; box-shadow:0 1px 3px rgba(0,0,0,0.06),0 8px 24px rgba(26,58,107,0.06); margin-bottom:16px; overflow:hidden; border:1px solid #e6e9ee; scroll-margin-top:70px;}
+  .block-head{display:flex; align-items:center; gap:14px; padding:17px 22px; border-bottom:1px solid var(--gray-line); background:linear-gradient(to right,#fbfcfd,#fff);}
+  .block-no{flex-shrink:0; width:36px; height:36px; border-radius:11px; background:var(--navy); color:#fff; font-size:16px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(26,58,107,0.25);}
+  .block-no.usim{background:var(--usim); box-shadow:0 3px 8px rgba(122,79,176,0.3);}
+  .block-titles{flex:1; min-width:0;}
+  .block-title{font-size:17px; font-weight:800; letter-spacing:-0.3px; color:var(--text); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .block-sub{font-size:12.5px; color:var(--text-sec); margin-top:3px; font-weight:500;}
+  .block-sub b{color:var(--navy); font-weight:700;}
+  .summary{padding:16px 22px;}
+  .summary-label{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:800; color:#fff; background:var(--green); border-radius:8px; padding:6px 13px; margin-bottom:14px; letter-spacing:0.2px; box-shadow:0 2px 6px rgba(15,110,86,0.22);}
+  .summary-label.skip{color:#fff; background:var(--text-ter); box-shadow:none;}
+  .field-list{display:flex; flex-direction:column; gap:1px;}
+  .field{display:flex; align-items:flex-start; gap:13px; padding:10px 4px; border-bottom:1px solid #f0f2f5;}
+  .field:last-child{border-bottom:none;}
+  .field-name{flex-shrink:0; width:108px; font-size:13.5px; font-weight:700; color:var(--text); display:flex; align-items:center; gap:4px; padding-top:2px; line-height:1.4;}
+  .field-name .star{color:var(--red); font-size:11px;}
+  .field-val{flex:1; font-size:13.5px; color:#3a3a3a; line-height:1.65; font-weight:500;}
+  .field-val .v{display:inline-block; background:var(--blue-bg); color:var(--navy); border-radius:6px; padding:2px 9px; font-weight:700; font-size:13px; margin:1px 0;}
+  .field-val .v-eg{display:inline-block; background:#fff4ef; color:var(--orange); border:1px solid #f3d4c4; border-radius:6px; padding:2px 9px; font-weight:700; font-size:13px;}
+  .field-val .v-usim{display:inline-block; background:#f3edfa; color:var(--usim); border-radius:6px; padding:2px 9px; font-weight:700; font-size:13px;}
+  .field-val .note{color:var(--text-sec); font-size:12.5px; font-weight:500;}
+  .field-val .must{display:inline-block; background:var(--red); color:#fff; border-radius:5px; padding:1px 7px; font-size:11px; font-weight:700; margin-left:2px;}
+  .field-val b{color:var(--text); font-weight:800;}
+  .skip-tag{display:inline-block; background:var(--gray-bg); color:var(--text-ter); border:1px solid var(--gray-line); border-radius:6px; padding:3px 10px; font-size:11.5px; font-weight:600; margin:1px 2px 1px 0;}
+  .reveal{border-top:1px solid var(--gray-line);}
+  .reveal-btn{width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:13px; background:var(--gray-bg); border:none; font-family:inherit; font-size:13px; font-weight:700; color:var(--navy); cursor:pointer; transition:background 0.12s ease;}
+  .reveal-btn:hover{background:#e9edf2;}
+  .reveal-btn .arr{transition:transform 0.2s ease; font-size:11px;}
+  .reveal.open .reveal-btn .arr{transform:rotate(180deg);}
+  .reveal-body{max-height:0; overflow:hidden; transition:max-height 0.32s ease;}
+  .reveal.open .reveal-body{max-height:2200px; overflow:visible;}
+  .reveal-inner{padding:16px 18px; background:#fafbfc;}
+  .reveal-cap{font-size:12px; color:var(--text-ter); margin-bottom:11px;}
+  .reveal-inner .tbl{overflow:visible;}
+  .reveal-inner .row:first-child .info .tip{bottom:auto; top:145%;}
+  .reveal-inner .row:first-child .info .tip::after{top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#2b2f36;}
+
+  /* 양식 복사 플로팅 패널 */  .fab{position:fixed; right:20px; bottom:20px; z-index:300; background:var(--orange); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; box-shadow:0 6px 20px rgba(216,90,48,0.4); display:flex; align-items:center; gap:7px;}
+  .fab:hover{background:#bf4a22;}
+  .fpanel-bg{position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:400; display:none; opacity:0; transition:opacity 0.2s ease;}
+  .fpanel-bg.show{display:block; opacity:1;}
+  .fpanel{position:fixed; right:0; top:0; bottom:0; width:min(440px,92vw); background:#fff; z-index:401; box-shadow:-8px 0 30px rgba(0,0,0,0.2); transform:translateX(100%); transition:transform 0.26s ease; display:flex; flex-direction:column;}
+  .fpanel.show{transform:translateX(0);}
+  .fpanel-head{padding:16px 18px; border-bottom:1px solid var(--gray-line); display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff;}
+  .fpanel-head h3{margin:0; font-size:15px; font-weight:800;}
+  .fpanel-close{cursor:pointer; font-size:20px; opacity:0.85; background:none; border:none; color:#fff;}
+  .fpanel-body{padding:14px 16px; overflow-y:auto; flex:1;}
+  .fgroup-title{font-size:12px; font-weight:800; color:#fff; margin:16px 0 9px; letter-spacing:0.3px; padding:5px 11px; border-radius:7px; display:inline-block;}
+  .fgroup-title.g-jeopsu{background:var(--navy);}
+  .fgroup-title.g-voc{background:var(--orange);}
+  .fgroup-title:first-child{margin-top:0;}
+  .frow{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 13px; border:1px solid var(--gray-line); border-radius:10px; margin-bottom:7px;}
+  .frow .fname{font-size:13px; font-weight:700;}
+  .frow .fcopy{border:none; background:var(--gray-bg); color:var(--text); border-radius:7px; padding:6px 13px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;}
+  .frow .fcopy:hover{background:var(--blue-bg); color:var(--blue);}
+  .frow .fcopy.done{background:var(--green); color:#fff;}</style>
+</head>
+<body>
+<!-- 스크롤 시 상단 고정 탭바 -->
+<div class="sticky-nav" id="stickyNav">
+  <div class="sticky-inner">
+    <button class="snav-tab active" data-page="page-jeopsu">접수등록</button>
+    <button class="snav-tab" data-page="page-iryeok">이력등록</button>
+    <button class="snav-tab" data-page="page-faq">FAQ</button>
+    <div class="snav-jump" id="snavJump"></div>
+  </div>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="brand">WAVENET</div>
+    <h1>웨이브넷 웹 전산(Admin) 활용 가이드</h1>
+    <p>협력점 전용 · 고객 접수등록과 이력관리(회신·요청) 안내서</p>
+    <p class="hero-intent">본 가이드는 청약·접수 등의 업무 전반에서 <b>당사(웨이브넷)와 협력점 간의 원활한 소통과 빠른 업무 처리</b>를 위해 만들어진 지침서입니다.</p>
+  </div>
+
+  <!-- 대형 가이드 전환 탭 -->
+  <div class="maintabs">
+    <button class="mtab active" data-page="page-jeopsu"><span class="mt-no">1</span>접수등록 가이드</button>
+    <button class="mtab" data-page="page-iryeok"><span class="mt-no">2</span>이력등록 가이드</button>
+    <button class="mtab" data-page="page-faq"><span class="mt-no">3</span>FAQ (자주하는질문)</button>
+  </div>
+
+  <!-- 검색 -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="si">🔍</span>
+      <input type="text" id="searchInput" placeholder="찾고 싶은 항목을 입력하세요 (예: 사은품, OSS, 물류관리, 회신답변...)" autocomplete="off">
+      <span class="search-clear" id="searchClear">✕</span>
+    </div>
+    <div class="search-chips">
+      <span class="schip" data-q="사은품">사은품</span>
+      <span class="schip" data-q="물류관리">물류관리</span>
+      <span class="schip" data-q="고객인증">고객인증</span>
+      <span class="schip" data-q="개통기한">개통기한</span>
+      <span class="schip" data-q="OSS">OSS</span>
+      <span class="schip" data-q="유심동판">유심동판</span>
+      <span class="schip" data-q="회신답변">회신답변</span>
+      <span class="schip" data-q="VOC">VOC</span>
+    </div>
+    <div class="search-info" id="searchInfo"></div>
+  </div>
+
+  <!-- ===== 접수등록 방법 페이지 ===== -->
+  <div class="guide-page active" id="page-jeopsu">
+
+  <div class="path">
+    <span class="pl">진입 경로</span>
+    <span class="crumb">로그인</span><span class="arrow">›</span>
+    <span class="crumb hl">고객관리</span><span class="arrow">›</span>
+    <span class="crumb hl">개인 고객관리</span><span class="arrow">›</span>
+    <span class="crumb">고객등록 버튼</span><span class="arrow">›</span>
+    <span class="crumb">등록 화면</span>
+  </div>
+
+  <!-- 진행 흐름 -->
+  <div style="margin-bottom:16px;">
+    <div class="flow" style="margin-bottom:10px;">
+      <div class="flow-step"><span class="fnum">1</span><span class="ft">유선상품 접수</span><span class="fs">고객·납부·사은품·상품 입력</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fnum">3</span><span class="ft">필수서류 첨부</span><span class="fs">해당 없으면 패스</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fnum">4</span><span class="ft">저장하기</span><span class="fs">접수등록 완료</span></div>
+    </div>
+    <div class="flow" style="margin-bottom:0;">
+      <div class="flow-step" style="border-color:#c9b3e0; background:#FBF7FF;"><span class="fnum" style="background:var(--usim);">2</span><span class="ft">유심동판 접수 시</span><span class="fs">고객추가등록으로 진행</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fnum">3</span><span class="ft">필수서류 첨부</span><span class="fs">해당 없으면 패스</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="fnum">4</span><span class="ft">저장하기</span><span class="fs">접수등록 완료</span></div>
+    </div>
+  </div>
+
+  <!-- 치트시트 -->
+  <div class="cheat">
+    <p class="cheat-title">⭐ 접수등록 시 꼭! 체크해야 할 포인트!</p>
+    <div class="cheat-grid">
+      <div class="cheat-item"><span class="ck">✓</span><span><b>고객인증</b> — "협력점★" 선택 + 통신사 기재 필수</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>LG</b>는 이메일 등록 필수</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>이메일</b> — 문자청구서 진행 시엔 전화번호 기재 가능</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>물류관리</b>는 항상 "해당없음"</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>주소증빙</b>은 "협력점"</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>이미징처리</b>는 "1.미인증" (KT 직접인증 시만 2.인증완료)</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>정책 구분</b>은 "전국" (SKB만 도매/소매 구분)</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>사은품 금액</b>은 반드시 <b>인터넷(상품1)</b> 행에 기재</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>사은품 지급처</b> — 웨이브넷지급(정산 차감) / 유치자지급(협력점 직접)</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>부가상품(OSS) 동시 접수</b>면 DPS+1 등 +숫자 선택</span></div>
+      <div class="cheat-item"><span class="ck">✓</span><span><b>유심동판</b>은 회사선택 "모바일" + 정책구분 MNP</span></div>
+    </div>
+  </div>
+
+  <!-- 목차 -->
+  <div class="toc">
+    <p class="toc-title">📑 빠른 이동 — 보고 싶은 항목을 누르세요</p>
+    <div class="toc-grid">
+      <a class="toc-item" href="#bk1"><span class="toc-num">1</span>고객 정보</a>
+      <a class="toc-item" href="#bk2"><span class="toc-num">2</span>기타·배송 정보</a>
+      <a class="toc-item" href="#bk3"><span class="toc-num">3</span>납부 정보</a>
+      <a class="toc-item" href="#bk4"><span class="toc-num">4</span>사은품 정보</a>
+      <a class="toc-item" href="#bk5"><span class="toc-num">5</span>상품 정보1</a>
+      <a class="toc-item" href="#ref-usim"><span class="toc-num" style="background:var(--usim); width:auto; padding:0 7px; font-size:11px;">유심</span>유심동판 접수</a>
+      <a class="toc-item" href="#bk6"><span class="toc-num">6</span>번호이동 <span class="usim-badge um">유심동판</span></a>
+      <a class="toc-item" href="#bk7"><span class="toc-num">7</span>비고 사항 <span style="margin-left:auto; font-size:11px; color:var(--orange); font-weight:700;">양식복사</span></a>
+      <a class="toc-item" href="#bk8"><span class="toc-num">8</span>첨부 파일</a>
+    </div>
+  </div>
+
+  <!-- 범례 -->
+  <div class="legend">
+    <span><b>표기 안내</b></span>
+    <span><span class="tag-req">*</span> 필수입력</span>
+    <span><span class="tag-eg">빨강</span> 입력예시</span>
+    <span><span class="tag-cond">조건</span> 경우의 수</span>
+    <span><span class="tag-lock">🔒</span> 입력 권한 없음</span>
+    <span><span class="info" style="cursor:default; animation:none; width:16px; height:16px; font-size:11px;">i</span> 올리면(모바일 탭) 설명</span>
+  </div>
+
+  <!-- 여기에 메인 폼 삽입 -->
+  <!-- ===== 접수등록 하이브리드 블록 ===== -->
+
+  <!-- 1. 고객 정보 -->
+  <div class="block" id="bk1">
+    <div class="block-head">
+      <div class="block-no">1</div>
+      <div class="block-titles">
+        <div class="block-title">고객 정보</div>
+        <div class="block-sub">고객 명의·연락처·인증 정보를 입력합니다. <b>★ 표시 칸</b>은 고정값으로 선택하세요.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이것만 입력하면 됩니다!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">고객명<span class="star">*</span></div><div class="field-val">고객 성명 입력 <span class="v-eg">김대박</span> <span class="note">· 속성엔 유심동판이면 "동판", OSS면 "OSS", 복수 등록 시 "동판/OSS"</span></div></div>
+        <div class="field"><div class="field-name">유선동판 명의자</div><div class="field-val"><span class="note">유심동판 고객만 유선 명의자명 기재 · 유선만 접수 시 비워둠</span></div></div>
+        <div class="field"><div class="field-name">주민번호<span class="star">*</span></div><div class="field-val">전체 자리 입력 <span class="v-eg">123456-7890123</span> 후 <span class="v" style="background:#fff4ef; color:var(--orange);">불량고객 체크</span> 클릭</div></div>
+        <div class="field"><div class="field-name">주소<span class="star">*</span></div><div class="field-val"><span class="note">검색 버튼 → 주소 검색 → 선택 후 상세주소 기재</span></div></div>
+        <div class="field"><div class="field-name">명의자 연락처<span class="star">*</span></div><div class="field-val"><span class="v-eg">010-1234-5678</span> <span class="note">· 고객 명의의 연락처</span></div></div>
+        <div class="field"><div class="field-name">이메일<span class="star">*</span></div><div class="field-val"><span class="v-eg">daebak@naver.com</span> <span class="note">· 문자청구서 진행 시엔 전화번호 가능(도메인 선택 불필요) ·</span> <span class="must">LG는 필수</span></div></div>
+        <div class="field"><div class="field-name">고객인증<span class="star">*</span></div><div class="field-val"><span class="v">0.협력점 ★</span> 선택 + 고객 명의 휴대폰 통신사 기재 <span class="v-eg">KT</span></div></div>
+        <div class="field"><div class="field-name">접수경로<span class="star">*</span></div><div class="field-val"><span class="v">0.협력점 ★</span></div></div>
+        <div class="field"><div class="field-name">물류관리<span class="star">*</span></div><div class="field-val"><span class="v">0.해당없음 ★</span> <span class="note">· 유심동판이어도 동일</span></div></div>
+        <div class="field"><div class="field-name">개통기한<span class="star">*</span></div><div class="field-val"><span class="note">전체 통신사 모두 <b>익월 말일</b>로 설정</span></div></div>
+        <div class="field"><div class="field-name">이미징처리<span class="star">*</span></div><div class="field-val"><span class="v">1.미인증</span> <span class="note">· KT 전용링크 직접 인증 시만 "2.인증완료"</span></div></div>
+        <div class="field"><div class="field-name">주소증빙<span class="star">*</span></div><div class="field-val"><span class="v">0.협력점 ★</span></div></div>
+        <div class="field"><div class="field-name">입력 안 함</div><div class="field-val"><span class="skip-tag">사업자번호</span><span class="skip-tag">설치 연락처</span><span class="skip-tag">기타연락처</span> <span class="note">— 해당 시에만</span></div></div>
+      </div>
+    </div>
+    <div class="reveal" id="rev1">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">실제 입력 화면과 동일한 배치입니다 · 각 칸의 ⓘ에 상세 설명이 있어요</div>
+        <div class="tbl">
+          <div class="row">
+            <div class="lbl">고객명 <span class="req">*</span></div>
+            <div class="val"><span class="inp"><span class="eg">김대박</span></span><span style="color:var(--text-sec);">속성</span><span class="inp"><span class="eg">동판</span></span><span class="info" tabindex="0">i<span class="tip">가입 고객 성명 입력. 속성엔 부가정보 — <span class="cond">유심동판</span> "동판" / <span class="cond">OSS</span> "OSS" / <span class="cond">복수 등록 시</span> "동판/OSS" (<span class="key">'/' 기호로 구분</span>)</span></span></div>
+            <div class="lbl" style="width:60px; min-width:60px;">종류</div>
+            <div class="val last" style="flex:0.6;"><span><span class="radio on"></span>개인</span><span><span class="radio"></span>사업자</span><span><span class="radio"></span>외국인</span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">유선동판 명의자</div>
+            <div class="val last"><span class="inp" style="min-width:140px;"><span class="eg">김대박</span></span><span class="info" tabindex="0">i<span class="tip"><span class="cond">유심동판</span> 고객일 경우 유선 명의자 고객명 기재 / <span class="cond">유선상품만 접수 시</span> 미기재(비워둠)</span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">주민번호 <span class="req">*</span></div>
+            <div class="val"><span class="inp" style="min-width:54px;"><span class="eg">123456</span></span>-<span class="inp" style="min-width:58px;"><span class="eg">7890123</span></span><span class="btn">▸불량고객 체크</span><span class="info" tabindex="0">i<span class="tip"><span class="key">전체 자리</span> 입력 후 <span class="key">불량고객 체크</span> 클릭 → 청약접수 가능 여부 팝업 확인</span></span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">사업자번호</div>
+            <div class="val last" style="flex:0.6;"><span class="inp" style="min-width:70px;"></span><span style="color:var(--text-sec);">대표자</span><span class="inp" style="min-width:44px;"></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">주소 <span class="req">*</span></div>
+            <div class="val last"><span class="inp" style="min-width:40px;"></span><span class="inp" style="flex:1; min-width:160px;"></span><span class="sel">🔍 검색</span><span class="info tl" tabindex="0">i<span class="tip"><span class="key">검색</span> 버튼 → 주소 검색 → 결과 클릭 후 <span class="key">상세주소 추가 기재</span></span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">설치 연락처</div>
+            <div class="val"><span class="inp" style="min-width:100px;"></span><span class="blue-txt">* 000-0000-0000</span><span class="info" tabindex="0">i<span class="tip"><span class="cond">명의자 외 다른 사람이 설치 연락 받을 경우</span>만 기재 · 없으면 빈칸</span></span></div>
+            <div class="lbl" style="width:78px; min-width:78px;">명의자 연락처 <span class="req">*</span></div>
+            <div class="val last" style="flex:0.6;"><span class="inp" style="min-width:100px;"><span class="eg">010-1234-5678</span></span><span class="info tl" tabindex="0">i<span class="tip">등록 고객 <span class="key">명의의 연락처</span> 입력 (필수)</span></span></div>
+          </div>
+          <div class="row dim">
+            <div class="lbl">기타연락처1</div>
+            <div class="val"><span class="inp" style="min-width:100px;"></span><span class="blue-txt">* 000-0000-0000</span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">기타연락처2</div>
+            <div class="val last" style="flex:0.6;"><span class="inp" style="min-width:100px;"></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">이메일 <span class="req">*</span></div>
+            <div class="val"><span class="inp" style="min-width:56px;"><span class="eg">daebak</span></span>@<span class="inp" style="min-width:64px;"><span class="eg">naver.com</span></span><span class="sel">선택 ▾</span><span class="info" tabindex="0">i<span class="tip">주소 입력 후 도메인 선택<br><span class="cond">이메일 필수 시</span> 이메일 형식<br><span class="cond">문자청구서 시</span> 전화번호 가능 — <span class="key">도메인 선택 불필요</span><br><span class="cond">LG는 이메일등록 필수!</span></span></span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">고객인증 <span class="req">*</span></div>
+            <div class="val last" style="flex:0.6;"><span class="sel hl">0.협력점★ ▾</span><span class="inp" style="min-width:44px;"><span class="eg">KT</span></span><span class="info tl" tabindex="0">i<span class="tip"><span class="key">0.협력점★</span> 선택 + 우측에 <span class="key">고객 명의 휴대폰 통신사</span> 기재 필수</span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">접수경로 <span class="req">*</span></div>
+            <div class="val"><span class="sel hl">0.협력점★ ▾</span><span class="info" tabindex="0">i<span class="tip"><span class="cond">협력점</span> → "협력점" / <span class="cond">판매점</span> → "판매점"</span></span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">물류관리 <span class="req">*</span></div>
+            <div class="val last" style="flex:0.6;"><span class="sel hl">0.해당없음★ ▾</span><span class="info tl" tabindex="0">i<span class="tip"><span class="cond">유심동판이어도</span> "해당없음" · 상태는 웨이브넷이 변경</span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">개통기한 <span class="req">*</span></div>
+            <div class="val"><span class="inp" style="min-width:100px;"></span><span class="sel">달력</span><span class="info" tabindex="0">i<span class="tip"><span class="key">달력</span> 버튼 → 기한 선택<br><span class="key">전체 통신사 모두 익월 말일</span>로 설정</span></span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">주소증빙 <span class="req">*</span></div>
+            <div class="val last" style="flex:0.6;"><span class="sel hl">0.협력점★ ▾</span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">이미징처리 <span class="req">*</span></div>
+            <div class="val last"><span class="sel hl">1.미인증 ▾</span><span class="info" tabindex="0">i<span class="tip">기본 <span class="key">1.미인증</span> · <span class="cond">KT 접점등록 후 전용인증링크로 직접 인증 시</span> 2.인증완료</span></span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 2. 기타·배송 정보 -->
+  <div class="block" id="bk2">
+    <div class="block-head">
+      <div class="block-no">2</div>
+      <div class="block-titles">
+        <div class="block-title">기타 정보 · 배송 정보</div>
+        <div class="block-sub">대부분 비워둡니다. <b>물류수령 주소만</b> 유심동판 시 입력해요.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이것만 입력하면 됩니다!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">물류수령 주소</div><div class="field-val"><span class="v-usim">유심동판 시</span> 유심 받을 주소 입력 <span class="note">· 고객 주소와 같으면 "위 주소와 동일" 체크만 · 직장 등 다르면 직접 입력</span></div></div>
+        <div class="field"><div class="field-name">입력 안 함</div><div class="field-val"><span class="skip-tag">메모1·2</span><span class="skip-tag">인입최초시간</span><span class="skip-tag">토스자</span><span class="skip-tag">취소요청일</span><span class="skip-tag">소개자</span><span class="skip-tag">배송사·송장·발송일</span></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">기타 정보·배송 정보는 비워두고, 물류수령 주소만 유심동판 시 입력</div>
+        <div class="tbl">
+          <div class="row dim">
+            <div class="lbl">메모1</div><div class="val"><span class="inp" style="min-width:130px;"></span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">메모2</div><div class="val last" style="flex:0.6;"><span class="inp" style="min-width:130px;"></span></div>
+          </div>
+          <div class="row dim">
+            <div class="lbl">인입최초시간</div><div class="val"><span class="inp" style="min-width:120px;"></span><span style="color:var(--red); font-size:11px;">* 자점전용</span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">토스자</div><div class="val last" style="flex:0.6;"><span class="inp" style="min-width:130px;"></span></div>
+          </div>
+          <div class="row dim">
+            <div class="lbl">배송사 / 송장 / 발송일</div><div class="val last"><span class="sel">::배송사:: ▾</span><span class="inp" style="min-width:100px;"></span><span class="sel">달력</span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">물류수령 주소</div>
+            <div class="val last"><span class="inp" style="min-width:40px;"></span><span class="inp" style="flex:1; min-width:180px;"></span><span class="sel">🔍 검색</span><span><span class="chkbox"></span></span><span style="color:var(--red); font-size:11px;">* 위 주소와 동일</span><span class="usim-badge">유심동판 시</span><span class="info tl" tabindex="0">i<span class="tip"><span class="cond">유심 수령 주소 = 고객 주소</span>면 "위 주소와 동일" 체크만<br><span class="cond">다른 주소</span>면 직접 입력 · 유선 접수만이면 비워둠</span></span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 3. 납부 정보 -->
+  <div class="block" id="bk3">
+    <div class="block-head">
+      <div class="block-no">3</div>
+      <div class="block-titles">
+        <div class="block-title">납부 정보</div>
+        <div class="block-sub">납부 방식을 고르고, <b>계좌번호 입력 후 예금주 조회</b>를 눌러주세요.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이것만 입력하면 됩니다!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">납부 방식<span class="star">*</span></div><div class="field-val"><span class="v">계좌이체</span> / <span class="v">카드납부</span> / 지로납부 / 합산청구 <span class="note">중 선택 · 지로납부는 환수여부·가능 유무 확인 후</span></div></div>
+        <div class="field"><div class="field-name">계좌이체 시</div><div class="field-val"><span class="note">지급은행 선택 → 계좌번호 입력 → <b>예금주 조회</b> → 조회하기 → 일치 시 적용하기</b></span></div></div>
+        <div class="field"><div class="field-name">카드납부 시</div><div class="field-val"><span class="note">카드사 · 카드번호 · 유효기간(00년00월) · 카드주명 입력</span></div></div>
+        <div class="field"><div class="field-name">관계 여부</div><div class="field-val"><span class="v">본인</span> / 배우자 / 가족 <span class="note">중 선택</span></div></div>
+        <div class="field"><div class="field-name">예금주</div><div class="field-val"><span class="note">가입명의자 = 납부명의자면 "위 정보와 동일" 체크 → 주민번호 자동 입력</span></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">계좌번호 입력 후 예금주 조회 버튼을 눌러주세요</div>
+        <div class="tbl">
+          <div class="row">
+            <div class="lbl">납부 정보 <span class="req">*</span></div>
+            <div class="val"><span><span class="radio on"></span><b style="color:var(--blue);">계좌이체</b></span><span><span class="radio"></span><b style="color:var(--blue);">카드납부</b></span><span><span class="radio"></span>지로납부</span><span><span class="radio"></span>합산청구</span><span class="info" tabindex="0">i<span class="tip">납부 형식에 맞게 체크 · <span class="cond">지로납부는 환수여부·가능 유무 확인 후 진행</span><br><br><span class="key">계좌이체</span>: 지급은행→계좌번호→예금주 조회→조회하기→적용하기<br><span class="key">카드납부</span>: 카드사·카드번호·유효기간·카드주명</span></span></div>
+            <div class="lbl" style="width:64px; min-width:64px;">관계 여부</div>
+            <div class="val last" style="flex:0.6;"><span><span class="radio on"></span>본인</span><span><span class="radio"></span>배우자</span><span><span class="radio"></span>가족</span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">은행정보</div>
+            <div class="val"><span class="sel">::지급은행:: ▾</span><span class="btn">예금주 조회</span><span style="color:var(--text-sec);">계좌</span><span class="inp" style="min-width:120px;"><span class="eg">11111111111</span></span></div>
+            <div class="lbl" style="width:56px; min-width:56px;">예 금 주</div>
+            <div class="val last" style="flex:0.6;"><span class="inp" style="min-width:64px;"></span><span><span class="chkbox"></span></span><span style="color:var(--red); font-size:11px;">* 위 정보와 동일</span><span class="info tl" tabindex="0">i<span class="tip"><span class="cond">가입명의자 = 납부명의자</span>면 "위 정보와 동일" 체크 → 주민번호 자동 입력</span></span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 4. 사은품 정보 -->
+  <div class="block" id="bk4">
+    <div class="block-head">
+      <div class="block-no">4</div>
+      <div class="block-titles">
+        <div class="block-title">사은품 정보</div>
+        <div class="block-sub"><b>웨이브넷 입금요청 현금 금액만</b> 입력합니다.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이것만 입력하면 됩니다!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">사은품 지급처<span class="star">*</span></div><div class="field-val"><span class="v">웨이브넷지급</span>(지급 후 정산수수료 차감) <span class="note">또는</span> <span class="v">유치자지급</span>(협력점 직접 지급)</div></div>
+        <div class="field"><div class="field-name">사은품계좌·예금주</div><div class="field-val"><span class="note">사은품 입금 계좌 입력 · 납부정보와 다를 경우 예금주 조회</span></div></div>
+        <div class="field"><div class="field-name">주민번호</div><div class="field-val"><span class="note">"위 정보와 동일" 체크 시 납부정보 자동 기재 · 카드납부 시 별도 입력</span></div></div>
+        <div class="field"><div class="field-name">사은품 명</div><div class="field-val"><span class="note">기본 비워둠 · 물류사은품 진행 시 모델명 기재</span></div></div>
+        <div class="field"><div class="field-name">지급예정일</div><div class="field-val"><span class="skip-tag">🔒 입력 권한 없음</span></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">웨이브넷 입금요청 현금 금액만 입력</div>
+        <div class="tbl">
+          <div class="row">
+            <div class="lbl">사은품 명</div>
+            <div class="val"><span class="inp" style="min-width:200px;"><span class="eg">예) 삼성 55인치TV ASDF00QWER12</span></span><span class="info" tabindex="0">i<span class="tip">기본 <span class="key">비워둠</span> · <span class="cond">물류사은품 진행 시</span> 모델명 기재</span></span></div>
+            <div class="lbl" style="width:60px; min-width:60px;">주민번호</div>
+            <div class="val last" style="flex:0.7;"><span class="inp" style="min-width:44px;"></span>-<span class="inp" style="min-width:44px;"></span><span><span class="chkbox"></span></span><span style="color:var(--red); font-size:11px;">* 위 정보와 동일</span><span class="info tl" tabindex="0">i<span class="tip"><span class="key">체크 시</span> 납부정보(계좌이체) 자동 기재 · <span class="cond">카드납부 시 별도 입력</span></span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">지급예정일</div>
+            <div class="val dim"><span class="inp" style="min-width:110px;"></span><span class="sel">달력</span><span class="lock">🔒 입력 권한 없음</span></div>
+            <div class="lbl" style="width:78px; min-width:78px;">사은품 지급처 <span class="req">*</span></div>
+            <div class="val last" style="flex:0.7;"><span class="sel">지급자 선택 ▾</span><span class="info tl" tabindex="0">i<span class="tip"><span class="cond">웨이브넷지급</span> 지급 후 정산수수료 차감<br><span class="cond">유치자지급</span> 협력점이 직접 지급</span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">사은품계좌</div>
+            <div class="val"><span class="sel">::지급은행:: ▾</span><span style="color:var(--text-sec);">계좌번호</span><span class="inp" style="min-width:100px;"></span></div>
+            <div class="lbl" style="width:60px; min-width:60px;">예 금 주</div>
+            <div class="val last" style="flex:0.7;"><span class="inp" style="min-width:70px;"></span><span class="btn">예금주 조회</span><span class="info tl" tabindex="0">i<span class="tip">※ <span class="cond">납부정보와 다른 계좌</span>로 입금 희망 시 예금주 조회</span></span></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="reveal-cap" style="margin-bottom:6px;">기타 사은품 — 물류사은품(가전) 진행 시에만</div>
+          <div class="tbl">
+            <div class="row">
+              <div class="lbl">물류</div><div class="val"><span class="inp" style="min-width:80px;"><span class="eg">550,000</span></span><span style="color:var(--text-sec);">원</span><span class="info" tabindex="0">i<span class="tip"><span class="cond">물류사은품(가전) 진행 시</span>에만 가격 입력</span></span></div>
+              <div class="lbl dim" style="width:48px; min-width:48px;">쿠폰</div><div class="val last dim" style="flex:0.7;"><span class="inp" style="min-width:80px;"></span><span style="color:var(--text-sec);">원</span></div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 5. 상품 정보1 -->
+  <div class="block" id="bk5">
+    <div class="block-head">
+      <div class="block-no">5</div>
+      <div class="block-titles">
+        <div class="block-title">상품 정보1 <span style="font-size:11px; background:var(--red); color:#fff; border-radius:5px; padding:2px 8px; font-weight:700;">가장 중요</span></div>
+        <div class="block-sub">접수 상품 선택이 가장 중요합니다. <b>사은품 금액은 반드시 인터넷 행에!</b></div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이것만 입력하면 됩니다!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">회사 선택<span class="star">*</span></div><div class="field-val">통신사 선택 + <span class="v">단독</span>(인터넷만) / <span class="v">DPS</span>(인터넷+TV) / <span class="v">+숫자</span>(부가상품 동시 접수 시 탭 추가)</div></div>
+        <div class="field"><div class="field-name">정책 구분<span class="star">*</span></div><div class="field-val"><span class="v">전국</span> <span class="note">· SKB만 도매/소매_일반/소매_소상공인</span></div></div>
+        <div class="field"><div class="field-name">상품1 인터넷</div><div class="field-val"><span class="note">상품·옵션·약정·할인탭·부가서비스·회선 입력 ·</span> <span class="must">사은품 현금 금액은 여기에만!</span></div></div>
+        <div class="field"><div class="field-name">상품2 이상</div><div class="field-val"><span class="note">TV·부가상품(OSS) 등 +숫자만큼 행 추가 · 사은품 칸은 비움</span></div></div>
+      </div>
+      <div class="note-box note-warn" style="margin-top:12px;"><span class="note-icon">⚠</span><b>사은품 금액</b>은 고객에게 실제 지급될 <b>"현금 금액"</b>만, 반드시 <b>인터넷(상품1) 행</b>에 기재! (각 행 중복 기재 시 중복지급될 수 있음)</div>
+    </div>
+    <div class="reveal">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기 (SKT 예시)</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">예시 — SKT · DPS+1 (인터넷+TV+OSS, 상품 3개)</div>
+        <div class="tbl">
+          <div class="row">
+            <div class="lbl">회사 선택 <span class="req">*</span></div>
+            <div class="val"><span class="sel hl">SKT ▾</span><span class="sel hl">DPS+1 ▾</span><span class="info" tabindex="0">i<span class="tip"><span class="key">① 회사 선택</span> 통신사·유형 · <span class="cond">유심(무선)은 "모바일"</span><br><span class="key">② 단독/DPS</span> 인터넷단독→단독 / 인터넷+TV→DPS / 부가상품·다셋탑→<span class="key">+숫자</span></span></span></div>
+            <div class="lbl" style="width:68px; min-width:68px;">정책 구분 <span class="req">*</span></div>
+            <div class="val last" style="flex:0.5;"><span class="sel hl">전국 ▾</span><span class="info tl" tabindex="0">i<span class="tip"><span class="cond">SKB 외 전 통신사</span> "전국"<br><span class="cond">SKB만</span> 도매/소매_일반/소매_소상공인</span></span></div>
+          </div>
+          <div class="row" style="background:#FFFBF0;">
+            <div class="lbl">상품1 <span style="font-size:10px; background:var(--blue); color:#fff; border-radius:3px; padding:1px 4px; font-weight:700;">인터넷</span></div>
+            <div class="val last" style="gap:4px;"><span class="sel hl">인터넷 ▾</span><span class="sel hl">기가라이트(500M)+Wi ▾</span><span class="sel hl">3년약정 ▾</span><span class="sel hl">없음 ▾</span><span class="sel hl">요즘우리집결합 ▾</span><span class="inp" style="min-width:26px;"><span class="eg">1</span></span><span style="color:var(--text-sec);">회선</span><span style="color:var(--text-sec); font-weight:700;">사은품</span><span class="inp" style="min-width:68px; border:2px solid var(--red);"><span class="eg">500,000</span></span><span style="color:var(--text-sec);">원</span><span class="info tl" tabindex="0">i<span class="tip">상품선택→옵션→약정→할인탭→부가서비스→회선<br><br>📌 <span class="key" style="color:#ff8585;">사은품 금액은 반드시 인터넷 행에!</span> 실제 지급될 "현금 금액"만</span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">상품2 <span style="font-size:10px; background:#8e6bb5; color:#fff; border-radius:3px; padding:1px 4px; font-weight:700;">TV</span></div>
+            <div class="val last" style="gap:4px;"><span class="sel hl">TV ▾</span><span class="sel hl">All ▾</span><span class="sel hl">3년약정 ▾</span><span class="sel hl">스마트3셋탑 ▾</span><span class="inp" style="min-width:26px;"><span class="eg">1</span></span><span style="color:var(--text-sec);">회선</span><span class="info tl" tabindex="0">i<span class="tip">DPS 시 상품2에 TV · <span class="cond">사은품은 인터넷 행에만</span></span></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">상품3 <span style="font-size:10px; background:#3a8a5c; color:#fff; border-radius:3px; padding:1px 4px; font-weight:700;">부가상품</span></div>
+            <div class="val last" style="gap:4px;"><span class="sel hl">부가상품 ▾</span><span class="sel hl">원스톱해지(OSS) ▾</span><span class="sel hl">없음 ▾</span><span class="inp" style="min-width:26px;"><span class="eg">1</span></span><span style="color:var(--text-sec);">회선</span><span class="info tl" tabindex="0">i<span class="tip"><span class="cond">DPS+1 선택 시 상품3 자동 생성</span> · OSS 등 입력</span></span></div>
+          </div>
+        </div>
+        <div class="note-box note-info" style="margin-top:10px;"><span class="note-icon">ⓘ</span>KT(DPS)·유심동판 등 다른 예시는 아래 <b>상세 참고 자료</b>에서 확인하세요.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 6. 번호이동 -->
+  <div class="block" id="bk6">
+    <div class="block-head">
+      <div class="block-no usim">6</div>
+      <div class="block-titles">
+        <div class="block-title">번호이동 <span class="usim-badge">유심동판 시에만</span></div>
+        <div class="block-sub">유선 접수만이면 <b>패스</b>하세요. 유심동판 접수 시에만 작성합니다.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이것만 입력하면 됩니다!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">위 고객정보와 동일</div><div class="field-val"><span class="v-usim">체크</span> 한 번이면 전화번호·명의자·주민번호 등 <b>대부분 자동 입력</b></div></div>
+        <div class="field"><div class="field-name">기존 통신사</div><div class="field-val">자동 입력 후 <b>기존(이전) 통신사만</b> 드롭박스에서 선택하면 완료</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">"위 고객정보와 동일" 체크 → 자동 입력 → 기존 통신사만 선택</div>
+        <div class="tbl">
+          <div class="row">
+            <div class="lbl" style="background:#fff; width:auto; min-width:auto;"><span style="font-weight:600;">번호이동</span><span style="margin-left:6px;"><span class="chkbox"></span></span><span style="color:var(--red); font-size:11px;">* 위 고객정보와 동일</span></div>
+            <div class="val last"></div>
+          </div>
+          <div class="row">
+            <div class="lbl">전화 번호</div><div class="val"><span class="inp" style="min-width:120px;"></span></div>
+            <div class="lbl" style="width:58px; min-width:58px;">명 의 자</div><div class="val last" style="flex:0.7;"><span class="inp" style="min-width:90px;"></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">주민 번호</div><div class="val"><span class="inp" style="min-width:50px;"></span>-<span class="inp" style="min-width:50px;"></span></div>
+            <div class="lbl" style="width:58px; min-width:58px;">연 락 처</div><div class="val last" style="flex:0.7;"><span class="inp" style="min-width:90px;"></span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">발급 일자</div><div class="val"><span class="inp" style="min-width:110px;"></span></div>
+            <div class="lbl" style="width:58px; min-width:58px;">기존 통신사</div><div class="val last" style="flex:0.7;"><span class="sel hl">:: 선택 :: ▾</span><span class="info tl" tabindex="0">i<span class="tip">자동 입력 후 <span class="key">기존(이전) 통신사</span>만 선택</span></span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 7. 비고 사항 -->
+  <div class="block" id="bk7">
+    <div class="block-head">
+      <div class="block-no">7</div>
+      <div class="block-titles">
+        <div class="block-title">비고 사항 <span style="font-size:11px; background:var(--orange); color:#fff; border-radius:5px; padding:2px 8px; font-weight:700;">양식 복사</span></div>
+        <div class="block-sub">기타 내용 칸에 <b>접수양식 전체</b>를 기재합니다. 유선양식은 아래에서 바로 복사하세요.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <span class="summary-label">✓ 이렇게 하세요!</span>
+      <div class="field-list">
+        <div class="field"><div class="field-name">기타 내용</div><div class="field-val">아래 유선 접수양식을 <b>복사</b>해서 붙여넣고 내용을 채웁니다 <span class="note">· KT/SKT/LG 유심·OSS 양식은 우측 하단 "양식 복사"에서</span></div></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin:14px 0 7px;">
+        <span style="font-size:12px; color:var(--text-sec); font-weight:600;">유선 접수양식 (복사해서 사용)</span>
+        <button class="copy-btn" data-target="src-bigo" style="padding:5px 12px; font-size:12px;"><span class="ci">⧉</span> 양식 복사</button>
+      </div>
+      <pre id="src-bigo" style="margin:0; border:1px solid var(--gray-line); border-radius:8px; width:100%; padding:12px 13px; font-family:'Malgun Gothic','맑은 고딕',monospace; font-size:12px; line-height:1.85; color:var(--text); white-space:pre-wrap; word-break:break-all; background:#fff;">*전통신사 유선 접수양식 입니다!
+●유치자 상호/성함/연락처:
+■고객명: 
+■주민번호: 
+■설치주소: 
+■연락처 : 
+■청구매체: 
+■자동이체: 
+■사은계좌(유치자 지급은 미기재) : 
+■가입통신사: 
+■신청상품: 
+■AP(WI-FI)신청여부: 
+■월요금: 
+■설치희망일: 
+■설치비(기사출동비): 
+■상품권: 
+■고객 현금사은품 금액("웨이브넷 지급" 일때만 기재) : 
+■현금지급처(웨이브넷지급 or 유치자 직접지급): 
+■본인인증: 
+■이전통신사 : 
+■기타내용: 
+1. 개인정보 수집.이용에 동의/거부 합니다 : 
+2. 개인정보 제3자 제공에 동의/거부 합니다 : 
+*자동이체 신용카드 등록시 [카드사 , 카드번호 , 유효기간 , 카드주] 기재 해주셔야 합니다
+*계좌 등록시 [은행명 , 계좌번호 , 예금주] 기재 해주셔야 합니다</pre>
+    </div>
+  </div>
+
+  <!-- 8. 첨부 파일 -->
+  <div class="block" id="bk8">
+    <div class="block-head">
+      <div class="block-no">8</div>
+      <div class="block-titles">
+        <div class="block-title">첨부 파일</div>
+        <div class="block-sub"><b>대부분 불필요</b>합니다. 해당 서류 없으면 바로 저장하세요.</div>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="note-box note-warn" style="margin-top:0; border:1.5px solid #f0c89a;"><span class="note-icon">💡</span><b>대부분의 일반 접수는 첨부파일이 필요 없습니다.</b> 특이사항(사업자명의·가족결합 등)일 때만 첨부하고, 없으면 바로 <span style="background:var(--green); color:#fff; border-radius:4px; padding:1px 8px; font-weight:700;">저장하기</span>를 누르세요.</div>
+      <div class="field-list" style="margin-top:12px;">
+        <div class="field"><div class="field-name">동시 첨부</div><div class="field-val">첨부파일 1~4 개별 첨부 → 저장하기 <span class="note">· 4개 초과 시 압축해 하나로</span></div></div>
+        <div class="field"><div class="field-name">후첨부</div><div class="field-val"><span class="note">개인 고객관리 → 인터넷 행 수정박스 체크 → 파일첨부 버튼 (상세 참고 자료 참조)</span></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <button class="reveal-btn" onclick="this.parentNode.classList.toggle('open')"><span>🖥️ 실제 웹전산(admin) 화면으로 보기</span><span class="arr">▼</span></button>
+      <div class="reveal-body"><div class="reveal-inner">
+        <div class="reveal-cap">첨부파일 1~4 개별 첨부 후 저장하기</div>
+        <div class="tbl">
+          <div class="row">
+            <div class="lbl">첨부파일1</div><div class="val"><span class="sel">파일 선택</span> <span style="color:var(--text-ter);">선택된 파일 없음</span></div>
+            <div class="lbl" style="width:60px; min-width:60px;">첨부파일2</div><div class="val last" style="flex:0.7;"><span class="sel">파일 선택</span></div>
+          </div>
+          <div class="row">
+            <div class="lbl">첨부파일3</div><div class="val"><span class="sel">파일 선택</span></div>
+            <div class="lbl" style="width:60px; min-width:60px;">첨부파일4</div><div class="val last" style="flex:0.7;"><span class="sel">파일 선택</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:flex-end; margin:18px 0 6px;"><span style="background:var(--navy); color:#fff; border-radius:9px; padding:11px 28px; font-size:14px; font-weight:800; box-shadow:0 3px 10px rgba(26,58,107,0.25);">저장하기</span></div>
+
+
+
+  <!-- 여기에 참고 섹션 삽입 -->
+  <div class="ref">
+    <div class="ref-head"><span class="rno">📎</span><h2>상세 참고 자료</h2></div>
+
+    <!-- 빠른 참고: 팝업 + 개통기한 -->
+    <div class="ref-card">
+      <div class="grid2">
+        <div>
+          <p class="sub-label">개통기한 (고객정보 ▸ 개통기한)</p>
+          <div class="carrier-grid">
+            <div class="carrier"><span class="c-name">KT</span><span class="c-val">익월 말일</span></div>
+            <div class="carrier"><span class="c-name">SKT</span><span class="c-val">익월 말일</span></div>
+            <div class="carrier"><span class="c-name">SKB</span><span class="c-val">익월 말일</span></div>
+            <div class="carrier"><span class="c-name">LG</span><span class="c-val">익월 말일</span></div>
+          </div>
+          <p style="margin:8px 2px 0; font-size:12px; color:var(--text-sec);">※ <b style="color:var(--navy);">전체 통신사 모두 익월 말일</b>로 동일하게 설정</p>
+        </div>
+        <div>
+          <p class="sub-label">불량고객 체크 결과 팝업 (고객정보 ▸ 주민번호)</p>
+          <div style="background:var(--gray-bg); border:1px solid var(--gray-line); border-radius:9px; padding:11px 13px; font-size:12px;">
+            <div style="display:flex; border-bottom:1px solid var(--gray-line); padding-bottom:6px; margin-bottom:6px;"><span style="width:56px; color:var(--text-sec);">주민번호</span><span style="color:var(--text-ter);">●●●●●● - ●●●●●●●</span></div>
+            <div style="display:flex;"><span style="width:56px; color:var(--text-sec);">등급</span><span style="color:var(--green); font-weight:700;">※ 청약접수가 가능한 고객입니다.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 상품 정보1 예시 -->
+    <div class="ref-card">
+      <p class="sub-label" style="font-size:14px; color:var(--text);">📌 상품 정보1 — OSS 동시 접수 여부에 따른 차이</p>
+      <p style="margin:-2px 0 12px; font-size:12px; color:var(--text-sec); line-height:1.6;">인터넷·TV만이면 <span class="key">DPS</span>, OSS 등 부가상품을 같이 접수하면 <span class="key">DPS+1</span>로 상품 탭을 늘립니다. (메인 폼의 상품 정보1은 SKT·DPS+1 예시)</p>
+      <div class="grid2">
+        <div>
+          <div style="border:1.5px solid var(--gray-line); border-radius:12px; overflow:hidden;">
+            <div style="background:#eef1f4; padding:9px 13px; font-size:13px; font-weight:800; display:flex; align-items:center; gap:8px;"><span style="background:var(--navy); color:#fff; border-radius:4px; padding:2px 8px; font-size:12px;">KT</span><span>DPS</span><span style="font-size:11px; font-weight:600; color:var(--text-sec);">· OSS 없음 (상품 2개)</span></div>
+            <div style="padding:11px 13px; font-size:12.5px; line-height:1.5;">
+              <div style="margin-bottom:9px;"><span style="display:inline-block; min-width:64px; color:var(--text-sec);">회사/구분</span> <span class="key">KT</span> / <span class="key">DPS</span> / 전국</div>
+              <div style="margin-bottom:9px; padding:7px 9px; background:#FFFBF0; border-radius:6px;"><span style="display:inline-block; min-width:64px; color:var(--blue); font-weight:700;">상품1 인터넷</span> 인터넷 · 에센스(1G) · 3년약정 · WIFI(AX)패키지 · 1회선<br><span style="margin-left:64px; color:var(--text-sec);">사은품 <span class="eg">450,000원</span></span></div>
+              <div><span style="display:inline-block; min-width:64px; color:#8e6bb5; font-weight:700;">상품2 TV</span> TV · TV모든G(+1G) · 3년약정 · 지니3셋탑 · 1회선</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="border:1.5px solid var(--gray-line); border-radius:12px; overflow:hidden;">
+            <div style="background:#eef1f4; padding:9px 13px; font-size:13px; font-weight:800; display:flex; align-items:center; gap:8px;"><span style="background:#C0392B; color:#fff; border-radius:4px; padding:2px 8px; font-size:12px;">SKT</span><span>DPS+1</span><span style="font-size:11px; font-weight:600; color:var(--red);">· OSS 동시 접수 (상품 3개)</span></div>
+            <div style="padding:11px 13px; font-size:12.5px; line-height:1.5;">
+              <div style="margin-bottom:9px;"><span style="display:inline-block; min-width:64px; color:var(--text-sec);">회사/구분</span> <span class="key">SKT</span> / <span class="key">DPS+1</span> / 전국</div>
+              <div style="margin-bottom:9px; padding:7px 9px; background:#FFFBF0; border-radius:6px;"><span style="display:inline-block; min-width:64px; color:var(--blue); font-weight:700;">상품1 인터넷</span> 인터넷 · 기가라이트(500M)+Wi · 3년약정 · 없음 · 요즘우리집결합 · 1회선<br><span style="margin-left:64px; color:var(--text-sec);">사은품 <span class="eg">500,000원</span></span></div>
+              <div style="margin-bottom:9px;"><span style="display:inline-block; min-width:64px; color:#8e6bb5; font-weight:700;">상품2 TV</span> TV · All · 3년약정 · 스마트3셋탑 · 1회선</div>
+              <div style="padding:5px 9px; background:#eef7f0; border-radius:6px;"><span style="display:inline-block; min-width:64px; color:#3a8a5c; font-weight:700;">상품3 OSS</span> 부가상품 · 원스톱해지(OSS) · 없음 · 없음 · 1회선</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 유심동판 예시 -->
+      <div id="ref-usim" style="margin-top:14px; border:1.5px solid #c9b3e0; border-radius:12px; overflow:hidden; scroll-margin-top:70px;">
+        <div style="background:#f3edfa; padding:11px 15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span class="usim-badge">유심동판</span>
+          <span style="font-size:14px; font-weight:800; color:#5a3a85;">모바일(유심) 접수</span>
+          <span style="font-size:11px; color:#7a4fb0; font-weight:600;">· 유선 접수 후 이어서 진행하면 정보 자동 인입</span>
+        </div>
+        <div style="padding:13px 15px;">
+          <p class="sub-label" style="margin-top:0;">진행 순서</p>
+          <div class="steps" style="margin-bottom:13px;">
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">1</span>유선상품 접수등록 후, 정보가 <span class="key">마킹돼 있으면 마킹 해제</span></div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">2</span><span class="key">인터넷탭 고객명 클릭</span> → 정보 인입</div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">3</span>화면 하단 <span style="background:#C0392B; color:#fff; border-radius:4px; padding:1px 8px; font-size:12px; font-weight:700;">고객추가등록</span> 클릭 → 유심동판 등록</div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">4</span>웬만한 정보는 <span class="key">대부분 불러오기</span>되어 접수가 쉬워짐</div>
+          </div>
+          <p class="sub-label">입력 예시 — KT 1G+TV모든G 유선에 유심동판 추가</p>
+          <div class="mini-tbl">
+            <div class="row">
+              <div class="lbl">회사/정책</div>
+              <div class="val last">회사선택 <span class="key">모바일</span> · <span class="key">단독</span> · 정책구분 <span class="key">MNP</span> <span style="color:var(--red); font-size:11px;">(유심동판=번호이동이므로 MNP 필수)</span></div>
+            </div>
+            <div class="row" style="background:#FBF7FF;">
+              <div class="lbl">상품1 <span style="font-size:10px; background:var(--usim); color:#fff; border-radius:3px; padding:1px 4px; font-weight:700;">유심동판</span></div>
+              <div class="val last">KT · 동판-1G+TV(모든G↑) · 프리미엄싱글 · <span class="key">(통합)69↑</span> · 없음 · 1회선 · 사은품 <span class="eg">200,000원</span></div>
+            </div>
+          </div>
+
+          <p class="sub-label" style="margin-top:14px;">상품1 선택 순서 (5단계)</p>
+          <div class="steps" style="margin-bottom:13px;">
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">1</span><span class="key">상품선택</span> — 통신사 선택 (KT / SKT / LG 등)</div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">2</span><span class="key">상품옵션</span> — 동판 or 가족동판 종류 선택 (유선상품과 연계된 "동판-○○")</div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">3</span><span class="key">약정선택</span> — 결합종류 선택</div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">4</span><span class="key">할인탭 선택</span> — 요금제 구간 선택 <span style="color:var(--text-sec); font-size:12px;">((통합)37↓ / (통합)55↑ / (통합)69↑ / (통합)90↑)</span></div>
+            <div class="step"><span class="step-no" style="background:#ede3f7; color:#7a4fb0;">5</span><span class="key">부가서비스</span> — 회선 수에 따라 선택 (아래 표 참고)</div>
+          </div>
+
+          <p class="sub-label">부가서비스 — 회선 수별 선택</p>
+          <div class="mini-tbl" style="margin-bottom:0;">
+            <div class="row">
+              <div class="lbl">1회선 동판</div>
+              <div class="val last"><span class="key">없음</span></div>
+            </div>
+            <div class="row">
+              <div class="lbl">2회선 가족동판</div>
+              <div class="val last"><span class="key">UuIT</span></div>
+            </div>
+            <div class="row">
+              <div class="lbl">3회선 가족동판</div>
+              <div class="val last"><span class="key">UuuIT</span></div>
+            </div>
+            <div class="row">
+              <div class="lbl">3회선 초과</div>
+              <div class="val last"><span class="key">추가3회선↑</span></div>
+            </div>
+          </div>
+
+          <div class="note-box note-info" style="background:#f3edfa; color:#5a3a85; margin-top:12px;">
+            <span class="note-icon">ⓘ</span>유심동판은 <span class="key">상품옵션의 "동판-○○" 항목</span>으로 유선상품과 연계됩니다. 회사선택은 "모바일", 상품선택에서 통신사(KT 등) 지정.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 비고 사항 양식 복사 -->
+    <div class="ref-card">
+      <p class="sub-label" style="font-size:14px; color:var(--text);">📋 비고 사항 — 접수양식 복사</p>
+      <p style="margin:-2px 0 12px; font-size:12px; color:var(--text-sec); line-height:1.6;">필요한 양식의 <span class="key">"복사"</span> 버튼을 누르고 비고 사항의 기타 내용 칸에 붙여넣어 사용하세요.</p>
+      <div class="form-tabs">
+        <button class="ftab active" data-form="form-wired">유선 접수</button>
+        <button class="ftab" data-form="form-kt">KT 유심</button>
+        <button class="ftab" data-form="form-skt">SKT / B 유심</button>
+        <button class="ftab" data-form="form-lg">LG 유심</button>
+        <button class="ftab" data-form="form-oss">OSS 접수</button>
+      </div>
+      <div class="form-card active" id="form-wired">
+        <div class="form-head"><span class="form-title">전 통신사 유선 접수양식</span><button class="copy-btn" data-target="src-wired"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-wired">*전통신사 유선 접수양식 입니다!
+●유치자 상호/성함/연락처:
+■고객명: 
+■주민번호: 
+■설치주소: 
+■연락처 : 
+■청구매체: 
+■자동이체: 
+■사은계좌(유치자 지급은 미기재) : 
+■가입통신사: 
+■신청상품: 
+■AP(WI-FI)신청여부: 
+■월요금: 
+■설치희망일: 
+■설치비(기사출동비): 
+■상품권: 
+■고객 현금사은품 금액("웨이브넷 지급" 일때만 기재) : 
+■현금지급처(웨이브넷지급 or 유치자 직접지급): 
+■본인인증: 
+■이전통신사 : 
+■기타내용: 
+1. 개인정보 수집.이용에 동의/거부 합니다 : 
+2. 개인정보 제3자 제공에 동의/거부 합니다 : 
+*자동이체 신용카드 등록시 [카드사 , 카드번호 , 유효기간 , 카드주] 기재 해주셔야 합니다
+*계좌 등록시 [은행명 , 계좌번호 , 예금주] 기재 해주셔야 합니다</pre>
+      </div>
+      <div class="form-card" id="form-kt">
+        <div class="form-head"><span class="form-title">KT 유심 MNP 접수양식</span><button class="copy-btn" data-target="src-kt"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-kt">● [ 유심 MNP 접수양식 ]
+OO-KT (★UIT) **유심 7700 후납 안내완
+◈ 홍길동 000000-0000000
+◈ 010-0000-0000
+◈ 본인인증 : 신용카드 / PASS 인증서 / 범용공인인증서 
+◇ 요금제 : 5G베이직
+◇ 선택약정 : 12개월
+◇ 수령주소 :
+◇ 사은품 : 
+◈ 유선 서비스번호 : 
+◈ 결합 종류 :</pre>
+      </div>
+      <div class="form-card" id="form-skt">
+        <div class="form-head"><span class="form-title">SKT / B 유심 접수양식</span><button class="copy-btn" data-target="src-skt"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-skt">●유치자 상호/성함/연락처:
+기존통신사-SK *유심비 7700 후납 안내
+□ 고객명:  / 주민번호: 
+□ 연락처: 
+□ 자동이체: 
+□ 사은계좌: 
+■ 본인인증 : 카드(본인명의신용카드+유효기간) or PASS
+☆ 요금제 : 
+☆ 선택약정12개월
+☆ 유심수령주소 : 
+☆ 사은품 : 
+♤ 유선 접수일자 : 
+★ 요즘가족결합 요청</pre>
+      </div>
+      <div class="form-card" id="form-lg">
+        <div class="form-head"><span class="form-title">LG 유심 MNP 접수양식</span><button class="copy-btn" data-target="src-lg"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-lg">● [ 유심 MNP 접수양식 ]
+■ 고객명 :
+■ 생년월일 :
+■ 휴대폰번호 :
+■ 기존통신사 :
+■ 단말기(모델/일련) : 
+■ IMEI : 
+■ IMEI 2 :
+■ EID : 
+■ 선택약정(12/24개월) :
+■ 요금제 : 
+■ 결합종류(참쉬운가족/투게더)  : 
+■ 프리미어약정할인(Y/N) : 
+■ 유심비(7,700원) : 후납
+■ 전 통신사 위약금 확인(Y/N) : 
+■ 사은품 :</pre>
+      </div>
+      <div class="form-card" id="form-oss">
+        <div class="form-head"><span class="form-title">OSS 접수양식</span><button class="copy-btn" data-target="src-oss"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-oss">[OSS 접수양식]
+-기존통신사 : 
+-해지명의 [성함/연락처/생년월일] : 
+-해지 주소 : 
+-인터넷전화 사용구분 : O / X
+-인터넷/TV 회선수 각각 확인 : [ex) 인1/티1]
+-설치희망일 : 
+-해지희망일 :</pre>
+        <div class="note-box note-warn" style="margin:0; border-radius:0;">
+          <span class="note-icon">⚠</span><span class="key">유선상품과 동시 등록 시</span>, 위 OSS 접수양식을 <span class="key">유선 접수양식 하단에 함께 복사하여 기재</span>하세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 첨부 파일 후첨부 방법 -->
+    <div class="ref-card">
+      <p class="sub-label" style="font-size:14px; color:var(--text);">📎 첨부 파일 — 접수 완료 후 첨부(후첨부) 방법</p>
+      <div class="note-box note-warn" style="margin-top:0; margin-bottom:10px; border:1.5px solid #f0c89a;">
+        <span class="note-icon">💡</span><b>대부분의 일반 접수는 첨부파일이 필요 없습니다.</b> 해당 서류가 없으면 바로 <span style="background:var(--green); color:#fff; border-radius:4px; padding:1px 8px; font-weight:700;">저장하기</span>를 누르면 됩니다.
+      </div>
+      <div class="steps" style="margin-bottom:12px;">
+        <div class="step"><span class="step-no">1</span><span class="key">고객관리 → 개인 고객관리</span> 클릭</div>
+        <div class="step"><span class="step-no">2</span>고객리스트에서 <span class="key">인터넷 항목</span> 행의 <span class="key">좌측 수정박스 체크</span></div>
+        <div class="step"><span class="step-no">3</span>맨 아래 <span style="background:#C0392B; color:#fff; border-radius:4px; padding:1px 8px; font-size:12px; font-weight:700;">파일첨부</span> 버튼 클릭 → 첨부 팝업에서 진행</div>
+      </div>
+      <div class="mock">
+        <div class="mock-gnb">
+          <span class="mock-gnb-item on">고객관리</span>
+          <span class="mock-gnb-item">가망고객관리</span>
+          <span class="mock-gnb-item">인사관리</span>
+          <span class="mock-gnb-item">실적관리</span>
+          <span class="mock-gnb-item">정산관리</span>
+        </div>
+        <div class="mock-sub"><span class="mock-anno">①</span><span class="mock-sub-item on">개인 고객관리</span><span style="font-size:11px; color:var(--text-ter);">협력점 고객관리</span></div>
+        <div>
+          <div class="mock-tr mock-th"><span style="width:26px;">No</span><span style="width:54px;">수정</span><span style="width:54px;">고객명</span><span style="flex:1;">유치자</span><span style="width:50px;">통신사</span><span style="width:54px;">상품명</span><span style="width:80px;">옵션</span></div>
+          <div class="mock-tr"><span style="width:26px;">3</span><span style="width:54px;"><span class="mock-radio"></span></span><span style="width:54px;">김*희</span><span style="flex:1;"></span><span style="width:50px;">SKB</span><span style="width:54px; color:#9aa;">TV</span><span style="width:80px; color:#caa;">(추단)스탠다드</span></div>
+          <div class="mock-tr"><span style="width:26px;">4</span><span style="width:54px;"><span class="mock-radio"></span></span><span style="width:54px;">김*희</span><span style="flex:1;"></span><span style="width:50px;">SKB</span><span style="width:54px; color:#9aa;">TV</span><span style="width:80px; color:#caa;">스탠다드</span></div>
+          <div class="mock-tr mock-tr-hl">
+            <span style="width:26px;">5</span>
+            <span style="width:54px; display:flex; align-items:center; gap:4px;"><span class="mock-radio on"></span><span class="mock-anno" style="width:18px; height:18px; font-size:11px;">②</span></span>
+            <span style="width:54px;">김*희</span><span style="flex:1;"></span><span style="width:50px;">SKB</span>
+            <span style="width:54px;"><span class="mock-inet">인터넷</span></span><span style="width:80px; color:#888;">광랜(100M)+W</span>
+          </div>
+        </div>
+        <div class="mock-btnrow"><span class="mock-anno">③</span><span class="mock-fbtn">파일첨부</span></div>
+      </div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; font-size:12px; color:var(--text-sec);">
+        <span><b style="color:var(--blue);">①</b> 고객관리 → 개인 고객관리</span>
+        <span><b style="color:var(--blue);">②</b> 인터넷 행 수정박스 체크</span>
+        <span><b style="color:var(--red);">③</b> 맨 아래 파일첨부 버튼</span>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <!-- ===== 접수등록 방법 페이지 끝 ===== -->
+
+  <!-- ===== 이력등록 가이드 페이지 ===== -->
+  <div class="guide-page" id="page-iryeok">
+
+    <div class="path">
+      <span class="pl">진입 경로</span>
+      <span class="crumb hl">고객관리</span><span class="arrow">›</span>
+      <span class="crumb hl">개인 고객관리</span><span class="arrow">›</span>
+      <span class="crumb">고객리스트</span><span class="arrow">›</span>
+      <span class="crumb" style="background:var(--red); color:#fff;">인터넷/모바일(유심) 행 고객명 클릭</span><span class="arrow">›</span>
+      <span class="crumb">상담구분 선택 + 내용 입력</span><span class="arrow">›</span>
+      <span class="crumb">이력 등록</span>
+    </div>
+
+    <div class="note-box note-info" style="margin:0 0 16px; padding:13px 16px;">
+      <span class="note-icon">ⓘ</span><b>이력등록이란?</b> 접수등록 완료 고객에 대해 <span class="key">웹전산(admin)만으로 협력점 ↔ 웨이브넷이 소통</span>하는 기능입니다. 웨이브넷이 특이사항을 <span class="key">'회신요청'</span>하면 협력점이 <span class="key">'회신답변'</span>하고, 협력점이 변경 및 요청사항을 알맞은 상담구분으로 <span class="key">이력 등록(요청)</span>합니다.
+      <div style="margin-top:8px; padding-top:8px; border-top:1px solid rgba(42,82,152,0.2);">⚡ <span class="key">1차적인 소통은 웹전산(admin) 이력등록으로 모두 가능</span>하며, 설치기사 현장방문 중 상품변경 등 <span class="key">긴급 요청건</span>이나 접수 관련 상세 질의응답 시엔 <span class="key">'청약톡방'</span>을 이용하면 원활한 소통이 가능합니다.</div>
+    </div>
+
+    <!-- 가장 중요 원칙 -->
+    <div class="cheat" id="ir-principle" style="background:linear-gradient(135deg,#fdeeec 0%,#fbe2de 100%); border-color:#e8a99c; scroll-margin-top:70px;">
+      <p class="cheat-title" style="color:#a83a28;">⭐ 이력등록 핵심 원칙</p>
+      <div class="cheat-grid">
+        <div class="cheat-item"><span class="ck">✓</span><span>회신·요청은 <b>항상 인터넷 행의 고객명</b>을 눌러 진행</span></div>
+        <div class="cheat-item"><span class="ck">✓</span><span><b>TV·부가상품 관련 내용이어도</b> 소통 탭은 <b>인터넷 우선</b></span></div>
+        <div class="cheat-item" style="background:#f3edfa;"><span class="ck" style="color:var(--usim);">✓</span><span><span class="usim-badge" style="margin-right:2px;">유심동판</span> 접수고객 관련 회신·요청은 <b>모바일 탭 고객명</b>을 클릭해 진입 후 이력등록</span></div>
+        <div class="cheat-item"><span class="ck">✓</span><span>리스트 좌측 <b>VOC·회신 색상 태그</b>로 요청 건 확인</span></div>
+        <div class="cheat-item"><span class="ck">✓</span><span>상담구분을 <b>상황에 맞게 선택</b> 후 내용 입력 → 이력 등록</span></div>
+        <div class="cheat-item" style="grid-column:1/-1; background:rgba(255,255,255,0.85);"><span class="ck">⚡</span><span><b>긴급하게 변경·요청해야 할 건</b>은 각 <b>"청약톡방"에 선(先)요청</b> 후 이력등록 진행</span></div>
+      </div>
+    </div>
+
+    <!-- 진입 화면 재현 -->
+    <div class="ref-card" style="margin-bottom:18px;">
+      <p class="sub-label" style="font-size:14px; color:var(--text);">📍 진입 — 인터넷 행의 고객명 클릭</p>
+      <div class="mock">
+        <div class="mock-gnb">
+          <span class="mock-gnb-item on">고객관리</span>
+          <span class="mock-gnb-item">가망고객관리</span>
+          <span class="mock-gnb-item">인사관리</span>
+          <span class="mock-gnb-item">실적관리</span>
+          <span class="mock-gnb-item">정산관리</span>
+        </div>
+        <div class="mock-sub"><span class="mock-sub-item on">개인 고객관리</span><span style="font-size:11px; color:var(--text-ter);">협력점 고객관리</span></div>
+        <div>
+          <div class="mock-tr mock-th"><span style="width:44px;">태그</span><span style="width:26px;">No</span><span style="width:54px;">고객명</span><span style="flex:1;">유치자</span><span style="width:50px;">통신사</span><span style="width:54px;">상품명</span></div>
+          <div class="mock-tr" style="background:#ffe9ef;">
+            <span style="width:44px;"><span style="background:#e0457a; color:#fff; border-radius:4px; padding:1px 6px; font-size:10px; font-weight:800;">VOC</span></span>
+            <span style="width:26px; color:var(--text-ter);">●</span>
+            <span style="width:54px;"></span><span style="flex:1;"></span><span style="width:50px;">KT QOO</span>
+            <span style="width:54px;"><span class="mock-inet">인터넷</span></span>
+          </div>
+          <div class="mock-tr" style="background:#fff7e0;">
+            <span style="width:44px;"><span style="background:var(--orange); color:#fff; border-radius:4px; padding:1px 6px; font-size:10px; font-weight:800;">회신</span></span>
+            <span style="width:26px; color:var(--text-ter);">●</span>
+            <span style="width:54px;"></span><span style="flex:1;"></span><span style="width:50px;">KT QOO</span>
+            <span style="width:54px;"><span class="mock-inet">인터넷</span></span>
+          </div>
+          <div class="mock-tr"><span style="width:44px;"></span><span style="width:26px;">6</span><span style="width:54px;"></span><span style="flex:1;"></span><span style="width:50px;">SK브로드밴</span><span style="width:54px; color:#9aa;">IPTV</span></div>
+        </div>
+      </div>
+      <div class="note-box note-warn" style="border:1.5px solid #f0c89a;">
+        <span class="note-icon">⚠</span>회신·요청 건은 좌측에 <span style="background:#e0457a; color:#fff; border-radius:4px; padding:1px 7px; font-size:11px; font-weight:700;">VOC</span> <span style="background:var(--orange); color:#fff; border-radius:4px; padding:1px 7px; font-size:11px; font-weight:700;">회신</span> 색상 태그로 표시됩니다. <span class="key">웨이브넷도 인터넷 탭을 우선으로 회신요청</span>하므로, 협력점도 <span class="key">반드시 인터넷 행의 고객명을 클릭</span>해 진입하세요. (TV 내용이어도 인터넷 행 우선)
+      </div>
+    </div>
+
+    <!-- 유심동판(모바일) 이력등록 진입 화면 -->
+    <div class="ref-card" style="margin-bottom:18px; border:1.5px solid #c9b3e0;">
+      <p class="sub-label" style="font-size:14px; color:var(--text);">📍 <span class="usim-badge" style="margin-right:5px;">유심동판</span>진입 — 유심동판 행의 고객명 클릭</p>
+      <div class="mock">
+        <div class="mock-gnb">
+          <span class="mock-gnb-item on">고객관리</span>
+          <span class="mock-gnb-item">가망고객관리</span>
+          <span class="mock-gnb-item">인사관리</span>
+          <span class="mock-gnb-item">실적관리</span>
+          <span class="mock-gnb-item">정산관리</span>
+        </div>
+        <div class="mock-sub"><span class="mock-sub-item on">개인 고객관리</span><span style="font-size:11px; color:var(--text-ter);">협력점 고객관리</span></div>
+        <div>
+          <div class="mock-tr mock-th"><span style="width:56px;">정책지역</span><span style="width:50px;">통신사</span><span style="width:36px;">상품</span><span style="flex:1;">옵션</span><span style="width:44px;">셋트</span><span style="width:78px;">가입번호</span></div>
+          <div class="mock-tr" style="background:#fff7e0;">
+            <span style="width:56px;">MNP</span>
+            <span style="width:50px;">모바일</span>
+            <span style="width:36px;"><span class="mock-inet" style="border-color:var(--usim); color:var(--usim);">KT</span></span>
+            <span style="flex:1; color:#e05a3a;">동판-500M+TV(모든G↑)</span>
+            <span style="width:44px;">단독</span>
+            <span style="width:78px; color:var(--text-ter);">●●●●●●●●●</span>
+          </div>
+        </div>
+      </div>
+      <div class="note-box note-info" style="margin-top:12px;">
+        <span class="note-icon">ⓘ</span>유심동판 고객의 <span class="key">상부요청 · 회신답변 · 개통요청 · 결합요청 · 사은품입금요청</span> 등 <b>모든 요청 및 회신</b>은 이력등록으로 진행합니다. (<span class="key">"긴급건"</span>은 유선과 동일하게 <span class="key">청약방</span>을 통한 요청 및 소통 진행)
+      </div>
+    </div>
+
+    <!-- 상담구분 항목별 가이드 -->
+    <div class="ref-head" id="ir-sangdam" style="scroll-margin-top:70px;"><span class="rno">💬</span><h2>상담구분별 이력등록 가이드</h2></div>
+    <div class="note-box note-info" style="margin:0 0 14px;">
+      <span class="note-icon">ⓘ</span>인터넷 행 고객명 클릭 후, <span class="key">상담구분 드롭박스</span>에서 상황에 맞는 항목을 선택하고 <span class="key">내용</span>을 입력해 이력을 등록합니다. 아래는 각 항목을 <span class="key">언제 / 어떻게</span> 쓰는지 안내입니다.
+    </div>
+
+    <!-- 협력점이 쓰는 항목 -->
+    <p class="sub-label" style="font-size:13px; color:var(--navy);">▸ 협력점이 사용하는 상담구분</p>
+
+    <div class="ref-card" style="padding:0; overflow:hidden;">
+      <!-- 고객메모 -->
+      <div style="display:flex; gap:0; border-bottom:1px solid var(--gray-line); flex-wrap:wrap;">
+        <div style="width:130px; min-width:130px; background:var(--gray-lbl); padding:14px 13px; display:flex; flex-direction:column; gap:5px; justify-content:center;">
+          <span style="font-weight:800; font-size:14px;">고객메모</span>
+          <span style="font-size:10px; background:#888; color:#fff; border-radius:4px; padding:1px 6px; width:fit-content;">알림 없음</span>
+        </div>
+        <div style="flex:1; padding:13px 15px; font-size:13px; line-height:1.6; min-width:220px;">
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">언제</span> 접수고객에 대한 일반 메모를 남길 때 (별도 알림 없음)</div>
+          <div><span class="key" style="color:var(--blue);">내용</span> 특이사항, 필수 안내된 기타 내용 등 추후에도 확인할 수 있는 메모 기록</div>
+        </div>
+      </div>
+
+      <!-- 상부요청 -->
+      <div style="display:flex; gap:0; border-bottom:1px solid var(--gray-line); flex-wrap:wrap;">
+        <div style="width:130px; min-width:130px; background:#eaf1fb; padding:14px 13px; display:flex; flex-direction:column; gap:5px; justify-content:center;">
+          <span style="font-weight:800; font-size:14px;">상부요청</span>
+          <span style="background:var(--blue); color:#fff; border-radius:4px; padding:1px 7px; font-size:10px; font-weight:800; width:fit-content;">자주 사용</span>
+        </div>
+        <div style="flex:1; padding:13px 15px; font-size:13px; line-height:1.6; min-width:220px;">
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">언제</span> 협력점 → 웨이브넷으로 <span class="key">거의 모든 상황에서의 변경·요청</span> 건이 있을 때 (협력점에서 가장 많이 사용)</div>
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">내용</span> 상품변경, 긴급접수요청, 접수내용 수정 등 <span class="key">거의 모든 요청건</span>에 대해 상부요청으로 이력등록</div>
+          <div style="background:#f0f5fc; border-radius:7px; padding:8px 10px; font-size:12px; color:var(--text-sec);"><span class="key">흐름</span> 협력점이 상부요청 등록 → 고객리스트에 <span style="background:#C0392B; color:#fff; border-radius:3px; padding:1px 6px; font-size:10px; font-weight:700;">요청</span> 태그 표시 → 웨이브넷이 요청건 반영 완료 시 <span style="background:#3a8a5c; color:#fff; border-radius:3px; padding:1px 6px; font-size:10px; font-weight:700;">회신완료</span> 이력으로 남김</div>
+        </div>
+      </div>
+
+      <!-- 회신답변 -->
+      <div style="display:flex; gap:0; border-bottom:1px solid var(--gray-line); flex-wrap:wrap;">
+        <div style="width:130px; min-width:130px; background:#fff7e8; padding:14px 13px; display:flex; flex-direction:column; gap:5px; justify-content:center;">
+          <span style="font-weight:800; font-size:14px;">회신답변</span>
+          <span style="background:var(--orange); color:#fff; border-radius:4px; padding:1px 7px; font-size:10px; font-weight:800; width:fit-content;">회신</span>
+        </div>
+        <div style="flex:1; padding:13px 15px; font-size:13px; line-height:1.6; min-width:220px;">
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">언제</span> 웨이브넷이 접수 과정의 특이사항을 <span class="key">"회신요청"</span>으로 띄웠을 때, 그에 답변하는 항목</div>
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">내용</span> 회신요청된 특이사항에 대한 답변 작성</div>
+          <div style="background:#fffaf0; border-radius:7px; padding:8px 10px; font-size:12px; color:var(--text-sec);"><span class="key">흐름</span> 웨이브넷이 회신요청 → 해당 건이 <span class="key">고객리스트 최상단</span>으로 올라오고 좌측에 <span style="background:var(--orange); color:#fff; border-radius:3px; padding:1px 6px; font-size:10px; font-weight:700;">회신</span> 태그 표시 → 인터넷 행 고객명 클릭 → 고객 이력에 회신 필요 내용 확인 → <span class="key">회신답변</span>으로 답변</div>
+        </div>
+      </div>
+
+      <!-- VOC답변 -->
+      <div style="display:flex; gap:0; border-bottom:1px solid var(--gray-line); flex-wrap:wrap;">
+        <div style="width:130px; min-width:130px; background:#ffe9ef; padding:14px 13px; display:flex; flex-direction:column; gap:5px; justify-content:center;">
+          <span style="font-weight:800; font-size:14px;">VOC 답변</span>
+          <span style="background:#e0457a; color:#fff; border-radius:4px; padding:1px 7px; font-size:10px; font-weight:800; width:fit-content;">VOC</span>
+        </div>
+        <div style="flex:1; padding:13px 15px; font-size:13px; line-height:1.6; min-width:220px;">
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">언제</span> 고객이 <span class="key">고객센터를 통해 불만·민원</span>을 제기(VOC)했을 때, 그에 답변하는 항목</div>
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">내용</span> 민원 내용에 대한 답변(복명)</div>
+          <div style="background:#fdf0f4; border-radius:7px; padding:8px 10px; font-size:12px; color:var(--text-sec); margin-bottom:6px;"><span class="key">흐름</span> VOC 발생 → 리스트에 <span style="background:#e0457a; color:#fff; border-radius:3px; padding:1px 6px; font-size:10px; font-weight:700;">VOC</span> 태그 + <span style="background:#f5d76e; color:#7a5c00; border-radius:3px; padding:1px 6px; font-size:10px; font-weight:700;">VOC 발생</span> 표기 → 인터넷 행 고객명 클릭 → VOC 답변으로 복명</div>
+          <div style="background:var(--warn-bg); border-radius:7px; padding:8px 10px; font-size:12px; color:var(--warn-text);"><span class="note-icon">⚠</span><span class="key">각 통신사의 VOC답변 양식대로 복명하는 것이 원칙</span>이므로, 반드시 양식대로 답변해야 합니다. (양식은 하단 참고)</div>
+        </div>
+      </div>
+
+      <!-- 사은품요청 -->
+      <div style="display:flex; gap:0; flex-wrap:wrap;">
+        <div style="width:130px; min-width:130px; background:var(--gray-lbl); padding:14px 13px; display:flex; align-items:center;">
+          <span style="font-weight:800; font-size:14px;">사은품요청</span>
+        </div>
+        <div style="flex:1; padding:13px 15px; font-size:13px; line-height:1.6; min-width:220px;">
+          <div style="margin-bottom:5px;"><span class="key" style="color:var(--blue);">언제</span> 사은품에 관련한 모든 내용을 요청할 때</div>
+          <div><span class="key" style="color:var(--blue);">내용</span> 사은 금액변경, 계좌변경, 지급처변경 등</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 협력점이 안 쓰는 항목 -->
+    <p class="sub-label" style="font-size:13px; color:var(--text-ter); margin-top:16px;">▸ 협력점은 사용하지 않는 상담구분</p>
+    <div class="ref-card" style="background:var(--gray-bg); display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:14px 16px;">
+      <span style="background:#fff; border:1px solid var(--gray-line); border-radius:6px; padding:4px 11px; font-size:13px; color:var(--text-sec); font-weight:600;">이미징첨부요청</span>
+      <span style="background:#fff; border:1px solid var(--gray-line); border-radius:6px; padding:4px 11px; font-size:13px; color:var(--text-sec); font-weight:600;">주소증빙요청</span>
+      <span style="background:#fff; border:1px solid var(--gray-line); border-radius:6px; padding:4px 11px; font-size:13px; color:var(--text-sec); font-weight:600;">해피콜요청</span>
+      <span style="font-size:12px; color:var(--text-ter); margin-left:4px;">→ 협력점에서는 사용하지 않는 항목입니다.</span>
+    </div>
+
+    <!-- VOC답변 양식 복사 -->
+    <div class="ref-head" id="ir-voc" style="margin-top:24px; scroll-margin-top:70px;"><span class="rno">📋</span><h2>VOC 답변(복명) 양식</h2></div>
+    <div class="note-box note-warn" style="margin:0 0 12px; border:1.5px solid #f0c89a;">
+      <span class="note-icon">⚠</span>VOC 답변은 <span class="key">각 통신사 양식대로 복명하는 것이 원칙</span>입니다. 해당 통신사 탭을 선택해 <span class="key">"복사"</span> 후 VOC 답변 내용에 붙여넣어 작성하세요.
+    </div>
+    <div class="ref-card" style="padding:0; border:none; box-shadow:none;">
+      <div class="form-tabs">
+        <button class="ftab active" data-form="voc-kt">KT</button>
+        <button class="ftab" data-form="voc-skt">SKT / B</button>
+        <button class="ftab" data-form="voc-lg">LG</button>
+        <button class="ftab" data-form="voc-sky">SKYLIFE</button>
+      </div>
+      <div class="form-card active" id="voc-kt">
+        <div class="form-head"><span class="form-title">KT VOC 답변(복명) 양식</span><button class="copy-btn" data-target="src-voc-kt"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-voc-kt">■ 담당자 :
+■ 통화대상 : 
+■ 통화일시 :
+■ 최종처리내역 : 
+■ 실판매자 : 
+■ 실판매자 연락처 :
+------ 해지 요청시 ------
+■ 해지 요청 날짜 :
+■ 해지 접속 번호 : 
+■ 해지 요청 상품 :
+■ 위약금 발생 안내 여부 (O/X) :
+■ 대리점 사은품 환수 여부 (O/X) :
+■ 상품권 사용 여부 (O/X) :
+해지복명양식</pre>
+      </div>
+      <div class="form-card" id="voc-skt">
+        <div class="form-head"><span class="form-title">SKT / B VOC 답변(복명) 양식</span><button class="copy-btn" data-target="src-voc-skt"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-voc-skt">1. 통화고객명(관계) / 가번 : 
+2. 통화번호: 
+3. 통화일시: 
+4. 상담사명/직통번호 : 
+5. 녹취자료 보유여부 : 
+6. 통화내용 상세 :</pre>
+      </div>
+      <div class="form-card" id="voc-lg">
+        <div class="form-head"><span class="form-title">LG VOC 답변(복명) 양식</span><button class="copy-btn" data-target="src-voc-lg"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-voc-lg">- 통화고객명 (관계) :   
+- 가입번호 (가번):   
+- 통화번호 :   
+- 통화일시 (시간) :   
+- 상담자 (이름/직통번호) :   
+- 녹취자료보유 (Y/N) : N   
+- 통화내용 (상세) :
+- 민원취소안내여부:</pre>
+      </div>
+      <div class="form-card" id="voc-sky">
+        <div class="form-head"><span class="form-title">SKYLIFE VOC 답변(복명) 양식</span><button class="copy-btn" data-target="src-voc-sky"><span class="ci">⧉</span> 복사</button></div>
+        <pre class="form-src" id="src-voc-sky">■ 담당자 :
+■ 통화대상 : 
+■ 통화일시 :
+■ 최종처리내역 : 
+■ 실판매자 : 
+■ 실판매자 연락처 :</pre>
+      </div>
+    </div>
+
+  </div>
+  <!-- ===== 이력등록 가이드 페이지 끝 ===== -->
+
+  <!-- ===== FAQ 페이지 ===== -->
+  <div class="guide-page" id="page-faq">
+
+    <div class="note-box note-info" style="margin:0 0 14px; padding:13px 16px;">
+      <span class="note-icon">ⓘ</span><b>자주 하는 질문(FAQ)</b> — 질문을 누르면 답변이 펼쳐집니다. 접수등록·이력등록에서 협력점이 가장 자주 묻는 내용을 모았어요.
+    </div>
+
+    <div class="faq-toolbar">
+      <button id="faqOpenAll">전체 펼치기</button>
+      <button id="faqCloseAll">전체 접기</button>
+    </div>
+
+    <!-- 접수등록 FAQ -->
+    <div class="faq-group-title"><span class="fgno">1</span><h2>접수등록 관련</h2></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q1</span><span class="qtext">사은품 금액은 어디에 적나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">반드시 <b>인터넷(상품1) 행</b>의 사은품 칸에 적습니다. 고객에게 실제로 지급될 <b>"현금 금액"</b>만 기재합니다. TV·부가상품 행에는 적지 않습니다. <span class="hl">각 행에 중복 기재 시 중복지급될 수 있습니다.</span></div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q2</span><span class="qtext">인터넷+TV를 같이 접수하는데 DPS와 DPS+1 중 뭘 골라요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">인터넷+TV만 접수하면 <b>DPS</b>, 여기에 OSS 같은 부가상품을 함께 접수하면 <b>DPS+1</b>처럼 +숫자를 선택해 상품 탭을 늘립니다. <b>인터넷 단독 상품</b> 접수 시엔 <b>단독</b>을 선택하고, <b>단독 + 부가상품</b>일 경우엔 <b>단독+1</b> 방식으로 선택합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q3</span><span class="qtext">OSS도 같이 접수하려면 어떻게 해요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">회사 선택 옆 드롭박스에서 <b>+숫자(예: DPS+1)</b>를 선택하면 <b>상품행이 추가</b>됩니다. 거기에 부가상품 · 원스톱해지(OSS)를 입력하세요. <b>[비고 사항 - 기타 내용]</b>에 OSS 접수양식을 유선 접수양식 하단에 함께 기재하면 됩니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q4</span><span class="qtext">물류관리는 뭘로 선택해요? 유심동판인데도요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">항상 <b>"0.해당없음"</b>으로 선택합니다. 유심동판 고객이어도 동일하며, 상태 변경은 웨이브넷이 처리합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q5</span><span class="qtext">이미징처리는 미인증/인증완료 중 언제 골라요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">기본은 <b>"1.미인증"</b>입니다. 단, <b>KT 통신사에 한하여</b> 접점등록이 완료될 경우 전용 인증링크가 전달되며, 그 전용링크로 직접 인증한 경우에만 <b>"2.인증완료"</b>를 선택합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q6</span><span class="qtext">정책구분에 전국이 안 뜨고 다른 게 떠요.</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext"><b>SKB만</b> 도매 / 소매_일반 / 소매_소상공인이 뜹니다. SKB는 접수 상품에 맞게 고르고, <b>그 외 모든 통신사는 "전국"</b>으로 선택합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q7</span><span class="qtext">LG인데 이메일을 꼭 넣어야 하나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">네, <b>LG는 이메일 등록이 필수</b>입니다. 반드시 이메일을 기재하세요. <span class="hl">LG는 이메일 미기재 시 접수 불가합니다.</span></div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q8</span><span class="qtext">문자청구서면 이메일 칸에 뭘 적어요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">문자청구서 진행 시엔 이메일 대신 <b>명의자 전화번호</b>를 적어도 됩니다. 이 경우 도메인 선택은 불필요합니다. (일반 이메일 필수 기재 시에는 이메일 형식으로 입력)</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q9</span><span class="qtext">유심동판은 회사 선택을 뭘로 해요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">회사 선택은 <b>"모바일"</b>, 정책구분은 <b>MNP</b>(유심동판=번호이동이므로 필수)로 합니다. 상품선택 드롭박스에서 실제 통신사(KT 등)를 지정하고, 상품옵션에서 "동판-○○" 항목을 선택합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q10</span><span class="qtext">개통기한은 며칠로 잡아요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext"><b>전체 통신사 모두 익월 말일</b>로 설정합니다. (KT · SKT · SKB · LG 동일)</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q11</span><span class="qtext">첨부파일은 꼭 넣어야 하나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">대부분의 일반 접수는 <b>첨부 불필요</b>합니다. 특정 형식(<b>사업자명의, 가족결합 등</b>) 특이사항일 때만 서류를 첨부하고, 해당 없으면 바로 저장하기를 누르세요.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q12</span><span class="qtext">지로납부는 그냥 선택하면 되나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">지로납부는 <b>환수여부 및 가능 유·무를 확인한 후</b> 진행해야 합니다. (<b>가능 / 정책차감 / 불가</b>가 있음)</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q13</span><span class="qtext">사은품 지급처의 웨이브넷지급/유치자지급 차이가 뭐예요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext"><b>웨이브넷지급</b>은 웨이브넷이 사은품을 지급한 후 정산수수료에서 차감하는 방식, <b>유치자지급</b>은 협력점이 직접 지급하는 경우입니다.</div></div></div>
+
+    <!-- 이력등록 FAQ -->
+    <div class="faq-group-title"><span class="fgno">2</span><h2>이력등록 관련</h2></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q1</span><span class="qtext">상부요청·회신답변은 어느 행에서 하나요? TV 내용인데요.</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">내용이 TV·부가상품이어도 <b>인터넷/TV/부가상품을 각각 따로 추가등록한 것이 아니라면</b> 항상 <b>인터넷 행의 고객명</b>을 클릭해 진행합니다. 웨이브넷도 인터넷 탭을 우선으로 회신요청합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q2</span><span class="qtext">상부요청이랑 회신답변은 뭐가 달라요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext"><b>상부요청</b>은 협력점이 웨이브넷으로 변경·요청을 보낼 때(협력점이 먼저 등록), <b>회신답변</b>은 웨이브넷이 회신요청한 건에 협력점이 답변할 때 씁니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q3</span><span class="qtext">VOC답변은 그냥 작성하면 되나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">아니요. <b>각 통신사 VOC답변(복명) 양식대로</b> 작성하는 것이 원칙입니다. 우측 하단 <b>"양식 복사"</b>에서 각 통신사의 VOC 답변양식을 복사해서 VOC답변 해주세요.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q4</span><span class="qtext">긴급한 건은 어떻게 처리해요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">1차 소통은 웹전산 이력등록(<b>상부요청</b>)으로 가능하지만, 설치기사 현장방문 중 상품변경 등 <b>긴급 건이나 회신내용에 대한 상세한 질의응답은 "청약톡방"</b>을 이용하면 양측의 원활한 소통이 가능합니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q5</span><span class="qtext">이미징첨부요청/주소증빙요청/해피콜요청은 협력점이 안 쓰는 거 맞죠?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">네, 맞습니다. 이 세 항목은 <b>협력점에서 사용하지 않는</b> 상담구분입니다.</div></div></div>
+
+    <!-- 기타관련 FAQ -->
+    <div class="faq-group-title"><span class="fgno">3</span><h2>기타관련</h2></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q1</span><span class="qtext">고객 사은품(현금)의 입금시기는 언제인가요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">기본 사은품 입금 프로세스는 <b>"영업일 기준" 개통 익일 오후 7시</b> 기준으로 일괄지급입니다.</div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q2</span><span class="qtext">고객 사은품(현금) 개통 당일입금은 어떻게 진행해야 하나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext">사은품 당일입금 요청 시, <b>'개통완료' 고객에 한하여 "오후 6시 이전(시간엄수)"</b>까지 <b>웹전산 이력등록 - 상부요청</b>으로 당일입금 요청 이력등록을 해주시거나, 또는 각 통신사의 <b>청약톡방</b>을 통해 당일입금을 요청해주시면 됩니다.<br><span class="hl">예) KT/SKT/B/LG ○○○고객 개통완료. 당일입금 요청합니다.</span></div></div></div>
+
+    <div class="faq"><div class="faq-q"><span class="qmark">Q3</span><span class="qtext">주말·공휴일에도 사은품 입금이 되나요?</span><span class="qarrow">▼</span></div><div class="faq-a"><span class="amark">A</span><div class="atext"><b>주말·공휴일(영업일 외)은 입금작업이 불가</b>합니다. 예를 들어, 금요일 개통완료 고객의 당일입금 신청이 없을 경우 해당 고객의 사은품은 <b>월요일(다음 영업일) 오후 7시경</b>에 입금이 진행됩니다.</div></div></div>
+
+  </div>
+  <!-- ===== FAQ 페이지 끝 ===== -->
+
+
+
+  <div class="footer">
+    웨이브넷 웹 전산(Admin) 활용 가이드 · 협력점 전용 &nbsp;|&nbsp; "실제 웹전산(admin) 화면으로 보기"를 펼치면 화면 속 <span style="color:var(--tip); font-weight:700;">ⓘ</span>에 상세 설명이 있습니다
+  </div>
+
+</div>
+
+<!-- 첫 진입 안내 토스트 -->
+<div class="tip-toast" id="tipToast">
+  <span class="ti-ic">i</span>
+  <span>"실제 웹전산(admin) 화면으로 보기"를 펼치면, 화면 속 <b>ⓘ</b>에 상세 설명이 있습니다</span>
+  <span class="tclose" id="tipToastClose">✕</span>
+</div>
+
+<!-- 양식 복사 플로팅 패널 -->
+<button class="fab" id="fabBtn">📋 양식 복사</button>
+<div class="fpanel-bg" id="fpanelBg"></div>
+<div class="fpanel" id="fpanel">
+  <div class="fpanel-head">
+    <h3>📋 양식 빠른 복사</h3>
+    <button class="fpanel-close" id="fpanelClose">✕</button>
+  </div>
+  <div class="fpanel-body">
+    <div class="fgroup-title g-jeopsu">접수양식 (비고 사항)</div>
+    <div class="frow"><span class="fname">전 통신사 유선</span><button class="fcopy" data-src="src-wired">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">KT 유심</span><button class="fcopy" data-src="src-kt">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">SKT / B 유심</span><button class="fcopy" data-src="src-skt">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">LG 유심</span><button class="fcopy" data-src="src-lg">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">OSS 접수</span><button class="fcopy" data-src="src-oss">⧉ 복사</button></div>
+    <div class="fgroup-title g-voc">VOC 답변(복명) 양식</div>
+    <div class="frow"><span class="fname">KT</span><button class="fcopy" data-src="src-voc-kt">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">SKT / B</span><button class="fcopy" data-src="src-voc-skt">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">LG</span><button class="fcopy" data-src="src-voc-lg">⧉ 복사</button></div>
+    <div class="frow"><span class="fname">SKYLIFE</span><button class="fcopy" data-src="src-voc-sky">⧉ 복사</button></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.info').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.stopPropagation();
+      var wasOpen = el.classList.contains('show');
+      document.querySelectorAll('.info.show').forEach(function(o){o.classList.remove('show');});
+      if(!wasOpen) el.classList.add('show');
+    });
+  });
+  document.addEventListener('click', function(){
+    document.querySelectorAll('.info.show').forEach(function(o){o.classList.remove('show');});
+  });
+  document.querySelectorAll('.ftab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('active');});
+      document.querySelectorAll('.form-card').forEach(function(c){c.classList.remove('active');});
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.form).classList.add('active');
+    });
+  });
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = document.getElementById(btn.dataset.target).innerText;
+      var done = function(){
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<span class="ci">✓</span> 복사 완료!';
+        btn.classList.add('done');
+        setTimeout(function(){ btn.innerHTML = orig; btn.classList.remove('done'); }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+      } else { fallbackCopy(text, done); }
+    });
+  });
+  function fallbackCopy(text, cb){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta); cb();
+  }
+
+  // ===== 가이드 페이지 전환 (대형탭 + 스티키탭 동기화) =====
+  function switchPage(pageId, scrollTop){
+    document.querySelectorAll('.guide-page').forEach(function(p){p.classList.remove('active');});
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('.mtab').forEach(function(t){t.classList.toggle('active', t.dataset.page===pageId);});
+    document.querySelectorAll('.snav-tab').forEach(function(t){t.classList.toggle('active', t.dataset.page===pageId);});
+    buildJump(pageId);
+    if(scrollTop) window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.querySelectorAll('.mtab').forEach(function(tab){
+    tab.addEventListener('click', function(){ switchPage(tab.dataset.page, true); });
+  });
+  document.querySelectorAll('.snav-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){ switchPage(tab.dataset.page, true); });
+  });
+
+  // ===== 스티키 탭바: 대형 탭이 화면 밖으로 나가면 표시 =====
+  var mainTabsEl = document.querySelector('.maintabs');
+  var stickyNav = document.getElementById('stickyNav');
+  window.addEventListener('scroll', function(){
+    var r = mainTabsEl.getBoundingClientRect();
+    stickyNav.classList.toggle('show', r.bottom < 0);
+  });
+
+  // ===== 스티키 빠른 이동 (현재 페이지의 블록 목차) =====
+  var jumpMap = {
+    'page-jeopsu': [['bk1','고객'],['bk3','납부'],['bk4','사은품'],['bk5','상품'],['ref-usim','유심동판'],['bk6','번호이동'],['bk7','비고'],['bk8','첨부']],
+    'page-iryeok': [['ir-principle','핵심원칙'],['ir-sangdam','상담구분'],['ir-voc','VOC양식']]
+  };
+  function buildJump(pageId){
+    var box = document.getElementById('snavJump');
+    var items = jumpMap[pageId] || [];
+    box.innerHTML = items.map(function(it){ return '<a href="#'+it[0]+'">'+it[1]+'</a>'; }).join('');
+  }
+  buildJump('page-jeopsu');
+
+  // ===== 검색 =====
+  var searchInput = document.getElementById('searchInput');
+  var searchClear = document.getElementById('searchClear');
+  var searchInfo = document.getElementById('searchInfo');
+  // 검색 대상: 메인 폼의 row/bk, 치트시트 항목, 상담구분 카드 등
+  function clearHighlights(){
+    document.querySelectorAll('mark.sh').forEach(function(m){
+      var t = document.createTextNode(m.textContent); m.parentNode.replaceChild(t, m); 
+    });
+    document.querySelectorAll('.search-hit').forEach(function(e){e.classList.remove('search-hit');});
+    document.querySelectorAll('.search-dim').forEach(function(e){e.classList.remove('search-dim');});
+  }
+  function doSearch(q){
+    clearHighlights();
+    q = (q||'').trim().toLowerCase();
+    searchClear.classList.toggle('show', q.length>0);
+    if(!q){ searchInfo.classList.remove('show'); return; }
+    // 두 페이지 전체에서 검색 (가이드 구분 없음)
+    var allBlocks = document.querySelectorAll('.guide-page .row, .guide-page .bk, .guide-page .cheat-item, .guide-page .ref-card, .guide-page .faq');
+    var hits = []; 
+    allBlocks.forEach(function(b){
+      var txt = b.textContent.toLowerCase();
+      if(txt.indexOf(q) !== -1){ hits.push(b); }
+    });
+    if(hits.length>0){
+      // 현재 페이지에 결과가 있으면 그 페이지 유지, 없으면 결과가 있는 페이지로 전환
+      var activePage = document.querySelector('.guide-page.active');
+      var hitInActive = hits.some(function(h){ return activePage.contains(h); });
+      var targetPage = hitInActive ? activePage : hits[0].closest('.guide-page');
+      if(targetPage && !targetPage.classList.contains('active')){
+        switchPage(targetPage.id, false);
+        activePage = targetPage;
+      }
+      // 하이라이트: 결과는 강조, 같은 페이지의 비결과는 흐리게
+      var firstHit = null;
+      hits.forEach(function(h){ h.classList.add('search-hit'); if(h.classList.contains('faq')) h.classList.add('open'); if(activePage.contains(h) && !firstHit) firstHit=h; });
+      activePage.querySelectorAll('.row, .bk, .cheat-item, .ref-card, .faq').forEach(function(b){
+        if(!b.classList.contains('search-hit')) b.classList.add('search-dim');
+      });
+      if(!firstHit) firstHit = hits[0];
+      var pageName = activePage.id==='page-jeopsu' ? '접수등록' : '이력등록';
+      searchInfo.textContent = '"'+q+'" 검색결과 '+hits.length+'곳 — '+pageName+' 가이드에서 노란 테두리로 표시했어요.';
+      searchInfo.classList.add('show');
+      setTimeout(function(){ if(firstHit) firstHit.scrollIntoView({behavior:'smooth', block:'center'}); }, 60);
+    } else {
+      searchInfo.textContent = '"'+q+'" 검색결과가 없습니다. 다른 키워드로 시도해보세요.';
+      searchInfo.classList.add('show');
+    }
+  }
+  var searchTimer;
+  searchInput.addEventListener('input', function(){
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function(){ doSearch(searchInput.value); }, 250);
+  });
+  searchClear.addEventListener('click', function(){ searchInput.value=''; doSearch(''); searchInput.focus(); });
+  document.querySelectorAll('.schip').forEach(function(c){
+    c.addEventListener('click', function(){ searchInput.value=c.dataset.q; doSearch(c.dataset.q); });
+  });
+
+  // ===== 첫 진입 안내 토스트 (ⓘ 안내) =====
+  var toast = document.getElementById('tipToast');
+  setTimeout(function(){ toast.classList.add('show'); }, 900);
+  setTimeout(function(){ toast.classList.remove('show'); }, 11000);
+  document.getElementById('tipToastClose').addEventListener('click', function(){ toast.classList.remove('show'); });
+
+  // ===== 양식 복사 플로팅 패널 =====
+  var fpanel = document.getElementById('fpanel');
+  var fpanelBg = document.getElementById('fpanelBg');
+  function openPanel(){ fpanel.classList.add('show'); fpanelBg.classList.add('show'); }
+  function closePanel(){ fpanel.classList.remove('show'); fpanelBg.classList.remove('show'); }
+  document.getElementById('fabBtn').addEventListener('click', openPanel);
+  document.getElementById('fpanelClose').addEventListener('click', closePanel);
+  fpanelBg.addEventListener('click', closePanel);
+  document.querySelectorAll('.fcopy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.dataset.src);
+      if(!el) return;
+      var text = el.innerText;
+      var done = function(){
+        var orig = btn.innerHTML; btn.innerHTML='✓ 복사됨'; btn.classList.add('done');
+        setTimeout(function(){ btn.innerHTML=orig; btn.classList.remove('done'); }, 1600);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+      } else { fallbackCopy(text, done); }
+    });
+  });
+
+  // ===== FAQ 토글 =====
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click', function(){ q.closest('.faq').classList.toggle('open'); });
+  });
+  var faqOpenAll = document.getElementById('faqOpenAll');
+  var faqCloseAll = document.getElementById('faqCloseAll');
+  if(faqOpenAll) faqOpenAll.addEventListener('click', function(){ document.querySelectorAll('#page-faq .faq').forEach(function(f){f.classList.add('open');}); });
+  if(faqCloseAll) faqCloseAll.addEventListener('click', function(){ document.querySelectorAll('#page-faq .faq').forEach(function(f){f.classList.remove('open');}); });
+</script>
+</body>
+</html>

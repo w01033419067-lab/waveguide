@@ -102,15 +102,22 @@
   .info{position:relative; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; background:var(--tip); color:#fff; font-size:12px; font-weight:800; cursor:pointer; margin-left:2px; flex-shrink:0; font-style:normal; user-select:none; box-shadow:0 0 0 0 rgba(243,156,18,0.6); animation:tipPulse 2.4s infinite; transition:transform 0.12s ease, background 0.12s ease;}
   @keyframes tipPulse{0%{box-shadow:0 0 0 0 rgba(243,156,18,0.5);}70%{box-shadow:0 0 0 6px rgba(243,156,18,0);}100%{box-shadow:0 0 0 0 rgba(243,156,18,0);}}
   .info:hover{background:var(--tip-dark); transform:scale(1.15); animation:none;}
-  .info .tip{visibility:hidden; opacity:0; position:absolute; bottom:145%; left:50%; transform:translateX(-50%) translateY(4px); background:#2b2f36; color:#fff; text-align:left; border-radius:9px; padding:11px 13px; font-size:12.5px; font-weight:400; line-height:1.65; width:max-content; max-width:290px; z-index:50; box-shadow:0 8px 24px rgba(0,0,0,0.28); transition:opacity 0.16s ease, transform 0.16s ease; pointer-events:none;}
-  .info .tip::after{content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:7px solid transparent; border-top-color:#2b2f36;}
-  .info .tip .cond{background:#4a3a3a; color:#ffb4ac;}
-  .info .tip .key{color:#ffd966;}
-  .info .tip .lock{background:#444; color:#ccc;}
-  .info:hover .tip, .info:focus .tip, .info.show .tip{visibility:visible; opacity:1; transform:translateX(-50%) translateY(0);}
-  .info.tl .tip{left:auto; right:-6px; transform:translateX(0) translateY(4px);}
-  .info.tl .tip::after{left:auto; right:10px; transform:none;}
-  .info.tl:hover .tip, .info.tl:focus .tip, .info.tl.show .tip{transform:translateX(0) translateY(0);}
+  .info.show{background:var(--tip-dark); animation:none;}
+  .info:focus-visible{outline:2px solid var(--navy); outline-offset:2px;}
+  /* 설명 원문: 화면에서는 감추고(아래 팝업으로 렌더) 스크린리더·검색에는 남김 */
+  .info .tip{position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap;}
+  /* 설명이 없는 장식용 아이콘 */
+  .info.plain, .info.plain:hover{cursor:default; animation:none; background:var(--tip); transform:none;}
+
+  /* 툴팁 팝업 — body 최상단에 1개만 두어 카드 overflow/겹침에 잘리지 않게 함 */
+  .tip-pop{position:fixed; left:0; top:0; z-index:950; visibility:hidden; opacity:0; pointer-events:none; background:#2b2f36; color:#fff; text-align:left; border-radius:9px; padding:11px 13px; font-size:12.5px; font-weight:400; line-height:1.65; width:max-content; max-width:290px; box-shadow:0 8px 24px rgba(0,0,0,0.28); transform:translateY(4px); transition:opacity 0.16s ease, transform 0.16s ease;}
+  .tip-pop.show{visibility:visible; opacity:1; transform:translateY(0);}
+  .tip-pop .cond{background:#4a3a3a; color:#ffb4ac;}
+  .tip-pop .key{color:#ffd966;}
+  .tip-pop .lock{background:#444; color:#ccc;}
+  .tip-pop .tip-arrow{position:absolute; top:100%; margin-left:-7px; border:7px solid transparent; border-top-color:#2b2f36;}
+  .tip-pop.below .tip-arrow{top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#2b2f36;}
+  .tip-pop.no-arrow .tip-arrow{display:none;}
 
   /* 참고 섹션 (폼 아래) */
   .ref{margin-top:26px;}
@@ -287,8 +294,6 @@
   .reveal-inner{padding:16px 18px; background:#fafbfc;}
   .reveal-cap{font-size:12px; color:var(--text-ter); margin-bottom:11px;}
   .reveal-inner .tbl{overflow:visible;}
-  .reveal-inner .row:first-child .info .tip{bottom:auto; top:145%;}
-  .reveal-inner .row:first-child .info .tip::after{top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#2b2f36;}
 
   /* 양식 복사 플로팅 패널 */  .fab{position:fixed; right:20px; bottom:20px; z-index:300; background:var(--orange); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; box-shadow:0 6px 20px rgba(216,90,48,0.4); display:flex; align-items:center; gap:7px;}
   .fab:hover{background:#bf4a22;}
@@ -1447,17 +1452,108 @@ OO-KT (★UIT) **유심 7700 후납 안내완
 </div>
 
 <script>
-  document.querySelectorAll('.info').forEach(function(el){
-    el.addEventListener('click', function(e){
-      e.stopPropagation();
-      var wasOpen = el.classList.contains('show');
-      document.querySelectorAll('.info.show').forEach(function(o){o.classList.remove('show');});
-      if(!wasOpen) el.classList.add('show');
+  // ===== ⓘ 툴팁 =====
+  // 설명을 카드 안에서 띄우면 .block/.mini-tbl 의 overflow:hidden 에 잘리고 다음 블록에 가려짐.
+  // → body 바로 아래 팝업 1개를 두고 위치를 계산해서 띄운다(화면 밖으로도 넘치지 않게 보정).
+  (function(){
+    var pop = document.createElement('div');
+    pop.className = 'tip-pop';
+    pop.setAttribute('role', 'tooltip');
+    pop.setAttribute('aria-hidden', 'true');
+    pop.innerHTML = '<span class="tip-text"></span><span class="tip-arrow"></span>';
+    document.body.appendChild(pop);
+    var popText = pop.querySelector('.tip-text');
+    var popArrow = pop.querySelector('.tip-arrow');
+    var openIcon = null, pinned = false, ticking = false;
+
+    function canHover(){
+      return !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+
+    function place(){
+      if(!openIcon) return;
+      var r = openIcon.getBoundingClientRect();
+      if(r.width === 0 || r.bottom < 0 || r.top > window.innerHeight){ hide(); return; }  // 접힘/화면 밖
+      var margin = 10, gap = 10;
+      pop.style.maxWidth = Math.max(180, Math.min(290, window.innerWidth - margin * 2)) + 'px';
+      var w = pop.offsetWidth, h = pop.offsetHeight;
+      var cx = r.left + r.width / 2;
+      var spaceAbove = r.top - gap - margin;
+      var spaceBelow = window.innerHeight - r.bottom - gap - margin;
+      var below = spaceAbove < h && spaceBelow > spaceAbove;   // 기본은 위, 자리가 없으면 아래
+      var wantLeft = cx - w / 2;
+      var wantTop = below ? r.bottom + gap : r.top - gap - h;
+      var left = Math.min(Math.max(wantLeft, margin), Math.max(margin, window.innerWidth - w - margin));
+      var top = Math.min(Math.max(wantTop, margin), Math.max(margin, window.innerHeight - h - margin));
+      pop.style.left = Math.round(left) + 'px';
+      pop.style.top = Math.round(top) + 'px';
+      pop.classList.toggle('below', below);
+      // 위아래 모두 공간이 부족해 보정된 경우엔 화살표가 엉뚱한 곳을 가리키므로 숨김
+      pop.classList.toggle('no-arrow', Math.abs(top - wantTop) > 1);
+      popArrow.style.left = Math.round(Math.min(Math.max(cx - left, 14), Math.max(14, w - 14))) + 'px';
+    }
+
+    function show(icon, pin){
+      var src = icon.querySelector('.tip');
+      if(!src) return;
+      if(openIcon && openIcon !== icon){ openIcon.classList.remove('show'); pinned = false; }
+      openIcon = icon;
+      if(pin) pinned = true;
+      icon.classList.add('show');
+      icon.setAttribute('aria-expanded', 'true');
+      popText.innerHTML = src.innerHTML;
+      pop.classList.add('show');
+      place();
+    }
+
+    function hide(){
+      if(openIcon){ openIcon.classList.remove('show'); openIcon.setAttribute('aria-expanded', 'false'); }
+      openIcon = null; pinned = false;
+      pop.classList.remove('show');
+    }
+
+    document.querySelectorAll('.info').forEach(function(icon){
+      if(!icon.querySelector('.tip')){          // 범례 등 설명 없는 장식용 아이콘
+        icon.classList.add('plain');
+        icon.removeAttribute('tabindex');
+        return;
+      }
+      if(!icon.hasAttribute('tabindex')) icon.setAttribute('tabindex', '0');
+      icon.setAttribute('role', 'button');
+      icon.setAttribute('aria-label', '설명 보기');
+      icon.setAttribute('aria-expanded', 'false');
+
+      icon.addEventListener('mouseenter', function(){ if(canHover()) show(icon, false); });
+      icon.addEventListener('mouseleave', function(){ if(!pinned && openIcon === icon) hide(); });
+      icon.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if(openIcon === icon && pinned) hide(); else show(icon, true);
+      });
+      icon.addEventListener('focus', function(){ show(icon, false); });
+      icon.addEventListener('blur', function(){ if(openIcon === icon) hide(); });
+      icon.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+          e.preventDefault();
+          if(openIcon === icon && pinned) hide(); else show(icon, true);
+        }
+      });
     });
-  });
-  document.addEventListener('click', function(){
-    document.querySelectorAll('.info.show').forEach(function(o){o.classList.remove('show');});
-  });
+
+    document.addEventListener('click', function(e){
+      if(openIcon && !openIcon.contains(e.target) && !pop.contains(e.target)) hide();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && openIcon){ var el = openIcon; hide(); if(el.blur) el.blur(); }
+    });
+    function reflow(){
+      if(!openIcon || ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ ticking = false; place(); });
+    }
+    window.addEventListener('scroll', reflow, true);
+    window.addEventListener('resize', reflow);
+  })();
   document.querySelectorAll('.ftab').forEach(function(tab){
     tab.addEventListener('click', function(){
       document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('active');});

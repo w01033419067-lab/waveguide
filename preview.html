@@ -95,7 +95,7 @@
   .fixbox{background:var(--card); border:1px solid var(--fix-line); border-radius:var(--r); overflow:hidden; box-shadow:var(--sh);}
   .fixbox .fx{display:flex; align-items:center; gap:12px; padding:10px 15px; border-top:1px solid var(--line-2);}
   .fixbox .fx:first-child{border-top:none;}
-  .fixbox .fx .fn{width:104px; flex-shrink:0; font-size:13.5px; font-weight:700; color:var(--ink-2);}
+  .fixbox .fx .fn{width:120px; flex-shrink:0; font-size:13.5px; font-weight:700; color:var(--ink-2);}
   .fixbox .fx .fv{flex:1; min-width:0;}
   .val{display:inline-block; background:var(--fix-bg); color:var(--fix); border:1px solid var(--fix-line);
        border-radius:6px; padding:2px 10px; font-weight:800; font-size:13.5px;}
@@ -154,6 +154,8 @@
   .flow{display:grid; gap:9px;}
   .fl{display:flex; gap:11px; background:var(--card); border:1px solid var(--line); border-radius:var(--r);
       padding:12px 15px; box-shadow:var(--sh);}
+  .flow.tight{gap:5px;}
+  .flow.tight .fl{padding:8px 14px;}
   .fl .fno{flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--navy-soft); color:var(--navy);
            font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:2px;}
   .fl .ft{font-size:14.5px;}
@@ -192,6 +194,44 @@
   .stub{background:var(--card); border:1px dashed var(--line); border-radius:var(--r); padding:34px 20px;
         text-align:center; color:var(--ink-3); font-size:14px;}
 
+  /* 건너뛰기 안내 */
+  .skip{background:var(--usim-bg); border:1px solid #d8cbee; border-radius:var(--r); padding:13px 16px;
+        font-size:14px; color:#4a326f;}
+  .badge-usim{display:inline-block; background:var(--usim); color:#fff; border-radius:5px; padding:1px 9px;
+              font-size:11.5px; font-weight:800; vertical-align:1px;}
+
+  /* 예시 카드 */
+  .excard{background:var(--card); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--sh);}
+  .ex-h{display:flex; align-items:center; gap:8px; padding:9px 14px; background:#f4f6f9; flex-wrap:wrap;
+        border-bottom:1px solid var(--line); font-size:13.5px; font-weight:800;}
+  .cr{border-radius:5px; padding:1px 9px; font-size:12px; font-weight:800; color:#fff;}
+  .cr.kt{background:#1e3a5f;} .cr.skt{background:#b03a2b;} .cr.usim{background:var(--usim);}
+  .ex-b{padding:5px 14px 11px;}
+  .exr{display:flex; gap:11px; padding:8px 0; border-top:1px dashed var(--line); font-size:13.5px;}
+  .exr:first-child{border-top:none;}
+  .exr .exl{flex:0 0 84px; font-weight:800; font-size:12.5px; color:var(--ink-3); padding-top:2px;}
+  .exr .exl.inet{color:#2d5486;} .exr .exl.tv{color:#7a5aa8;} .exr .exl.add{color:#2f7a55;}
+  .exr.hl{background:#fffdf5; margin:0 -14px; padding:8px 14px;}
+
+  /* 최종 점검 체크리스트 */
+  .chk{background:var(--card); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--sh);}
+  .ck{display:flex; gap:11px; align-items:flex-start; padding:10px 15px; border-top:1px solid var(--line-2); cursor:pointer;}
+  .ck:first-child{border-top:none;}
+  .ck:hover{background:#fafbfc;}
+  .ck input{margin:4px 0 0; width:16px; height:16px; flex-shrink:0; accent-color:var(--fix); cursor:pointer;}
+  .ck span{font-size:14px;}
+  .ck input:checked + span{color:var(--ink-3); text-decoration:line-through;}
+  .chk-foot{display:flex; justify-content:space-between; align-items:center; padding:10px 15px;
+            background:#fafbfc; border-top:1px solid var(--line);}
+  .chk-foot .cnt{font-size:13px; font-weight:700; color:var(--ink-2);}
+  .chk-foot button{border:1px solid var(--line); background:#fff; border-radius:7px; padding:5px 12px;
+                   font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink-2);}
+  .chk-foot button:hover{background:#f0f2f5;}
+
+  .save-hint{margin-top:14px; text-align:center;}
+  .save-hint .sv{display:inline-block; background:var(--fix); color:#fff; border-radius:9px; padding:11px 30px;
+                 font-size:15px; font-weight:800; box-shadow:0 3px 10px rgba(15,110,86,.25);}
+
   /* ===== 좁은 폭 (웹전산 옆 도킹) ===== */
   @media (max-width:900px){
     .shell{grid-template-columns:1fr; gap:14px; padding:14px 14px 50px;}
@@ -208,6 +248,18 @@
     .ifrow{flex-direction:column; gap:2px;}
     .ifrow .cond{flex:none;}
     .maptbl td:first-child{width:auto; white-space:normal;}
+  }
+
+  /* ===== 아주 좁은 화면: 상단바를 두 줄로 ===== */
+  @media (max-width:560px){
+    .top-in{flex-wrap:wrap; gap:9px 10px; padding:10px 14px;}
+    .top-sp{display:none;}
+    .brand{font-size:14px;}
+    .brand span{display:none;}
+    .tbtn{margin-left:auto;}
+    .search-wrap{flex:1 1 100%; order:3;}
+    .grp-h .copy{margin-left:auto;}
+    .pager{flex-direction:column;}
   }
 </style>
 </head>
@@ -442,14 +494,489 @@
       </div>
     </section>
 
-    <!-- ===== 나머지 단계 (자리만) ===== -->
-    <section class="step" id="s2"><div class="head"><span class="kicker">2단계</span><h1>기타 정보 · 배송 정보</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
-    <section class="step" id="s3"><div class="head"><span class="kicker">3단계</span><h1>납부 정보</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
-    <section class="step" id="s4"><div class="head"><span class="kicker">4단계</span><h1>사은품 정보</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
-    <section class="step" id="s5"><div class="head"><span class="kicker">5단계</span><h1>상품 정보</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
-    <section class="step" id="s6"><div class="head"><span class="kicker">6단계</span><h1>번호이동</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
-    <section class="step" id="s7"><div class="head"><span class="kicker">7단계</span><h1>비고 사항</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
-    <section class="step" id="s8"><div class="head"><span class="kicker">8단계</span><h1>첨부 파일 · 저장</h1></div><div class="stub">시안 확정 후 이어서 만듭니다</div></section>
+    <!-- ===== 2단계 ===== -->
+    <section class="step" id="s2">
+      <div class="head">
+        <span class="kicker">2단계 · 접수등록</span>
+        <h1>기타 정보 · 배송 정보</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          <b>거의 전부 비워둡니다.</b> 유심동판 접수일 때만 <b>물류수령 주소</b>를 입력하면 끝입니다.
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>물류수령 주소</h2><span class="badge-usim">유심동판 시에만</span></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">유심을 어디로 받나요?</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">고객 주소와 같음</div><div class="then"><span class="kbd">위 주소와 동일</span> 체크만 하면 됩니다</div></div>
+              <div class="ifrow"><div class="cond">직장 등 다른 주소</div><div class="then"><span class="kbd">🔍 검색</span>으로 직접 입력</div></div>
+              <div class="ifrow"><div class="cond">유선 상품만 접수</div><div class="then">비워둠 <span class="memo">— 이 단계는 건너뛰세요</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>비워두는 칸</h2><span class="sub">협력점은 사용하지 않습니다</span></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">메모 1 · 2</div><div class="fv"><span class="memo">비워둠</span></div></div>
+          <div class="fx"><div class="fn">인입최초시간</div><div class="fv"><span class="memo">자점 전용 항목</span></div></div>
+          <div class="fx"><div class="fn">토스자 · 소개자</div><div class="fv"><span class="memo">비워둠</span></div></div>
+          <div class="fx"><div class="fn">취소요청일</div><div class="fv"><span class="memo">비워둠</span></div></div>
+          <div class="fx"><div class="fn">배송사 · 송장 · 발송일</div><div class="fv"><span class="memo">비워둠 — 웨이브넷이 입력합니다</span></div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s1"><span><span class="pl">이전</span><span class="pt">← 1. 고객 정보</span></span></button>
+        <button class="pg next" data-jump="s3"><span><span class="pl">다음 단계</span><span class="pt">3. 납부 정보 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 3단계 ===== -->
+    <section class="step" id="s3">
+      <div class="head">
+        <span class="kicker">3단계 · 접수등록</span>
+        <h1>납부 정보</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          양식의 <b>청구매체 · 자동이체</b>를 보고 납부 방식을 고른 뒤, 계좌는 반드시 <b>예금주 조회</b>까지 누릅니다.
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>납부 방식 고르기</h2><span class="pill judge">확인 필요</span></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">계좌이체</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">입력 순서</div><div class="then">
+                지급은행 선택 → 계좌번호 입력 → <span class="kbd">예금주 조회</span> → <span class="kbd">조회하기</span> → 이름이 일치하면 <span class="kbd">적용하기</span>
+              </div></div>
+              <div class="ifrow"><div class="cond">고객에게 받을 정보</div><div class="then"><b>은행명 · 계좌번호 · 예금주</b></div></div>
+            </div>
+          </div>
+          <div class="jc">
+            <div class="jc-h"><span class="jt">카드납부</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">입력 항목</div><div class="then">카드사 · 카드번호 · 유효기간 <span class="eg">00년00월</span> · 카드주명</div></div>
+              <div class="ifrow"><div class="cond">고객에게 받을 정보</div><div class="then"><b>카드사 · 카드번호 · 유효기간 · 카드주</b></div></div>
+            </div>
+          </div>
+          <div class="jc">
+            <div class="jc-h"><span class="jt">지로납부</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">고르기 전에</div><div class="then">
+                <b>환수여부와 가능 유·무를 반드시 먼저 확인</b>하세요 <span class="memo">(가능 / 정책차감 / 불가)</span>
+              </div></div>
+            </div>
+          </div>
+          <div class="jc">
+            <div class="jc-h"><span class="jt">합산청구</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">선택 시</div><div class="then">합산청구로 체크</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="alert"><span class="ai">!</span><span>계좌·카드 정보를 고객에게 받을 때 <b>위 항목이 하나라도 빠지면 등록이 되지 않습니다.</b> 0단계 양식에 미리 적어두세요.</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>나머지 칸</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">관계 여부 <span class="req">*</span></div><div class="fv">
+            <b>본인</b> / 배우자 / 가족 중 선택 <span class="memo">· 대부분 본인</span>
+          </div></div>
+          <div class="fx"><div class="fn">예금주</div><div class="fv">
+            가입명의자와 납부명의자가 같으면 <span class="kbd">위 정보와 동일</span> 체크
+            <div class="memo">체크하면 주민번호가 자동 입력됩니다</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>지로납부는 그냥 선택하면 되나요?</span></button>
+            <div class="qa-a">아니요. <b>환수여부 및 가능 유·무를 확인한 후</b> 진행해야 합니다. (가능 / 정책차감 / 불가가 있습니다)</div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s2"><span><span class="pl">이전</span><span class="pt">← 2. 기타 · 배송</span></span></button>
+        <button class="pg next" data-jump="s4"><span><span class="pl">다음 단계</span><span class="pt">4. 사은품 정보 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 4단계 ===== -->
+    <section class="step" id="s4">
+      <div class="head">
+        <span class="kicker">4단계 · 접수등록</span>
+        <h1>사은품 정보</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          <b>웨이브넷에 입금요청할 현금 사은품</b>만 다룹니다. 지급처를 고르고 입금받을 계좌를 확인합니다.
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>사은품 지급처</h2><span class="pill judge">확인 필요</span><span class="sub">양식의 "현금지급처"를 보고 고르세요</span></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">누가 고객에게 사은품을 주나요?</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">웨이브넷지급</div><div class="then">웨이브넷이 고객에게 지급한 뒤 <b>정산수수료에서 차감</b>합니다</div></div>
+              <div class="ifrow"><div class="cond">유치자지급</div><div class="then"><b>협력점이 직접</b> 고객에게 지급합니다</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>입금받을 계좌</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">사은품계좌</div><div class="fv">
+            지급은행 선택 + 계좌번호 입력
+          </div></div>
+          <div class="fx"><div class="fn">예금주</div><div class="fv">
+            <span class="memo">납부정보와 <b>다른 계좌</b>로 입금받고 싶을 때만</span> <span class="kbd">예금주 조회</span>
+          </div></div>
+          <div class="fx"><div class="fn">주민번호</div><div class="fv">
+            <span class="kbd">위 정보와 동일</span> 체크하면 납부정보(계좌이체)가 자동 기재됩니다
+            <div class="memo">카드납부로 접수한 경우에는 자동 기재되지 않으니 직접 입력하세요</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>보통 비워두는 칸</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">사은품 명</div><div class="fv">
+            <span class="memo">기본 비워둠 · 물류사은품 진행 시에만 모델명</span> <span class="eg">삼성 55인치TV ASDF00QWER12</span>
+          </div></div>
+          <div class="fx"><div class="fn">물류 · 쿠폰</div><div class="fv">
+            <span class="memo">물류사은품(가전) 진행 시에만 가격 입력</span> <span class="eg">550,000</span>
+          </div></div>
+          <div class="fx"><div class="fn">지급예정일</div><div class="fv"><span class="memo">🔒 협력점은 입력 권한이 없습니다</span></div></div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 사은품 입금 관련 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>웨이브넷지급과 유치자지급 차이가 뭐예요?</span></button>
+            <div class="qa-a"><b>웨이브넷지급</b>은 웨이브넷이 사은품을 지급한 후 정산수수료에서 차감하는 방식, <b>유치자지급</b>은 협력점이 직접 지급하는 경우입니다.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>현금 사은품은 언제 입금되나요?</span></button>
+            <div class="qa-a">기본 프로세스는 <b>영업일 기준 개통 익일 오후 7시</b>에 일괄지급입니다.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>개통 당일에 입금받으려면요?</span></button>
+            <div class="qa-a"><b>개통완료 고객에 한하여 오후 6시 이전(시간엄수)</b>까지 <b>이력등록 ▸ 상부요청</b>으로 당일입금을 요청하시거나, 각 통신사 <b>청약톡방</b>으로 요청하세요.<br>예) <i>KT ○○○고객 개통완료. 당일입금 요청합니다.</i></div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>주말·공휴일에도 입금되나요?</span></button>
+            <div class="qa-a">아니요. <b>영업일 외에는 입금작업이 불가</b>합니다. 금요일 개통 고객이 당일입금 신청을 하지 않으면 <b>월요일 오후 7시경</b>에 입금됩니다.</div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s3"><span><span class="pl">이전</span><span class="pt">← 3. 납부 정보</span></span></button>
+        <button class="pg next" data-jump="s5"><span><span class="pl">다음 단계</span><span class="pt">5. 상품 정보 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 5단계 ===== -->
+    <section class="step" id="s5">
+      <div class="head">
+        <span class="kicker">5단계 · 접수등록</span>
+        <h1>상품 정보</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          통신사와 상품 구성을 고르고 상품 행을 채웁니다. <b>접수등록에서 가장 중요한 단계</b>입니다.
+        </div>
+      </div>
+
+      <div class="alert"><span class="ai">!</span><span>
+        <b>사은품 현금 금액은 반드시 인터넷(상품1) 행에만</b> 적습니다.
+        TV·부가상품 행에도 적으면 <b>중복지급</b>될 수 있습니다.
+      </span></div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>① 회사 선택</h2><span class="pill judge">확인 필요</span></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">무엇을 같이 접수하나요?</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">인터넷만</div><div class="then"><span class="val">단독</span></div></div>
+              <div class="ifrow"><div class="cond">인터넷 + TV</div><div class="then"><span class="val">DPS</span></div></div>
+              <div class="ifrow"><div class="cond">위에 부가상품(OSS) 등을 추가</div><div class="then"><span class="val">DPS+1</span> <span class="memo">처럼 +숫자 — 추가한 수만큼 상품 행이 늘어납니다</span></div></div>
+              <div class="ifrow"><div class="cond">인터넷 단독 + 부가상품</div><div class="then"><span class="val">단독+1</span></div></div>
+              <div class="ifrow"><div class="cond">유심동판(무선)</div><div class="then">회사 선택은 <span class="val">모바일</span> <span class="memo">· 자세한 내용은 6단계</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>② 정책 구분</h2><span class="pill fix">✓ 항상 이 값</span></div>
+        <div class="fixbox">
+          <div class="fx"><div class="fn">SKB 외 전 통신사</div><div class="fv"><span class="val">전국</span></div></div>
+          <div class="fx"><div class="fn">SKB만</div><div class="fv">도매 / 소매_일반 / 소매_소상공인 <span class="memo">중 접수 상품에 맞게</span></div></div>
+          <div class="fx"><div class="fn">유심동판</div><div class="fv"><span class="val">MNP</span> <span class="memo">· 유심동판 = 번호이동이므로 필수</span></div></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>③ 상품 행 채우기</h2></div>
+        <div class="flow tight">
+          <div class="fl"><span class="fno">1</span><span class="ft"><b>상품선택</b><em>인터넷 / TV / 부가상품</em></span></div>
+          <div class="fl"><span class="fno">2</span><span class="ft"><b>옵션</b><em>속도·상품명 (예: 기가라이트(500M)+Wi)</em></span></div>
+          <div class="fl"><span class="fno">3</span><span class="ft"><b>약정</b><em>예: 3년약정</em></span></div>
+          <div class="fl"><span class="fno">4</span><span class="ft"><b>할인탭</b></span></div>
+          <div class="fl"><span class="fno">5</span><span class="ft"><b>부가서비스</b></span></div>
+          <div class="fl"><span class="fno">6</span><span class="ft"><b>회선 수</b> 입력<em>인터넷 행에는 마지막으로 사은품 금액까지</em></span></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>입력 예시</h2><span class="sub">실제 접수 화면 기준</span></div>
+        <div class="judgebox">
+          <div class="excard">
+            <div class="ex-h"><span class="cr kt">KT</span><span>DPS</span><span class="memo">· OSS 없음 (상품 2개)</span></div>
+            <div class="ex-b">
+              <div class="exr"><span class="exl">회사/구분</span><span><b>KT</b> / <b>DPS</b> / 전국</span></div>
+              <div class="exr hl"><span class="exl inet">상품1 인터넷</span><span>인터넷 · 에센스(1G) · 3년약정 · WIFI(AX)패키지 · 1회선<br><b>사은품 <span class="eg">450,000원</span></b></span></div>
+              <div class="exr"><span class="exl tv">상품2 TV</span><span>TV · TV모든G(+1G) · 3년약정 · 지니3셋탑 · 1회선</span></div>
+            </div>
+          </div>
+          <div class="excard">
+            <div class="ex-h"><span class="cr skt">SKT</span><span>DPS+1</span><span class="memo">· OSS 동시 접수 (상품 3개)</span></div>
+            <div class="ex-b">
+              <div class="exr"><span class="exl">회사/구분</span><span><b>SKT</b> / <b>DPS+1</b> / 전국</span></div>
+              <div class="exr hl"><span class="exl inet">상품1 인터넷</span><span>인터넷 · 기가라이트(500M)+Wi · 3년약정 · 없음 · 요즘우리집결합 · 1회선<br><b>사은품 <span class="eg">500,000원</span></b></span></div>
+              <div class="exr"><span class="exl tv">상품2 TV</span><span>TV · All · 3년약정 · 스마트3셋탑 · 1회선</span></div>
+              <div class="exr"><span class="exl add">상품3 OSS</span><span>부가상품 · 원스톱해지(OSS) · 없음 · 없음 · 1회선</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>사은품 금액은 어디에 적나요?</span></button>
+            <div class="qa-a">반드시 <b>인터넷(상품1) 행</b>의 사은품 칸에 적습니다. 고객에게 실제로 지급될 <b>현금 금액</b>만 기재하며, TV·부가상품 행에는 적지 않습니다. 각 행에 중복 기재하면 <b>중복지급될 수 있습니다.</b></div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>DPS와 DPS+1 중 뭘 골라요?</span></button>
+            <div class="qa-a">인터넷+TV만 접수하면 <b>DPS</b>, 여기에 OSS 같은 부가상품을 함께 접수하면 <b>DPS+1</b>처럼 +숫자를 선택해 상품 탭을 늘립니다. 인터넷 단독이면 <b>단독</b>, 단독+부가상품이면 <b>단독+1</b>입니다.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>OSS도 같이 접수하려면?</span></button>
+            <div class="qa-a">회사 선택 옆 드롭박스에서 <b>+숫자(예: DPS+1)</b>를 선택하면 상품행이 추가됩니다. 거기에 부가상품 · 원스톱해지(OSS)를 입력하고, <b>비고 사항 ▸ 기타 내용</b>에 OSS 접수양식을 유선 접수양식 하단에 함께 기재하세요.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>정책구분에 전국이 안 뜨고 다른 게 떠요.</span></button>
+            <div class="qa-a"><b>SKB만</b> 도매 / 소매_일반 / 소매_소상공인이 뜹니다. SKB는 접수 상품에 맞게 고르고, <b>그 외 모든 통신사는 전국</b>입니다.</div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s4"><span><span class="pl">이전</span><span class="pt">← 4. 사은품 정보</span></span></button>
+        <button class="pg next" data-jump="s6"><span><span class="pl">다음 단계</span><span class="pt">6. 번호이동 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 6단계 ===== -->
+    <section class="step" id="s6">
+      <div class="head">
+        <span class="kicker">6단계 · 접수등록</span>
+        <h1>번호이동 <span class="badge-usim">유심동판 시에만</span></h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          <b>유선 상품만 접수한다면 건너뛰세요.</b> 유심동판을 함께 접수할 때만 작성합니다.
+        </div>
+      </div>
+
+      <div class="skip">
+        유선 접수만이라면 이 단계는 <b>아무것도 입력하지 않습니다.</b> 바로 <b>7단계 비고 사항</b>으로 넘어가세요.
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>번호이동 칸 채우기</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">위 고객정보와 동일</div><div class="fv">
+            <span class="kbd">체크</span> 한 번이면 전화번호 · 명의자 · 주민번호 · 연락처가 <b>대부분 자동 입력</b>됩니다
+          </div></div>
+          <div class="fx"><div class="fn">기존 통신사</div><div class="fv">
+            자동 입력 후 <b>기존(이전) 통신사만</b> 드롭박스에서 선택하면 끝
+            <div class="memo">양식의 "■이전통신사" 항목을 보고 고르세요</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>유심동판 접수 순서</h2><span class="sub">유선 접수를 마친 뒤 이어서 진행</span></div>
+        <div class="flow">
+          <div class="fl"><span class="fno">1</span><span class="ft">유선상품 접수등록 후, 정보가 <b>마킹돼 있으면 마킹을 해제</b>합니다</span></div>
+          <div class="fl"><span class="fno">2</span><span class="ft"><b>인터넷 탭의 고객명을 클릭</b>합니다<em>기존 정보가 인입됩니다</em></span></div>
+          <div class="fl"><span class="fno">3</span><span class="ft">화면 하단 <span class="kbd">고객추가등록</span> 클릭 → 유심동판 등록</span></div>
+          <div class="fl"><span class="fno">4</span><span class="ft">웬만한 정보는 <b>대부분 자동으로 불러와집니다</b></span></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>유심동판 상품 선택 (5단계)</h2></div>
+        <div class="flow tight">
+          <div class="fl"><span class="fno">1</span><span class="ft"><b>상품선택</b> — 통신사 선택<em>KT / SKT / LG 등</em></span></div>
+          <div class="fl"><span class="fno">2</span><span class="ft"><b>상품옵션</b> — 동판 또는 가족동판 종류<em>유선상품과 연계된 "동판-○○" 항목을 고릅니다</em></span></div>
+          <div class="fl"><span class="fno">3</span><span class="ft"><b>약정선택</b> — 결합종류</span></div>
+          <div class="fl"><span class="fno">4</span><span class="ft"><b>할인탭</b> — 요금제 구간<em>(통합)37↓ / (통합)55↑ / (통합)69↑ / (통합)90↑</em></span></div>
+          <div class="fl"><span class="fno">5</span><span class="ft"><b>부가서비스</b> — 회선 수에 따라 (아래 표)</span></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>부가서비스 — 회선 수별</h2><span class="pill fix">✓ 항상 이 값</span></div>
+        <div class="fixbox">
+          <div class="fx"><div class="fn">1회선 동판</div><div class="fv"><span class="val">없음</span></div></div>
+          <div class="fx"><div class="fn">2회선 가족동판</div><div class="fv"><span class="val">UuIT</span></div></div>
+          <div class="fx"><div class="fn">3회선 가족동판</div><div class="fv"><span class="val">UuuIT</span></div></div>
+          <div class="fx"><div class="fn">3회선 초과</div><div class="fv"><span class="val">추가3회선↑</span></div></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>입력 예시</h2><span class="sub">KT 1G+TV모든G 유선에 유심동판 추가</span></div>
+        <div class="excard">
+          <div class="ex-h"><span class="cr usim">유심동판</span><span>모바일 · 단독</span></div>
+          <div class="ex-b">
+            <div class="exr"><span class="exl">회사/정책</span><span>회사선택 <b>모바일</b> · <b>단독</b> · 정책구분 <b>MNP</b></span></div>
+            <div class="exr hl"><span class="exl">상품1</span><span>KT · 동판-1G+TV(모든G↑) · 프리미엄싱글 · (통합)69↑ · 없음 · 1회선<br><b>사은품 <span class="eg">200,000원</span></b></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>유심동판은 회사 선택을 뭘로 해요?</span></button>
+            <div class="qa-a">회사 선택은 <b>모바일</b>, 정책구분은 <b>MNP</b>(유심동판=번호이동이므로 필수)입니다. 상품선택 드롭박스에서 실제 통신사(KT 등)를 지정하고, 상품옵션에서 "동판-○○" 항목을 선택합니다.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>고객명 속성 칸에는 뭘 적어요?</span></button>
+            <div class="qa-a">유심동판이면 <b>동판</b>, OSS면 <b>OSS</b>, 둘 다면 <b>동판/OSS</b>처럼 '/'로 구분해 적습니다. (1단계 고객명)</div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s5"><span><span class="pl">이전</span><span class="pt">← 5. 상품 정보</span></span></button>
+        <button class="pg next" data-jump="s7"><span><span class="pl">다음 단계</span><span class="pt">7. 비고 사항 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 7단계 ===== -->
+    <section class="step" id="s7">
+      <div class="head">
+        <span class="kicker">7단계 · 접수등록</span>
+        <h1>비고 사항</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          0단계에서 채운 <b>접수양식 전체</b>가 <b>기타 내용</b> 칸에 들어가 있는지 확인합니다.
+          아직 붙여넣지 않았다면 지금 붙여넣으세요.
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>확인할 것</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">기타 내용 <span class="req">*</span></div><div class="fv">
+            접수양식 <b>전체</b>가 들어가 있어야 합니다
+            <div class="memo">빈 항목이 남아 있으면 웨이브넷에서 회신요청이 옵니다</div>
+          </div></div>
+          <div class="fx"><div class="fn">유심동판 · OSS</div><div class="fv">
+            해당 양식을 <b>유선 접수양식 하단에 이어서</b> 함께 기재합니다
+          </div></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h">
+          <h2>유선 접수양식</h2>
+          <span class="sub">전 통신사 공통</span>
+          <div class="top-sp"></div>
+          <button class="copy" data-copy="src-bigo">⧉ 양식 복사</button>
+        </div>
+        <div class="memo" style="margin-bottom:8px;">0단계와 같은 양식입니다. 다시 필요하면 여기서 복사하세요.</div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s6"><span><span class="pl">이전</span><span class="pt">← 6. 번호이동</span></span></button>
+        <button class="pg next" data-jump="s8"><span><span class="pl">다음 단계</span><span class="pt">8. 첨부 · 저장 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 8단계 ===== -->
+    <section class="step" id="s8">
+      <div class="head">
+        <span class="kicker">8단계 · 마무리</span>
+        <h1>첨부 파일 · 저장</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          <b>대부분의 접수는 첨부파일이 필요 없습니다.</b> 아래 점검표만 확인하고 저장하세요.
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>첨부파일</h2></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">첨부가 필요한가요?</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">일반 접수 (대부분)</div><div class="then"><b>첨부 없이 바로 저장하기</b></div></div>
+              <div class="ifrow"><div class="cond">사업자명의 · 가족결합 등 특이사항</div><div class="then">첨부파일 1~4에 개별 첨부 <span class="memo">· 4개를 넘으면 압축해 하나로</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="fold">
+          <button class="fold-b">📎 접수 완료 후에 첨부하려면 (후첨부) <span class="arr">▼</span></button>
+          <div class="fold-c">
+            <div class="flow">
+              <div class="fl"><span class="fno">1</span><span class="ft"><span class="kbd">고객관리 → 개인 고객관리</span> 클릭</span></div>
+              <div class="fl"><span class="fno">2</span><span class="ft">고객리스트에서 <b>인터넷 항목</b> 행의 <b>좌측 수정박스 체크</b></span></div>
+              <div class="fl"><span class="fno">3</span><span class="ft">맨 아래 <span class="kbd">파일첨부</span> 버튼 클릭 → 첨부 팝업에서 진행</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>저장 전 최종 점검</h2><span class="sub">가장 자주 틀리는 항목입니다</span></div>
+        <div class="chk" id="chk">
+          <label class="ck"><input type="checkbox"><span><b>고객인증</b> — "0.협력점★" + 고객 명의 휴대폰 통신사를 적었나요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>물류관리</b> — "0.해당없음"인가요? <span class="memo">유심동판이어도 동일</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>주소증빙</b> — "0.협력점"인가요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>이미징처리</b> — "1.미인증"인가요? <span class="memo">KT 직접인증 시만 2.인증완료</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>개통기한</b> — 익월 말일로 설정했나요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>정책 구분</b> — "전국"인가요? <span class="memo">SKB만 도매/소매 구분</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>LG 접수</b>라면 이메일을 넣었나요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>사은품 금액</b>이 인터넷(상품1) 행에만 있나요? <span class="memo">중복 기재 시 중복지급</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>사은품 지급처</b>를 골랐나요? <span class="memo">웨이브넷지급 / 유치자지급</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>부가상품(OSS)</b>을 같이 접수한다면 DPS+1 등 +숫자를 골랐나요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>유심동판</b>이라면 회사선택 "모바일" + 정책구분 MNP인가요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>비고 사항</b>에 접수양식 전체를 붙여넣었나요?</span></label>
+          <div class="chk-foot">
+            <span class="cnt" id="chkCnt">0 / 12 확인</span>
+            <button id="chkReset">전체 해제</button>
+          </div>
+        </div>
+        <div class="save-hint"><span class="sv">저장하기</span></div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>첨부파일은 꼭 넣어야 하나요?</span></button>
+            <div class="qa-a">대부분의 일반 접수는 <b>첨부 불필요</b>합니다. 사업자명의·가족결합 등 특이사항일 때만 서류를 첨부하고, 해당 없으면 바로 저장하기를 누르세요.</div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="s7"><span><span class="pl">이전</span><span class="pt">← 7. 비고 사항</span></span></button>
+        <button class="pg next" data-jump="s0"><span><span class="pl">접수 완료</span><span class="pt">↺ 처음으로</span></span></button>
+      </div>
+    </section>
 
   </main>
 </div>
@@ -492,7 +1019,9 @@
     btn.addEventListener('click', function(){
       var el = document.getElementById(btn.dataset.copy);
       if(!el) return;
-      var txt = el.innerText, orig = btn.innerHTML;
+      // 숨겨진 단계 안의 <pre>도 복사되도록 textContent 사용 (innerText는 미표시 시 비어 보일 수 있음)
+      var txt = el.tagName === 'PRE' ? el.textContent : el.innerText;
+      var orig = btn.innerHTML;
       var done = function(){
         btn.innerHTML = '✓ 복사 완료';
         btn.classList.add('done');
@@ -512,6 +1041,25 @@
   }
 
   document.getElementById('formBtn').addEventListener('click', function(){ go('s0'); });
+
+  // 저장 전 최종 점검 체크리스트 (고객 한 명 단위 — 저장하지 않음)
+  var chk = document.getElementById('chk');
+  if(chk){
+    var boxes = chk.querySelectorAll('input[type=checkbox]');
+    var cnt = document.getElementById('chkCnt');
+    function tally(){
+      var n = 0;
+      boxes.forEach(function(b){ if(b.checked) n++; });
+      cnt.textContent = n + ' / ' + boxes.length + ' 확인';
+      cnt.style.color = (n === boxes.length) ? 'var(--fix)' : '';
+    }
+    boxes.forEach(function(b){ b.addEventListener('change', tally); });
+    document.getElementById('chkReset').addEventListener('click', function(){
+      boxes.forEach(function(b){ b.checked = false; });
+      tally();
+    });
+    tally();
+  }
 
   // 검색 (자리만 — 시안 확정 후 구현)
   var q = document.getElementById('q'), qx = document.getElementById('qx');

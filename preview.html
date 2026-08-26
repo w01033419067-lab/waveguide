@@ -380,7 +380,7 @@
     <div class="rail-list" data-sec="iryeok" hidden>
       <button class="rstep active" data-s="i1"><span class="rn">1</span><span class="rt">시작하기<em>진입 · 핵심 원칙</em></span></button>
       <button class="rstep" data-s="i2"><span class="rn">2</span><span class="rt">상담구분 고르기<em>어떤 항목을 쓸까</em></span></button>
-      <button class="rstep" data-s="i3"><span class="rn">3</span><span class="rt">VOC 답변 양식<em>통신사별 복명</em></span></button>
+      <button class="rstep" data-s="i3"><span class="rn">3</span><span class="rt">SR 처리양식<em>VOC 답변 · 복명</em></span></button>
     </div>
     <div class="rail-list" data-sec="faq" hidden>
       <button class="rstep active" data-s="fq"><span class="rn">?</span><span class="rt">전체 질문<em>모아보기</em></span></button>
@@ -751,6 +751,7 @@
           </div></div>
           <div class="fx"><div class="fn">물류 · 쿠폰</div><div class="fv">
             <span class="memo">물류사은품(가전) 진행 시에만 가격 입력</span> <span class="eg">550,000</span>
+            <div class="memo">가전 발주는 우측 상단 <b>⧉ 양식</b> ▸ <b>삼성물류 발주요청</b> 양식으로 요청합니다</div>
           </div></div>
           <div class="fx"><div class="fn">지급예정일</div><div class="fv"><span class="memo">🔒 협력점은 입력 권한이 없습니다</span></div></div>
         </div>
@@ -1230,8 +1231,9 @@
     <!-- ===== 이력등록 3 ===== -->
     <section class="step" id="i3">
       <div class="head">
-        <span class="kicker">이력등록 3</span>
+        <span class="kicker">이력등록 3 · SR 처리양식</span>
         <h1>VOC 답변(복명) 양식</h1>
+        <p class="memo" style="margin:6px 0 0;">사내에서 <b>SR 처리양식</b>이라고 부르는 양식이 이것입니다.</p>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
           해당 통신사 탭을 골라 양식을 <b>복사</b>한 뒤, VOC 답변 내용에 붙여넣어 작성합니다.
@@ -1278,7 +1280,7 @@
         <div class="cpane" id="voc-lg">
           <div class="grp-h"><h2>LG</h2><div class="top-sp"></div><button class="copy" data-copy="f-voc-lg">⧉ 복사</button></div>
           <pre class="form-src" id="f-voc-lg">- 통화고객명 (관계) :
-- 가입번호 (가번):
+- 가입번호 (가번) :
 - 통화번호 :
 - 통화일시 (시간) :
 - 상담자 (이름/직통번호) :
@@ -1348,28 +1350,28 @@
 OO-KT (★UIT) **유심 7700 후납 안내완
 ◈ 홍길동 000000-0000000
 ◈ 010-0000-0000
-◈ 본인인증 : 신용카드 / PASS 인증서 / 범용공인인증서
+◈ 본인인증 : 신용카드 / PASS 인증서 / 범용공인인증서 
 ◇ 요금제 : 5G베이직
 ◇ 선택약정 : 12개월
 ◇ 수령주소 :
-◇ 사은품 :
-◈ 유선 서비스번호 :
+◇ 사은품 : 
+◈ 유선 서비스번호 : 
 ◈ 결합 종류 :</pre>
     </div>
     <div class="prow">
       <div class="prow-h"><span class="pn">SKT 유심 MNP</span><button class="peek">보기</button><button class="copy" data-copy="f-skt">⧉ 복사</button></div>
       <pre id="f-skt">●유치자 상호/성함/연락처:
 기존통신사-SK *유심비 7700 후납 안내
-□ 고객명:  / 주민번호:
-□ 연락처:
-□ 자동이체:
-□ 사은계좌:
+□ 고객명:  / 주민번호: 
+□ 연락처: 
+□ 자동이체: 
+□ 사은계좌: 
 ■ 본인인증 : 카드(본인명의신용카드+유효기간) or PASS
-☆ 요금제 :
+☆ 요금제 : 
 ☆ 선택약정12개월
-☆ 유심수령주소 :
-☆ 사은품 :
-♤ 유선 접수일자 :
+☆ 유심수령주소 : 
+☆ 사은품 : 
+♤ 유선 접수일자 : 
 ★ 요즘가족결합 요청</pre>
     </div>
     <div class="prow">
@@ -1379,35 +1381,60 @@ OO-KT (★UIT) **유심 7700 후납 안내완
 ■ 생년월일 :
 ■ 휴대폰번호 :
 ■ 기존통신사 :
-■ 단말기(모델/일련) :
-■ IMEI :
+■ 단말기(모델/일련) : 
+■ IMEI : 
 ■ IMEI 2 :
-■ EID :
+■ EID : 
 ■ 선택약정(12/24개월) :
-■ 요금제 :
-■ 결합종류(참쉬운가족/투게더)  :
-■ 프리미어약정할인(Y/N) :
+■ 요금제 : 
+■ 결합종류(참쉬운가족/투게더)  : 
+■ 프리미어약정할인(Y/N) : 
 ■ 유심비(7,700원) : 후납
-■ 전 통신사 위약금 확인(Y/N) :
+■ 전 통신사 위약금 확인(Y/N) : 
 ■ 사은품 :</pre>
     </div>
     <div class="prow">
       <div class="prow-h"><span class="pn">OSS 접수</span><button class="peek">보기</button><button class="copy" data-copy="f-oss">⧉ 복사</button></div>
       <pre id="f-oss">[OSS 접수양식]
--기존통신사 :
--해지명의 [성함/연락처/생년월일] :
--해지 주소 :
+-기존통신사 : 
+-해지명의 [성함/연락처/생년월일] : 
+-해지 주소 : 
 -인터넷전화 사용구분 : O / X
 -인터넷/TV 회선수 각각 확인 : [ex) 인1/티1]
--설치희망일 :
+-설치희망일 : 
 -해지희망일 :</pre>
     </div>
 
-    <p class="pgroup">VOC 답변(복명) 양식</p>
+    <p class="pgroup">SR 처리양식 (VOC 답변·복명)</p>
     <div class="prow"><div class="prow-h"><span class="pn">KT</span><button class="peek">보기</button><button class="copy" data-copy="f-voc-kt">⧉ 복사</button></div><pre id="p-vk-view"></pre></div>
     <div class="prow"><div class="prow-h"><span class="pn">SKT / B</span><button class="peek">보기</button><button class="copy" data-copy="f-voc-skt">⧉ 복사</button></div><pre id="p-vs-view"></pre></div>
     <div class="prow"><div class="prow-h"><span class="pn">LG</span><button class="peek">보기</button><button class="copy" data-copy="f-voc-lg">⧉ 복사</button></div><pre id="p-vl-view"></pre></div>
     <div class="prow"><div class="prow-h"><span class="pn">SKYLIFE</span><button class="peek">보기</button><button class="copy" data-copy="f-voc-sky">⧉ 복사</button></div><pre id="p-vy-view"></pre></div>
+
+    <p class="pgroup">요청 양식</p>
+    <div class="prow">
+      <div class="prow-h"><span class="pn">다회선 견적서 요청</span><button class="peek">보기</button><button class="copy" data-copy="f-multi">⧉ 복사</button></div>
+      <pre id="f-multi">◆ 주소 확인필요합니다(건축물대장 확인)
+ㄴ 건물유형 :
+◆ 기존 사용중인 인터넷 통신사 :
+◆ 방갯수(TV대수)가 몇개인지? :
+◆ 가입,설치 희망 통신사 :
+◆ 설치주소 대략 지역까지만(서울,경기 등) 확인 부탁드립니다.
+↘ 주소:</pre>
+    </div>
+    <div class="prow">
+      <div class="prow-h"><span class="pn">삼성물류 발주요청</span><button class="peek">보기</button><button class="copy" data-copy="f-samsung">⧉ 복사</button></div>
+      <pre id="f-samsung">■ 삼성물류 발주요청양식 ■
+담당자:
+고객명:
+연락처:
+설치주소:
+통신사:
+접속번호(서비스번호):
+개통일자:
+선택모델:
+벽걸이여부(5만원 비용발생):</pre>
+    </div>
   </div>
 </aside>
 
@@ -1588,15 +1615,26 @@ OO-KT (★UIT) **유심 7700 후납 안내완
     var q = document.getElementById('q'), qx = document.getElementById('qx'), res = document.getElementById('sres');
     var index = [];
 
-    // 검색 단위: 그룹 제목 / 칸 한 줄 / 조건 한 줄 / 질문 / 안내문
+    // 검색 단위: 단계 제목 / 그룹 제목 / 칸 한 줄 / 조건 한 줄 / 질문 / 안내문
     document.querySelectorAll('.step').forEach(function(step){
       if(step.id === 'fq') return;                     // FAQ는 복제본이라 중복 제외
-      var sel = '.grp-h h2, .fillbox .fx, .fixbox .fx, .ifrow, .qa, .goal, .alert, .fl, .ck, .exr';
+      var sel = '.head .kicker, .head h1, .grp-h h2, .fillbox .fx, .fixbox .fx, .ifrow, .qa, .goal, .alert, .fl, .ck, .exr';
       step.querySelectorAll(sel).forEach(function(el){
         var t = (el.innerText || '').replace(/\s+/g, ' ').trim();
         if(t.length < 2 || t.length > 220) return;
         index.push({ step: step.id, el: el, text: t, low: t.toLowerCase() });
       });
+    });
+
+    // 양식 모음 패널의 양식도 검색 대상 (이름 + 본문 첫 줄들)
+    document.querySelectorAll('.panel .prow').forEach(function(row){
+      var name = row.querySelector('.pn').textContent.trim();
+      var group = row.previousElementSibling;
+      while(group && !group.classList.contains('pgroup')) group = group.previousElementSibling;
+      var pre = document.getElementById(row.querySelector('.copy').dataset.copy);
+      var head = pre ? pre.textContent.split('\n').slice(0, 6).join(' ') : '';
+      var t = name + ' 양식 — ' + (group ? group.textContent.trim() + ' ' : '') + head;
+      index.push({ form: row, el: row, text: t.replace(/\s+/g,' ').trim().slice(0, 200), low: t.toLowerCase() });
     });
 
     function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -1618,7 +1656,8 @@ OO-KT (★UIT) **유심 7700 후납 안내완
       hits.forEach(function(h, n){
         var b = document.createElement('button');
         b.className = 'sr' + (n === cur ? ' sel' : '');
-        b.innerHTML = '<span class="srw">' + esc(stepName(h.step)) + '</span><span class="srt">' + mark(h.text, term) + '</span>';
+        var where = h.form ? '⧉ 양식 모음' : stepName(h.step);
+        b.innerHTML = '<span class="srw">' + esc(where) + '</span><span class="srt">' + mark(h.text, term) + '</span>';
         b.addEventListener('click', function(){ jump(h); });
         res.appendChild(b);
       });
@@ -1627,6 +1666,19 @@ OO-KT (★UIT) **유심 7700 후납 안내완
 
     function jump(h){
       close();
+      if(h.form){                                   // 양식이면 패널을 열고 해당 양식을 펼칩니다
+        openPanel();
+        if(!h.form.classList.contains('open')){
+          h.form.classList.add('open');
+          h.form.querySelector('.peek').textContent = '접기';
+        }
+        setTimeout(function(){
+          h.form.scrollIntoView({ behavior:'smooth', block:'center' });
+          h.form.classList.add('hit');
+          setTimeout(function(){ h.form.classList.remove('hit'); }, 2000);
+        }, 240);
+        return;
+      }
       go(h.step);
       // 접혀 있으면 펼치고, 질문이면 답까지 열어줍니다
       var fold = h.el.closest('.fold'); if(fold) fold.classList.add('open');

@@ -2016,7 +2016,11 @@ OO-KT (★UIT) **유심 7700 후납 안내완
   lb.addEventListener('click', closeLb);
 
   /* ---------- 시작 ---------- */
-  var start = location.hash.replace(/^#\/?/, '');   // 예전 형식(#s1)도 받아줌
+  // 새로고침(F5)은 홈으로. 공유받은 단계 링크로 처음 들어온 경우만 그 단계를 연다.
+  var navEntry = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+  var isReload = navEntry ? navEntry.type === 'reload' : !!(performance.navigation && performance.navigation.type === 1);
+  var start = isReload ? '' : location.hash.replace(/^#\/?/, '');   // 예전 형식(#s1)도 받아줌
+  if(isReload && location.hash){ try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} }
   go(secOf(start) ? start : 'home', { push:false });
 })();
 </script>

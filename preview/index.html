@@ -336,6 +336,8 @@
   .lb-x{position:fixed; top:12px; right:16px; color:#fff; font-size:13px; font-weight:700; background:rgba(255,255,255,.14);
         border-radius:7px; padding:6px 12px; pointer-events:none;}
 
+  .note{margin-top:10px; background:var(--navy-soft); border:1px solid #d3dcea; border-radius:var(--r); padding:12px 15px; font-size:14px; color:#1e3a5f;}
+
   /* 진입 경로 */
   .path{display:flex; align-items:center; gap:7px; flex-wrap:wrap; background:var(--card); border:1px solid var(--line);
         border-radius:var(--r); padding:12px 15px; box-shadow:var(--sh);}
@@ -498,7 +500,7 @@
           <div class="fx"><div class="fn">유심동판</div><div class="fv"><span class="no">개발 중</span>
             <span class="memo">· 지금은 <a class="go" data-jump="s6" href="#">고객등록(수동) 6단계</a>로 진행</span></div></div>
         </div>
-        <div class="alert"><span class="ai">!</span><span><b>양식 1개 = 고객 1명</b>입니다. 여러 고객의 양식을 한 번에 이어 붙여 등록할 수 없습니다.</span></div>
+        <div class="note"><b>여러 고객도 한 번에</b> — 고객별 양식을 원문 칸에 <b>아래로 이어 붙이면</b> 왼쪽 목록에 한 명씩 생기고, 체크한 건을 한 번에 등록할 수 있습니다. <span class="memo">양식 하나에는 고객 한 명만 적습니다.</span></div>
       </div>
 
       <div class="grp">
@@ -520,26 +522,38 @@
         <table class="maptbl">
           <tr><th>웹전산 칸</th><th>채우는 양식 항목</th></tr>
           <tr><td>고객명</td><td>■고객명</td></tr>
-          <tr><td>연락처</td><td>■연락처</td></tr>
-          <tr><td>통신사 (인증통신사)</td><td>■본인인증 <span class="memo">— 통신사를 적습니다</span></td></tr>
-          <tr><td>유치자 · 접수경로</td><td>●유치자 상호/성함/연락처</td></tr>
-          <tr><td>현금</td><td>■고객 현금사은품 금액 <span class="memo">— 웨이브넷지급이면 0원일 수 없습니다</span></td></tr>
-          <tr><td>상품옵션</td><td>■신청상품</td></tr>
           <tr><td>주민번호</td><td>■주민번호 <span class="memo">— 13자리 전체. 자릿수가 틀리면 "주민번호 못읽음"</span></td></tr>
+          <tr><td>연락처</td><td>■연락처</td></tr>
+          <tr><td>유치자</td><td>●유치자 상호/성함/연락처</td></tr>
+          <tr><td>가입통신사</td><td>■가입통신사</td></tr>
+          <tr><td>통신사 (인증통신사)</td><td>■본인인증 <span class="memo">— 통신사를 적습니다</span></td></tr>
+          <tr><td>상품옵션</td><td>■신청상품</td></tr>
+          <tr><td>지급처</td><td>■현금지급처 <span class="memo">— 웹전산 빈 양식에는 "웨이브넷지급"이 미리 적혀 있습니다. 유치자 직접지급이면 바꿔 적으세요</span></td></tr>
+          <tr><td>현금</td><td>■고객 현금사은품 금액 <span class="memo">— 웨이브넷지급이면 0원일 수 없습니다</span></td></tr>
+          <tr><td>지역 <span class="memo">(SKB만)</span></td><td><span class="memo">양식 항목 없음 — SKB 접수면 빨간 테두리로 표시되니 직접 선택</span></td></tr>
         </table>
       </div>
 
       <div class="grp">
-        <div class="grp-h"><h2>비워두면 기본값이 들어가는 칸</h2><span class="pill judge">주의</span></div>
+        <div class="grp-h"><h2>자동으로 들어가는 칸</h2><span class="pill judge">주의</span><span class="sub">빨간 표시가 없어도 한 번 확인하세요</span></div>
         <div class="judgebox">
           <div class="jc">
-            <div class="jc-h"><span class="jt">빨간 칸으로 표시되지 않으니 그냥 등록될 수 있습니다</span></div>
+            <div class="jc-h"><span class="jt">납부 → 지로납부</span><span class="pill warn">그냥 등록됨</span></div>
             <div class="jc-b">
-              <div class="ifrow"><div class="cond">가입통신사 → <b>KT</b></div><div class="then">■가입통신사를 적으면 그 통신사로 바뀝니다</div></div>
-              <div class="ifrow"><div class="cond">납부 → <b>지로납부</b></div><div class="then">■자동이체에 은행·계좌를 적으면 계좌이체로 바뀝니다</div></div>
-              <div class="ifrow"><div class="cond">지급처 → <b>웨이브넷지급</b></div><div class="then">■현금지급처를 적은 대로 바뀝니다</div></div>
-              <div class="ifrow"><div class="cond">셋트 → <b>단독</b></div><div class="then">■신청상품 구성에 따라 바뀝니다 <span class="memo">(예: 인터넷+TV+TV추가 → DPS+1)</span></div></div>
-              <div class="ifrow"><div class="cond">지역 → <b>전국</b></div><div class="then"></div></div>
+              <div class="ifrow"><div class="cond">■자동이체를 비우면</div><div class="then">빨간 표시 없이 <b>지로납부</b>로 등록됩니다. 계좌·카드 납부라면 꼭 적으세요</div></div>
+            </div>
+          </div>
+          <div class="jc">
+            <div class="jc-h"><span class="jt">셋트 → 신청상품대로</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">■신청상품을 보고 자동 적용</div><div class="then">상품을 빠뜨리면 셋트도 틀어집니다. 등록 전 <b>셋트와 상품 줄</b>을 확인하세요 <span class="memo">(예: 인터넷+TV+TV추가 → DPS+1)</span></div></div>
+            </div>
+          </div>
+          <div class="jc">
+            <div class="jc-h"><span class="jt">접수경로 · 지역</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">접수경로</div><div class="then">협력점 아이디로 들어가면 <b>협력점</b>으로 자동으로 채워집니다</div></div>
+              <div class="ifrow"><div class="cond">지역</div><div class="then">SKB 외 통신사는 <b>전국</b>으로 자동 적용. <b>SKB</b>는 빨간 테두리로 표시되니 직접 선택</div></div>
             </div>
           </div>
         </div>
@@ -606,9 +620,9 @@
         <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
         <div class="fold-c">
           <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>여러 고객의 양식을 한 번에 붙여넣어도 되나요?</span></button>
-            <div class="qa-a">안 됩니다. <b>양식 1개에 고객 1명</b>입니다. 고객마다 따로 등록하세요.</div></div>
+            <div class="qa-a">됩니다. 고객별 양식을 원문 칸에 <b>아래로 이어 붙이면</b> 왼쪽 목록에 고객마다 카드가 생기고, 체크한 건을 한 번에 등록할 수 있습니다. 양식 하나에는 고객 한 명만 적으세요.</div></div>
           <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>양식 항목을 비워두면 어떻게 되나요?</span></button>
-            <div class="qa-a">필수 항목은 빨간 칸으로 표시되어 등록되지 않고, 가입통신사·납부·지급처 등은 <b>기본값(KT·지로납부·웨이브넷지급)</b>으로 들어갑니다. 빠짐없이 적어 주세요.</div></div>
+            <div class="qa-a">필수 항목은 <b>빨간 칸</b>으로 표시되어 등록되지 않습니다. 단, <b>■자동이체를 비우면 빨간 표시 없이 지로납부</b>로 등록되니 주의하세요.</div></div>
           <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>유심동판도 자동등록이 되나요?</span></button>
             <div class="qa-a">아직 개발 중입니다. 지금은 <b>고객등록(수동)</b>으로 진행하세요.</div></div>
         </div>
@@ -673,7 +687,7 @@
               <li><b>업체</b> — 유선 / 유선+OSS</li>
               <li><b>빈 양식 불러오기</b> — 원문 칸에 빈 접수양식을 넣어줍니다</li>
               <li><b>진행 표시</b> — ① 붙여넣기 → ② 빨간 칸 채우기 → ③ 등록</li>
-              <li><b>목록</b> — 붙여넣은 고객이 카드로 생깁니다</li>
+              <li><b>목록</b> — 붙여넣은 고객이 한 명씩 카드로 생깁니다</li>
               <li><b>원문</b> — 여기에 접수양식을 붙여넣습니다</li>
               <li><b>결과</b> — 읽어낸 내용이 수동등록 화면과 같은 칸으로 채워집니다</li>
             </ol>
@@ -686,6 +700,7 @@
         <div class="flow">
           <div class="fl"><span class="fno">A</span><span class="ft"><b>미리 작성한 양식</b>을 복사해 원문 칸에 <b>Ctrl + V</b><em>고객에게 받아 둔 양식이 있을 때</em></span></div>
           <div class="fl"><span class="fno">B</span><span class="ft"><span class="ubtn" style="padding:2px 9px; font-size:12px;">빈 유선 양식 불러오기</span> → 원문 칸에서 <b>바로 채우기</b><em>채우는 대로 오른쪽 칸이 따라 채워집니다</em></span></div>
+          <div class="fl"><span class="fno">C</span><span class="ft"><b>여러 고객</b>이면 고객별 양식을 원문 칸에 <b>아래로 이어 붙이기</b><em>왼쪽 목록에 한 명씩 카드가 생깁니다</em></span></div>
         </div>
       </div>
 
@@ -697,17 +712,16 @@
             <span class="pin" style="left:19.5%; top:9.1%;">1</span>
             <span class="pin" style="left:13.8%; top:13.4%;">2</span>
             <span class="pin" style="left:39.2%; top:16.6%;">3</span>
-            <span class="pin" style="left:44.3%; top:56.6%;">4</span>
-            <span class="pin" style="left:85.8%; top:74.2%;">5</span>
+            <span class="pin" style="left:85.8%; top:74.2%;">4</span>
           </div>
           <figcaption>
             <ol class="pins">
               <li>원문 칸에 <b>빈 유선 양식</b>이 들어왔습니다</li>
               <li>아직 비어 있어 <b>채워야 할 칸 수</b>(7칸)가 빨갛게 표시됩니다</li>
               <li>등록하려면 채워야 하는 칸 목록 <span class="memo">— 화면 맨 위에도 "등록되지 않습니다" 안내가 뜹니다</span></li>
-              <li>비워둔 <b>가입통신사는 KT</b>로 들어가 있습니다</li>
-              <li>비워둔 <b>납부는 지로납부</b>로 들어가 있습니다 — 양식을 채우면 바뀝니다</li>
+              <li>비워둔 <b>납부는 지로납부</b>로 들어가 있습니다 — ■자동이체를 적으면 바뀝니다</li>
             </ol>
+            <p class="memo" style="margin:7px 0 0;">※ 내부 계정으로 찍은 화면이라 협력점 아이디 화면과 일부 다를 수 있습니다 (예: 협력점 아이디는 접수경로가 자동으로 채워짐)</p>
           </figcaption>
         </figure>
       </div>
@@ -841,13 +855,14 @@
       <div class="grp">
         <div class="grp-h"><h2>등록 전에 대조할 것</h2><span class="sub">원문 ↔ 오른쪽 결과</span></div>
         <div class="chk" id="chkAuto">
-          <label class="ck"><input type="checkbox"><span><b>가입통신사</b>가 맞나요? <span class="memo">비워두면 KT</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>가입통신사</b>가 맞나요?</span></label>
           <label class="ck"><input type="checkbox"><span><b>상품 줄</b>이 신청상품과 같나요? <span class="memo">상품 · 옵션 · 약정 · 할인탭</span></span></label>
-          <label class="ck"><input type="checkbox"><span><b>셋트</b>가 구성에 맞나요? <span class="memo">단독 / DPS / DPS+1 …</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>셋트</b>가 구성에 맞나요? <span class="memo">신청상품대로 자동 적용 — 누락 확인</span></span></label>
           <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
           <label class="ck"><input type="checkbox"><span><b>납부</b>가 맞나요? <span class="memo">비워두면 지로납부</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>SKB</b>라면 <b>지역</b>을 골랐나요?</span></label>
           <div class="chk-foot">
-            <span class="cnt" id="chkAutoCnt">0 / 5 확인</span>
+            <span class="cnt" id="chkAutoCnt">0 / 6 확인</span>
             <button id="chkAutoReset">전체 해제</button>
           </div>
         </div>
@@ -856,7 +871,7 @@
       <div class="grp">
         <div class="grp-h"><h2>등록하기</h2></div>
         <div class="flow">
-          <div class="fl"><span class="fno">1</span><span class="ft">왼쪽 목록에서 등록할 건이 <b>체크</b>되어 있는지 확인</span></div>
+          <div class="fl"><span class="fno">1</span><span class="ft">왼쪽 목록에서 등록할 건이 <b>체크</b>되어 있는지 확인<em>여러 건이면 목록 위 <b>전체 선택</b>으로 한 번에</em></span></div>
           <div class="fl"><span class="fno">2</span><span class="ft">아래 <span class="ubtn" style="padding:2px 9px; font-size:12px;">선택한 1건 등록하기</span> 클릭</span></div>
           <div class="fl"><span class="fno">3</span><span class="ft"><b>예금주 조회</b>는 이때 진행됩니다</span></div>
         </div>
@@ -1881,10 +1896,10 @@
 ■설치비(기사출동비): 
 ■상품권: (없으면 기재X)
 ■고객 현금사은품 금액("웨이브넷 지급" 일때만 기재) : 
-■현금지급처(웨이브넷지급 or 유치자 직접지급): 
+■현금지급처(웨이브넷지급 or 유치자 직접지급): 웨이브넷지급
 ■본인인증: (통신사 기재)
 ■이전통신사 : 
-■기타내용:
+■기타내용: 
 
 [OSS 접수양식]
 -기존통신사 : 

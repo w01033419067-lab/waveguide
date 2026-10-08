@@ -307,6 +307,12 @@
   .no{display:inline-block; background:#f1f3f6; color:var(--ink-2); border:1px solid var(--line);
       border-radius:6px; padding:2px 10px; font-weight:800; font-size:13.5px;}
 
+  /* 웹전산 화면의 버튼 모양 재현 */
+  .ubar{display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-top:9px; font-size:13px; color:var(--ink-3);}
+  .ubtn{display:inline-block; background:#4b5262; color:#fff; border-radius:6px; padding:4px 12px; font-size:13px; font-weight:700;}
+  .ubtn.on{box-shadow:0 0 0 3px #f5c242;}
+  .path .or{font-size:12.5px; color:var(--ink-3); font-weight:700;}
+
   /* 진입 경로 */
   .path{display:flex; align-items:center; gap:7px; flex-wrap:wrap; background:var(--card); border:1px solid var(--line);
         border-radius:var(--r); padding:12px 15px; box-shadow:var(--sh);}
@@ -345,6 +351,11 @@
   @media (max-width:900px){
     .brand span{display:none;}
     .search-wrap{flex:1 1 150px; min-width:104px;}
+  }
+
+  /* 작은 휴대폰: 탭 4개가 한 줄에 들어가도록 여백만 줄임 */
+  @media (max-width:420px){
+    .stab{padding:6px 8px; font-size:12.5px;}
   }
 
   /* ===== 좁은 화면: 상단바를 두 줄로 (탭 4개 + 검색 + 양식 버튼이 한 줄에 안 들어가는 폭) ===== */
@@ -391,8 +402,8 @@
   <div class="top-in">
     <div class="brand">웨이브넷 <span>웹전산</span> 가이드</div>
     <div class="stabs" id="stabs">
-      <button class="stab active" data-sec="auto">자동등록</button>
-      <button class="stab" data-sec="jeopsu">수동등록</button>
+      <button class="stab active" data-sec="jeopsu">고객등록(수동)</button>
+      <button class="stab" data-sec="auto">자동고객등록</button>
       <button class="stab" data-sec="iryeok">이력등록</button>
       <button class="stab" data-sec="faq">FAQ</button>
     </div>
@@ -405,19 +416,19 @@
     </div>
     <button class="tbtn" id="formBtn">⧉ 양식</button>
   </div>
-  <div class="prog"><i id="prog" style="width:33%"></i></div>
+  <div class="prog"><i id="prog" style="width:11%"></i></div>
 </header>
 
 <div class="shell">
 
   <nav class="rail">
-    <p class="rail-cap" id="railCap">자동 고객등록</p>
-    <div class="rail-list" data-sec="auto">
+    <p class="rail-cap" id="railCap">고객등록(수동)</p>
+    <div class="rail-list" data-sec="auto" hidden>
       <button class="rstep active" data-s="a1"><span class="rn">1</span><span class="rt">접수양식 작성<em>누락 없이 작성</em></span></button>
       <button class="rstep" data-s="a2"><span class="rn">2</span><span class="rt">붙여넣기<em>자동으로 불러오기</em></span></button>
       <button class="rstep" data-s="a3"><span class="rn">3</span><span class="rt">확인 · 저장<em>빈 칸만 보완</em></span></button>
     </div>
-    <div class="rail-list" data-sec="jeopsu" hidden>
+    <div class="rail-list" data-sec="jeopsu">
       <button class="rstep active" data-s="s0"><span class="rn">0</span><span class="rt">시작 전 준비<em>접수양식 복사</em></span></button>
       <button class="rstep" data-s="s1"><span class="rn">1</span><span class="rt">고객 정보<em>명의·연락처·인증</em></span></button>
       <button class="rstep" data-s="s2"><span class="rn">2</span><span class="rt">기타 · 배송<em>대부분 비워둠</em></span></button>
@@ -443,14 +454,14 @@
 
   <main class="main">
 
-    <!-- ===== 자동 고객등록 1 ===== -->
-    <section class="step active" id="a1">
+    <!-- ===== 자동고객등록 1 ===== -->
+    <section class="step" id="a1">
       <div class="head">
-        <span class="kicker">자동 고객등록 1</span>
+        <span class="kicker">자동고객등록 1</span>
         <h1>접수양식 작성</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
-          자동 고객등록은 <b>정해진 접수양식을 붙여넣으면 고객 정보가 자동으로 입력</b>되는 기능입니다.
+          자동고객등록은 <b>정해진 접수양식을 붙여넣으면 고객 정보가 자동으로 입력</b>되는 기능입니다.
           양식을 <b>누락 없이</b> 작성할수록 직접 손봐야 할 칸이 줄어듭니다.
         </div>
       </div>
@@ -461,7 +472,7 @@
           <div class="fx"><div class="fn">유선</div><div class="fv"><span class="val">✓ 자동등록</span></div></div>
           <div class="fx"><div class="fn">유선 + OSS</div><div class="fv"><span class="val">✓ 자동등록</span></div></div>
           <div class="fx"><div class="fn">유심동판</div><div class="fv"><span class="no">개발 중</span>
-            <span class="memo">· 지금은 <a class="go" data-jump="s6" href="#">수동 고객등록 6단계</a>로 진행</span></div></div>
+            <span class="memo">· 지금은 <a class="go" data-jump="s6" href="#">고객등록(수동) 6단계</a>로 진행</span></div></div>
         </div>
       </div>
 
@@ -499,23 +510,30 @@
       </div>
     </section>
 
-    <!-- ===== 자동 고객등록 2 ===== -->
+    <!-- ===== 자동고객등록 2 ===== -->
     <section class="step" id="a2">
       <div class="head">
-        <span class="kicker">자동 고객등록 2</span>
+        <span class="kicker">자동고객등록 2</span>
         <h1>붙여넣기</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
-          작성한 접수양식을 <b>자동 고객등록 화면에 붙여넣어</b> 고객 정보를 불러옵니다.
+          작성한 접수양식을 <b>자동고객등록 화면에 붙여넣어</b> 고객 정보를 불러옵니다.
         </div>
       </div>
       <div class="grp">
-        <div class="todo" data-todo="자동등록 진입·붙여넣기 화면">
+        <div class="grp-h"><h2>진입 경로</h2></div>
+        <div class="path">
+          <span class="crumb">로그인</span><span class="pa">›</span>
+          <span class="crumb hl">고객관리</span><span class="pa">›</span>
+          <span class="crumb hl">개인 고객관리</span><span class="or">또는</span><span class="crumb hl">협력점 고객관리</span><span class="pa">›</span>
+          <span class="crumb">맨 오른쪽 <b>자동고객등록</b> 버튼</span>
+        </div>
+        <div class="ubar">고객 리스트 화면 맨 오른쪽 <span class="ubtn">고객등록</span><span class="ubtn on">자동고객등록</span></div>
+      </div>
+      <div class="grp">
+        <div class="todo" data-todo="붙여넣기 화면">
           <div class="tt">📷 캡처 받으면 작성</div>
-          <ul>
-            <li>자동 고객등록으로 <b>들어가는 메뉴</b></li>
-            <li>양식을 <b>붙여넣는 화면</b>과 누르는 버튼 순서</li>
-          </ul>
+          <ul><li>양식을 <b>붙여넣는 화면</b>과 누르는 버튼 순서</li></ul>
         </div>
       </div>
       <div class="pager">
@@ -524,10 +542,10 @@
       </div>
     </section>
 
-    <!-- ===== 자동 고객등록 3 ===== -->
+    <!-- ===== 자동고객등록 3 ===== -->
     <section class="step" id="a3">
       <div class="head">
-        <span class="kicker">자동 고객등록 3</span>
+        <span class="kicker">자동고객등록 3</span>
         <h1>확인 · 저장</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -551,9 +569,9 @@
     </section>
 
     <!-- ===== 0단계 ===== -->
-    <section class="step" id="s0">
+    <section class="step active" id="s0">
       <div class="head">
-        <span class="kicker">0단계 · 수동 고객등록</span>
+        <span class="kicker">0단계 · 고객등록(수동)</span>
         <h1>접수양식부터 복사하세요</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -578,10 +596,10 @@
         <div class="path">
           <span class="crumb">로그인</span><span class="pa">›</span>
           <span class="crumb hl">고객관리</span><span class="pa">›</span>
-          <span class="crumb hl">개인 고객관리</span><span class="pa">›</span>
-          <span class="crumb">고객등록 버튼</span><span class="pa">›</span>
-          <span class="crumb">등록 화면</span>
+          <span class="crumb hl">개인 고객관리</span><span class="or">또는</span><span class="crumb hl">협력점 고객관리</span><span class="pa">›</span>
+          <span class="crumb">맨 오른쪽 <b>고객등록</b> 버튼</span>
         </div>
+        <div class="ubar">고객 리스트 화면 맨 오른쪽 <span class="ubtn on">고객등록</span><span class="ubtn">자동고객등록</span></div>
       </div>
 
       <div class="grp">
@@ -676,7 +694,7 @@
     <!-- ===== 1단계 ===== -->
     <section class="step" id="s1">
       <div class="head">
-        <span class="kicker">1단계 · 수동 고객등록</span>
+        <span class="kicker">1단계 · 고객등록(수동)</span>
         <h1>고객 정보</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -783,7 +801,7 @@
     <!-- ===== 2단계 ===== -->
     <section class="step" id="s2">
       <div class="head">
-        <span class="kicker">2단계 · 수동 고객등록</span>
+        <span class="kicker">2단계 · 고객등록(수동)</span>
         <h1>기타 정보 · 배송 정보</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -825,7 +843,7 @@
     <!-- ===== 3단계 ===== -->
     <section class="step" id="s3">
       <div class="head">
-        <span class="kicker">3단계 · 수동 고객등록</span>
+        <span class="kicker">3단계 · 고객등록(수동)</span>
         <h1>납부 정보</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -900,7 +918,7 @@
     <!-- ===== 4단계 ===== -->
     <section class="step" id="s4">
       <div class="head">
-        <span class="kicker">4단계 · 수동 고객등록</span>
+        <span class="kicker">4단계 · 고객등록(수동)</span>
         <h1>사은품 정보</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -974,7 +992,7 @@
     <!-- ===== 5단계 ===== -->
     <section class="step" id="s5">
       <div class="head">
-        <span class="kicker">5단계 · 수동 고객등록</span>
+        <span class="kicker">5단계 · 고객등록(수동)</span>
         <h1>상품 정보</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -1070,7 +1088,7 @@
     <!-- ===== 6단계 ===== -->
     <section class="step" id="s6">
       <div class="head">
-        <span class="kicker">6단계 · 수동 고객등록</span>
+        <span class="kicker">6단계 · 고객등록(수동)</span>
         <h1>번호이동 <span class="badge-usim">유심동판 시에만</span></h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -1156,7 +1174,7 @@
     <!-- ===== 7단계 ===== -->
     <section class="step" id="s7">
       <div class="head">
-        <span class="kicker">7단계 · 수동 고객등록</span>
+        <span class="kicker">7단계 · 고객등록(수동)</span>
         <h1>비고 사항</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -1197,7 +1215,7 @@
     <!-- ===== 8단계 ===== -->
     <section class="step" id="s8">
       <div class="head">
-        <span class="kicker">8단계 · 수동 고객등록</span>
+        <span class="kicker">8단계 · 고객등록(수동)</span>
         <h1>첨부 파일 · 저장</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
@@ -1635,8 +1653,8 @@ OO-KT (★UIT) **유심 7700 후납 안내완
 <script>
   // ===== 구성: 대분류(섹션) → 단계 =====
   var SECTIONS = {
-    auto:   { steps:['a1','a2','a3'], cap:'자동 고객등록' },
-    jeopsu: { steps:['s0','s1','s2','s3','s4','s5','s6','s7','s8'], cap:'수동 고객등록' },
+    auto:   { steps:['a1','a2','a3'], cap:'자동고객등록' },
+    jeopsu: { steps:['s0','s1','s2','s3','s4','s5','s6','s7','s8'], cap:'고객등록(수동)' },
     iryeok: { steps:['i1','i2','i3'], cap:'이력등록' },
     faq:    { steps:['fq'], cap:'FAQ' }
   };
@@ -1653,8 +1671,8 @@ OO-KT (★UIT) **유심 7700 후납 안내완
   document.querySelectorAll('.rstep').forEach(function(b){ NUM[b.dataset.s] = b.querySelector('.rn').textContent.trim(); });
   function stepName(id){
     var s = secOf(id);
-    if(s === 'auto') return '자동등록 · ' + LABEL[id];
-    if(s === 'jeopsu') return '수동 ' + NUM[id] + '단계 ' + LABEL[id];
+    if(s === 'auto') return '자동고객등록 · ' + LABEL[id];
+    if(s === 'jeopsu') return '고객등록(수동) ' + NUM[id] + '단계 ' + LABEL[id];
     if(s === 'iryeok') return '이력등록 · ' + LABEL[id];
     return 'FAQ';
   }
@@ -1781,7 +1799,7 @@ OO-KT (★UIT) **유심 7700 후납 안내완
   // ===== FAQ 모아보기: 각 단계의 질문을 복제해 한곳에 모읍니다 =====
   (function(){
     var box = document.getElementById('faqAll');
-    var groups = [['auto','자동 고객등록'], ['jeopsu','수동 고객등록'], ['iryeok','이력등록']];
+    var groups = [['jeopsu','고객등록(수동)'], ['auto','자동고객등록'], ['iryeok','이력등록']];
     groups.forEach(function(g){
       var items = [];
       SECTIONS[g[0]].steps.forEach(function(sid){

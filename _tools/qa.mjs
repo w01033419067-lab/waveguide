@@ -14,7 +14,7 @@ let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch { ({ chromium } = await import('/opt/node22/lib/node_modules/playwright/index.mjs')); }
 
-const WIDTHS = [1280, 960, 760, 390];
+const WIDTHS = [1280, 960, 760, 640, 390];
 const browser = await chromium.launch();
 const problems = [];
 

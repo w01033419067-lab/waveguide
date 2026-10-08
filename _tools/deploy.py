@@ -9,6 +9,10 @@
      (검토용 배지, noindex, 제목 접두어 등)
   2. preview/ 기준 상대경로 ../assets/ → assets/ 로 변환 (이미지 등)
   3. 남은 흔적이 없는지 검사한 뒤 index.html에 기록
+     — data-todo="..." (작성 예정 자리)가 하나라도 있으면 배포하지 않는다
+
+미리보기에 미완성 내용이 있는 동안 본페이지만 고쳐야 할 때(단순 수정)는
+이 스크립트를 쓰지 말고 preview/index.html과 index.html에 같은 수정을 각각 한다.
 """
 import io
 import os
@@ -41,6 +45,10 @@ def build(src_text):
         problems.append('preview 밖을 가리키는 ../ 경로가 남아 있음')
     if '</html>' not in out:
         problems.append('</html> 이 없음 — 파일이 잘렸을 수 있음')
+    todos = re.findall(r'data-todo="([^"]*)"', out)
+    if todos:
+        problems.append('작성 예정 자리 %d곳이 남아 있음 — 미완성 내용은 배포하지 않습니다: %s'
+                        % (len(todos), ', '.join(todos)))
     return out, n_blocks, n_assets, problems
 
 

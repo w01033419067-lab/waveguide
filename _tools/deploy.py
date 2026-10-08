@@ -45,6 +45,10 @@ def build(src_text):
         problems.append('preview 밖을 가리키는 ../ 경로가 남아 있음')
     if '</html>' not in out:
         problems.append('</html> 이 없음 — 파일이 잘렸을 수 있음')
+    missing = sorted({a for a in re.findall(r'["\'(](assets/[^"\')\s]+)', out)
+                      if not os.path.exists(os.path.join(ROOT, a))})
+    if missing:
+        problems.append('본페이지 기준으로 없는 이미지·파일: ' + ', '.join(missing))
     todos = re.findall(r'data-todo="([^"]*)"', out)
     if todos:
         problems.append('작성 예정 자리 %d곳이 남아 있음 — 미완성 내용은 배포하지 않습니다: %s'

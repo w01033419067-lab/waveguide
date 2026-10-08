@@ -47,6 +47,17 @@ for (const w of WIDTHS) {
     }), ids);
     console.log(`복사 대상 ${ids.length}종`);
     if (empty.length) problems.push(`복사 대상이 없거나 비어 있음: ${empty.join(', ')}`);
+
+    // 이미지: 지연 로딩을 풀고 모두 불러온 뒤, 깨진 것이 없는지
+    const imgs = await page.evaluate(async () => {
+      const list = [...document.images];
+      list.forEach(i => { i.loading = 'eager'; });
+      await Promise.all(list.map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+      return list.map(i => ({ src: i.getAttribute('src'), ok: i.naturalWidth > 0 }));
+    });
+    const broken = imgs.filter(i => !i.ok).map(i => i.src);
+    console.log(`이미지 ${imgs.length}개`);
+    if (broken.length) problems.push(`이미지를 불러오지 못함: ${broken.join(', ')}`);
   }
   await ctx.close();
 }

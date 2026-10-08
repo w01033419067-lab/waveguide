@@ -313,6 +313,29 @@
   .ubtn.on{box-shadow:0 0 0 3px #f5c242;}
   .path .or{font-size:12.5px; color:var(--ink-3); font-weight:700;}
 
+  /* 웹전산 캡처 (번호 표시는 이미지 위에 % 좌표로 얹음 — 화면 폭이 바뀌어도 위치 유지) */
+  .fig{margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--sh);}
+  .fig .shot{position:relative; cursor:zoom-in; background:#f3f4f6;}
+  .fig .shot img{display:block; width:100%; height:auto;}
+  .fig figcaption::after{content:"🔍 그림을 누르면 크게 볼 수 있습니다"; display:block; margin-top:7px; font-size:12px; color:var(--ink-3); font-weight:600;}
+  .pin{position:absolute; transform:translate(-50%,-50%); width:22px; height:22px; border-radius:50%; background:#e11d48; color:#fff;
+       font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; pointer-events:none;
+       box-shadow:0 0 0 2px #fff, 0 2px 6px rgba(0,0,0,.35);}
+  .fig figcaption{padding:11px 15px; border-top:1px solid var(--line-2); background:#fcfcfd;}
+  .pins{margin:0; padding:0; list-style:none; counter-reset:pin; display:grid; gap:4px; font-size:13.5px;}
+  .pins li{counter-increment:pin; display:flex; gap:8px; align-items:flex-start;}
+  .pins li::before{content:counter(pin); flex-shrink:0; width:19px; height:19px; margin-top:2px; border-radius:50%; background:#e11d48;
+                   color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  img.popup{display:block; max-width:100%; width:300px; height:auto; border:1px solid var(--line); border-radius:8px; box-shadow:var(--sh);}
+  .tagred{display:inline-block; background:#fde2e2; color:#b91c1c; border-radius:999px; padding:1px 9px; font-size:12px; font-weight:800;}
+  .taggreen{display:inline-block; background:#dcf3e6; color:#15803d; border-radius:999px; padding:1px 9px; font-size:12px; font-weight:800;}
+  .lb{position:fixed; inset:0; z-index:300; background:rgba(15,23,42,.86); display:none; overflow:auto; cursor:zoom-out; padding:24px;}
+  .lb.on{display:block;}
+  .lb .shot{position:relative; margin:0 auto; max-width:1240px;}
+  .lb .shot img{display:block; width:100%; height:auto; border-radius:8px;}
+  .lb-x{position:fixed; top:12px; right:16px; color:#fff; font-size:13px; font-weight:700; background:rgba(255,255,255,.14);
+        border-radius:7px; padding:6px 12px; pointer-events:none;}
+
   /* 진입 경로 */
   .path{display:flex; align-items:center; gap:7px; flex-wrap:wrap; background:var(--card); border:1px solid var(--line);
         border-radius:var(--r); padding:12px 15px; box-shadow:var(--sh);}
@@ -416,7 +439,7 @@
     </div>
     <button class="tbtn" id="formBtn">⧉ 양식</button>
   </div>
-  <div class="prog"><i id="prog" style="width:33%"></i></div>
+  <div class="prog"><i id="prog" style="width:25%"></i></div>
 </header>
 
 <div class="shell">
@@ -425,8 +448,9 @@
     <p class="rail-cap" id="railCap">자동고객등록</p>
     <div class="rail-list" data-sec="auto">
       <button class="rstep active" data-s="a1"><span class="rn">1</span><span class="rt">접수양식 작성<em>누락 없이 작성</em></span></button>
-      <button class="rstep" data-s="a2"><span class="rn">2</span><span class="rt">붙여넣기<em>자동으로 불러오기</em></span></button>
-      <button class="rstep" data-s="a3"><span class="rn">3</span><span class="rt">확인 · 저장<em>빈 칸만 보완</em></span></button>
+      <button class="rstep" data-s="a2"><span class="rn">2</span><span class="rt">붙여넣기<em>웹전산 ①</em></span></button>
+      <button class="rstep" data-s="a3"><span class="rn">3</span><span class="rt">빨간 칸 채우기<em>웹전산 ②</em></span></button>
+      <button class="rstep" data-s="a4"><span class="rn">4</span><span class="rt">등록<em>웹전산 ③</em></span></button>
     </div>
     <div class="rail-list" data-sec="jeopsu" hidden>
       <button class="rstep active" data-s="s0"><span class="rn">0</span><span class="rt">시작 전 준비<em>접수양식 복사</em></span></button>
@@ -462,7 +486,7 @@
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
           자동고객등록은 <b>정해진 접수양식을 붙여넣으면 고객 정보가 자동으로 입력</b>되는 기능입니다.
-          양식을 <b>누락 없이</b> 작성할수록 직접 손봐야 할 칸이 줄어듭니다.
+          양식을 <b>빠짐없이</b> 작성할수록 직접 손봐야 할 칸이 줄어듭니다.
         </div>
       </div>
 
@@ -470,10 +494,11 @@
         <div class="grp-h"><h2>자동등록이 되는 접수</h2></div>
         <div class="fixbox">
           <div class="fx"><div class="fn">유선</div><div class="fv"><span class="val">✓ 자동등록</span></div></div>
-          <div class="fx"><div class="fn">유선 + OSS</div><div class="fv"><span class="val">✓ 자동등록</span></div></div>
+          <div class="fx"><div class="fn">유선 + OSS</div><div class="fv"><span class="val">✓ 자동등록</span> <span class="memo">· OSS까지 한 번에 등록</span></div></div>
           <div class="fx"><div class="fn">유심동판</div><div class="fv"><span class="no">개발 중</span>
             <span class="memo">· 지금은 <a class="go" data-jump="s6" href="#">고객등록(수동) 6단계</a>로 진행</span></div></div>
         </div>
+        <div class="alert"><span class="ai">!</span><span><b>양식 1개 = 고객 1명</b>입니다. 여러 고객의 양식을 한 번에 이어 붙여 등록할 수 없습니다.</span></div>
       </div>
 
       <div class="grp">
@@ -483,24 +508,109 @@
             유선 접수양식 <button class="copy" data-copy="src-bigo" style="margin-left:6px; padding:4px 11px; font-size:12px;">⧉ 복사</button>
           </div></div>
           <div class="fx"><div class="fn">유선 + OSS</div><div class="fv">
-            유선 접수양식 + OSS 접수양식 <button class="copy" data-copy="f-oss" style="margin-left:6px; padding:4px 11px; font-size:12px;">⧉ OSS 양식 복사</button>
+            유선 접수양식 + OSS 접수양식 <button class="copy" data-copy="f-wired-oss" style="margin-left:6px; padding:4px 11px; font-size:12px;">⧉ 복사</button>
+            <div class="memo"><b>[OSS 접수양식]</b>은 ■기타내용 아래, 개인정보 동의 2줄 위에 들어갑니다</div>
           </div></div>
         </div>
-        <div class="todo" data-todo="유선+OSS 붙여넣기 방법" style="margin-top:10px;">
-          <div class="tt">📷 자료 받으면 작성</div>
-          <ul><li>유선 + OSS일 때 두 양식을 <b>한 번에 이어서</b> 붙여넣는지, 따로 붙여넣는지</li></ul>
+        <div class="memo" style="margin-top:8px;">웹전산 자동고객등록 화면의 <span class="ubtn" style="padding:2px 9px; font-size:12px;">빈 유선 양식 불러오기</span> 버튼으로도 똑같은 빈 양식을 불러올 수 있습니다.</div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>꼭 채워야 등록되는 항목</h2><span class="pill warn">필수</span><span class="sub">비어 있으면 빨간 칸으로 표시되고 등록되지 않습니다</span></div>
+        <table class="maptbl">
+          <tr><th>웹전산 칸</th><th>채우는 양식 항목</th></tr>
+          <tr><td>고객명</td><td>■고객명</td></tr>
+          <tr><td>연락처</td><td>■연락처</td></tr>
+          <tr><td>통신사 (인증통신사)</td><td>■본인인증 <span class="memo">— 통신사를 적습니다</span></td></tr>
+          <tr><td>유치자 · 접수경로</td><td>●유치자 상호/성함/연락처</td></tr>
+          <tr><td>현금</td><td>■고객 현금사은품 금액 <span class="memo">— 웨이브넷지급이면 0원일 수 없습니다</span></td></tr>
+          <tr><td>상품옵션</td><td>■신청상품</td></tr>
+          <tr><td>주민번호</td><td>■주민번호 <span class="memo">— 13자리 전체. 자릿수가 틀리면 "주민번호 못읽음"</span></td></tr>
+        </table>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>비워두면 기본값이 들어가는 칸</h2><span class="pill judge">주의</span></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">빨간 칸으로 표시되지 않으니 그냥 등록될 수 있습니다</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">가입통신사 → <b>KT</b></div><div class="then">■가입통신사를 적으면 그 통신사로 바뀝니다</div></div>
+              <div class="ifrow"><div class="cond">납부 → <b>지로납부</b></div><div class="then">■자동이체에 은행·계좌를 적으면 계좌이체로 바뀝니다</div></div>
+              <div class="ifrow"><div class="cond">지급처 → <b>웨이브넷지급</b></div><div class="then">■현금지급처를 적은 대로 바뀝니다</div></div>
+              <div class="ifrow"><div class="cond">셋트 → <b>단독</b></div><div class="then">■신청상품 구성에 따라 바뀝니다 <span class="memo">(예: 인터넷+TV+TV추가 → DPS+1)</span></div></div>
+              <div class="ifrow"><div class="cond">지역 → <b>전국</b></div><div class="then"></div></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="grp">
-        <div class="grp-h"><h2>작성 규칙</h2><span class="pill warn">자동등록 정확도</span></div>
-        <div class="todo" data-todo="양식 작성 규칙">
-          <div class="tt">📷 자료 받으면 작성</div>
-          <ul>
-            <li>항목명(■고객명: 등)을 바꾸거나 지우면 안 되는지</li>
-            <li>값을 비워두는 항목은 어떻게 두는지</li>
-            <li>각 항목이 자동등록 화면의 <b>어느 칸으로</b> 들어가는지</li>
-          </ul>
+        <div class="grp-h"><h2>작성 요령</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">사은품 금액</div><div class="fv"><span class="eg">52만원</span>처럼 적어도 <b>520,000</b>으로 읽힙니다</div></div>
+          <div class="fx"><div class="fn">신청상품</div><div class="fv">구성을 자세히 적을수록 <b>상품 줄과 셋트</b>가 정확하게 잡힙니다
+            <div class="memo">예: 인터넷 1G + All(254ch)(스마트3) / TV 추가 1대(스탠다드·스마트3 셋탑)</div></div></div>
+          <div class="fx"><div class="fn">괄호 안내문</div><div class="fv">■상품권 <span class="memo">(없으면 기재X)</span>, ■본인인증 <span class="memo">(통신사 기재)</span>의 괄호 안내문 자리에 내용을 적습니다
+            <div class="memo">예: ■상품권: X / ■본인인증: LG</div></div></div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">📝 작성 예시 보기 — SKT 유선 / 유선+OSS <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <p class="memo" style="margin:0 0 8px;">개인정보(이름·주민번호·주소·연락처·계좌)는 *로 가렸습니다.</p>
+          <pre class="form-src">●유치자 상호/성함/연락처:*****/엄*공/010-****-****
+■고객명: 엄*공
+■주민번호: ******-*******
+■설치주소: 경기 시흥시 ******* (***동) ***호
+■연락처 : 010-****-****
+■청구매체: 문자청구서
+■자동이체: 기업은행 *********** 엄*공
+■사은계좌(유치자 지급은 미기재) : 기업은행 *********** 엄*공
+■가입통신사: SKT
+■신청상품: 인터넷 1G + All(254ch)(스마트3) / TV 추가 1대(스탠다드·스마트3 셋탑)
+■AP(WI-FI)신청여부: O
+■월요금: 결합 전 64,900원 → 결합 후 56,100원 (요즘가족 결합)
+■설치희망일: 00월00일00시 요청/희망일정 불가시 변동있음 안내함
+■설치비(기사출동비): 73,700원 (주말·야간 92,125원)
+■상품권: X
+■고객 현금사은품 금액("웨이브넷 지급" 일때만 기재) : 52만원
+■현금지급처(웨이브넷지급 or 유치자 직접지급): 웨이브넷지급
+■본인인증: LG
+■이전통신사 : LG
+■기타내용: 결합 : SKT 요즘가족 결합
+휴대폰 1회선 : 1) 기존 휴대폰 70,000원
+
+1. 개인정보 수집.이용에 동의/거부 합니다 : *동의
+2. 개인정보 제3자 제공에 동의/거부 합니다 : *동의</pre>
+          <p class="memo" style="margin:12px 0 8px;"><b>유선 + OSS</b>일 때는 ■기타내용 아래에 이어서 씁니다.</p>
+          <pre class="form-src">■기타내용: 결합 : SKT 요즘가족 결합
+휴대폰 1회선 : 1) 기존 휴대폰 70,000원
+
+[OSS 접수양식]
+-기존통신사 : LG
+-해지명의 [성함/연락처/생년월일] : 엄*공/010-****-****/******-*
+-해지 주소 : 경기 시흥시 ******* (***동) ***호
+-인터넷전화 사용구분 : X
+-인터넷/TV 회선수 각각 확인 : 인1/티2
+-설치희망일 : 2026.10.10
+-해지희망일 : 2026.10.10
+
+1. 개인정보 수집.이용에 동의/거부 합니다 : *동의
+2. 개인정보 제3자 제공에 동의/거부 합니다 : *동의</pre>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>여러 고객의 양식을 한 번에 붙여넣어도 되나요?</span></button>
+            <div class="qa-a">안 됩니다. <b>양식 1개에 고객 1명</b>입니다. 고객마다 따로 등록하세요.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>양식 항목을 비워두면 어떻게 되나요?</span></button>
+            <div class="qa-a">필수 항목은 빨간 칸으로 표시되어 등록되지 않고, 가입통신사·납부·지급처 등은 <b>기본값(KT·지로납부·웨이브넷지급)</b>으로 들어갑니다. 빠짐없이 적어 주세요.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>유심동판도 자동등록이 되나요?</span></button>
+            <div class="qa-a">아직 개발 중입니다. 지금은 <b>고객등록(수동)</b>으로 진행하세요.</div></div>
         </div>
       </div>
 
@@ -513,13 +623,15 @@
     <!-- ===== 자동고객등록 2 ===== -->
     <section class="step" id="a2">
       <div class="head">
-        <span class="kicker">자동고객등록 2</span>
+        <span class="kicker">자동고객등록 2 · 웹전산 ①</span>
         <h1>붙여넣기</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
-          작성한 접수양식을 <b>자동고객등록 화면에 붙여넣어</b> 고객 정보를 불러옵니다.
+          자동고객등록 화면에서 <b>업체를 고르고</b>, 작성한 접수양식을 <b>원문 칸에 붙여넣습니다.</b>
+          붙여넣으면 <b>누를 버튼 없이 바로</b> 읽혀서 오른쪽에 내용이 채워집니다.
         </div>
       </div>
+
       <div class="grp">
         <div class="grp-h"><h2>진입 경로</h2></div>
         <div class="path">
@@ -530,40 +642,235 @@
         </div>
         <div class="ubar">고객 리스트 화면 맨 오른쪽 <span class="ubtn">고객등록</span><span class="ubtn on">자동고객등록</span></div>
       </div>
+
       <div class="grp">
-        <div class="todo" data-todo="붙여넣기 화면">
-          <div class="tt">📷 캡처 받으면 작성</div>
-          <ul><li>양식을 <b>붙여넣는 화면</b>과 누르는 버튼 순서</li></ul>
+        <div class="grp-h"><h2>업체 고르기</h2><span class="pill judge">확인 필요</span></div>
+        <div class="judgebox">
+          <div class="jc">
+            <div class="jc-h"><span class="jt">무엇을 접수하나요?</span></div>
+            <div class="jc-b">
+              <div class="ifrow"><div class="cond">유선만</div><div class="then">업체 <span class="val">유선</span> → <span class="ubtn" style="padding:2px 9px; font-size:12px;">빈 유선 양식 불러오기</span></div></div>
+              <div class="ifrow"><div class="cond">유선 + OSS</div><div class="then">업체 <span class="val">유선+OSS</span> → <span class="ubtn" style="padding:2px 9px; font-size:12px;">빈 유선+OSS 양식 불러오기</span></div></div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>화면 구성</h2><span class="sub">업체 = 유선</span></div>
+        <figure class="fig">
+          <div class="shot">
+            <img src="../assets/auto/auto-1-start.png" alt="자동고객등록 첫 화면: 업체 선택, 빈 유선 양식 불러오기 버튼, 진행 표시, 왼쪽 목록, 가운데 원문, 오른쪽 안내" loading="lazy" width="1226" height="845">
+            <span class="pin" style="left:9.9%; top:11.7%;">1</span>
+            <span class="pin" style="left:22.2%; top:11.7%;">2</span>
+            <span class="pin" style="left:48.9%; top:11.7%;">3</span>
+            <span class="pin" style="left:7.5%; top:31.0%;">4</span>
+            <span class="pin" style="left:29.4%; top:20.6%;">5</span>
+            <span class="pin" style="left:66.9%; top:23.7%;">6</span>
+          </div>
+          <figcaption>
+            <ol class="pins">
+              <li><b>업체</b> — 유선 / 유선+OSS</li>
+              <li><b>빈 양식 불러오기</b> — 원문 칸에 빈 접수양식을 넣어줍니다</li>
+              <li><b>진행 표시</b> — ① 붙여넣기 → ② 빨간 칸 채우기 → ③ 등록</li>
+              <li><b>목록</b> — 붙여넣은 고객이 카드로 생깁니다</li>
+              <li><b>원문</b> — 여기에 접수양식을 붙여넣습니다</li>
+              <li><b>결과</b> — 읽어낸 내용이 수동등록 화면과 같은 칸으로 채워집니다</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>양식 넣는 방법</h2><span class="sub">둘 중 편한 쪽으로</span></div>
+        <div class="flow">
+          <div class="fl"><span class="fno">A</span><span class="ft"><b>미리 작성한 양식</b>을 복사해 원문 칸에 <b>Ctrl + V</b><em>고객에게 받아 둔 양식이 있을 때</em></span></div>
+          <div class="fl"><span class="fno">B</span><span class="ft"><span class="ubtn" style="padding:2px 9px; font-size:12px;">빈 유선 양식 불러오기</span> → 원문 칸에서 <b>바로 채우기</b><em>채우는 대로 오른쪽 칸이 따라 채워집니다</em></span></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>빈 양식을 불러온 직후</h2></div>
+        <figure class="fig">
+          <div class="shot">
+            <img src="../assets/auto/auto-2-blank.png" alt="빈 유선 양식을 불러온 직후 화면: 빨간 칸과 기본값이 보임" loading="lazy" width="1231" height="844">
+            <span class="pin" style="left:19.5%; top:9.1%;">1</span>
+            <span class="pin" style="left:13.8%; top:13.4%;">2</span>
+            <span class="pin" style="left:39.2%; top:16.6%;">3</span>
+            <span class="pin" style="left:44.3%; top:56.6%;">4</span>
+            <span class="pin" style="left:85.8%; top:74.2%;">5</span>
+          </div>
+          <figcaption>
+            <ol class="pins">
+              <li>원문 칸에 <b>빈 유선 양식</b>이 들어왔습니다</li>
+              <li>아직 비어 있어 <b>채워야 할 칸 수</b>(7칸)가 빨갛게 표시됩니다</li>
+              <li>등록하려면 채워야 하는 칸 목록 <span class="memo">— 화면 맨 위에도 "등록되지 않습니다" 안내가 뜹니다</span></li>
+              <li>비워둔 <b>가입통신사는 KT</b>로 들어가 있습니다</li>
+              <li>비워둔 <b>납부는 지로납부</b>로 들어가 있습니다 — 양식을 채우면 바뀝니다</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </div>
+
       <div class="pager">
         <button class="pg" data-jump="a1"><span><span class="pl">이전</span><span class="pt">← 접수양식 작성</span></span></button>
-        <button class="pg next" data-jump="a3"><span><span class="pl">다음</span><span class="pt">확인 · 저장 →</span></span></button>
+        <button class="pg next" data-jump="a3"><span><span class="pl">다음</span><span class="pt">빨간 칸 채우기 →</span></span></button>
       </div>
     </section>
 
     <!-- ===== 자동고객등록 3 ===== -->
     <section class="step" id="a3">
       <div class="head">
-        <span class="kicker">자동고객등록 3</span>
-        <h1>확인 · 저장</h1>
+        <span class="kicker">자동고객등록 3 · 웹전산 ②</span>
+        <h1>빨간 칸 채우기</h1>
         <div class="goal">
           <span class="gl">이 단계에서 할 일</span>
-          자동으로 채워진 내용을 확인하고, <b>비어 있거나 직접 골라야 하는 칸만</b> 보완한 뒤 저장합니다.
+          양식에서 <b>빠졌거나 읽지 못한 칸</b>이 빨갛게 표시됩니다. 빨간 칸만 채우면 등록할 수 있습니다.
         </div>
       </div>
+
       <div class="grp">
-        <div class="todo" data-todo="결과 확인 화면">
+        <div class="grp-h"><h2>표시 읽는 법</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn">왼쪽 목록</div><div class="fv"><span class="tagred">2칸</span> 채워야 할 칸 수 &nbsp; <span class="taggreen">준비됨</span> 등록 가능</div></div>
+          <div class="fx"><div class="fn">채워야 등록됩니다</div><div class="fv">이 칸들이 비어 있으면 <b>등록되지 않습니다</b> — 빨간 테두리 칸</div></div>
+          <div class="fx"><div class="fn">비어 있음 · 등록은 됩니다</div><div class="fv">비어 있어도 등록은 되지만, 한 번 확인하세요 <span class="memo">(예: 회사, 본인인증)</span></div></div>
+          <div class="fx"><div class="fn">○○ 못읽음</div><div class="fv">양식에 적었지만 <b>형식이 맞지 않아</b> 읽지 못한 칸 <span class="memo">(예: 주민번호 자릿수 부족)</span></div></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>예시 — 주민번호 자릿수 부족 + 사은품 금액 누락</h2></div>
+        <figure class="fig">
+          <div class="shot">
+            <img src="../assets/auto/auto-3-fix.png" alt="보완필요 화면: 주민번호 못읽음, 현금 칸 빨간 테두리" loading="lazy" width="1234" height="843">
+            <span class="pin" style="left:13.8%; top:4.7%;">1</span>
+            <span class="pin" style="left:62.8%; top:3.1%;">2</span>
+            <span class="pin" style="left:39.1%; top:8.9%;">3</span>
+            <span class="pin" style="left:39.1%; top:16.0%;">4</span>
+            <span class="pin" style="left:40.0%; top:70.0%;">5</span>
+            <span class="pin" style="left:3.7%; top:94.3%;">6</span>
+          </div>
+          <figcaption>
+            <ol class="pins">
+              <li>채워야 할 칸이 <b>2칸</b> 남았습니다</li>
+              <li><b>보완필요 · 주민번호 못읽음</b> 표시</li>
+              <li>채워야 등록되는 칸: <b>주민번호, 현금</b></li>
+              <li>읽지 못한 주민번호 — <b>원문을 보고 앞 6자리 · 뒤 7자리를 직접</b> 넣습니다</li>
+              <li>빨간 테두리 칸(현금)에 금액을 직접 넣습니다</li>
+              <li><b>[테스트]</b>로 등록 가능 여부를 미리 확인합니다</li>
+            </ol>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>고치는 방법</h2></div>
+        <div class="flow">
+          <div class="fl"><span class="fno">1</span><span class="ft"><b>빨간 테두리 칸</b>에 직접 입력합니다</span></div>
+          <div class="fl"><span class="fno">2</span><span class="ft">"○○ 못읽음"은 <b>원문을 보고 직접</b> 넣습니다</span></div>
+          <div class="fl"><span class="fno">3</span><span class="ft">빨간 칸이 아니어도 <b>글자를 누르면</b> 고칠 수 있습니다</span></div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>아래 버튼</h2></div>
+        <div class="fillbox">
+          <div class="fx"><div class="fn"><span class="ubtn" style="background:#fff; color:var(--ink); border:1px solid var(--line);">테스트</span></div><div class="fv">
+            <b>저장하지 않고</b> 등록 가능 여부만 확인합니다. 문제가 없으면 이렇게 뜹니다.
+            <div style="margin-top:8px;"><img class="popup" src="../assets/auto/auto-4-test.png" alt="1건 모두 등록 가능합니다. 저장하지 않았고, 예금주 조회는 실제 등록할 때 합니다." loading="lazy" width="401" height="164"></div>
+          </div></div>
+          <div class="fx"><div class="fn"><span class="ubtn" style="background:#fff; color:var(--ink); border:1px solid var(--line);">지우기</span></div><div class="fv">
+            <b>모든 양식과 내용을 지우고 처음 상태로</b> 돌립니다.
+            <div class="memo" style="color:var(--warn);">등록하기 전에 누르면 작성한 내용이 모두 사라집니다</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-b">💬 이 단계에서 자주 나오는 질문 <span class="arr">▼</span></button>
+        <div class="fold-c">
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>[테스트]를 누르면 등록되나요?</span></button>
+            <div class="qa-a">아니요. <b>저장하지 않고</b> 등록 가능 여부만 확인합니다. 예금주 조회도 실제 등록할 때 진행됩니다.</div></div>
+          <div class="qa"><button class="qa-q"><span class="qm">Q</span><span>"주민번호 못읽음"이 떠요.</span></button>
+            <div class="qa-a">양식의 주민번호가 <b>13자리가 아니거나 형식이 맞지 않을 때</b> 뜹니다. 원문을 보고 앞 6자리 · 뒤 7자리 칸에 직접 넣어 주세요.</div></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <button class="pg" data-jump="a2"><span><span class="pl">이전</span><span class="pt">← 붙여넣기</span></span></button>
+        <button class="pg next" data-jump="a4"><span><span class="pl">다음</span><span class="pt">등록 →</span></span></button>
+      </div>
+    </section>
+
+    <!-- ===== 자동고객등록 4 ===== -->
+    <section class="step" id="a4">
+      <div class="head">
+        <span class="kicker">자동고객등록 4 · 웹전산 ③</span>
+        <h1>등록</h1>
+        <div class="goal">
+          <span class="gl">이 단계에서 할 일</span>
+          <b>"등록 준비됨"</b>이 뜨면 원문과 결과를 한 번 대조한 뒤 <b>[선택한 N건 등록하기]</b>를 누릅니다.
+        </div>
+      </div>
+
+      <div class="grp">
+        <figure class="fig">
+          <div class="shot">
+            <img src="../assets/auto/auto-5-ready.png" alt="등록 준비됨 화면: 원문과 결과, 상품 줄, 등록하기 버튼" loading="lazy" width="1212" height="842">
+            <span class="pin" style="left:14.0%; top:4.8%;">1</span>
+            <span class="pin" style="left:39.8%; top:9.1%;">2</span>
+            <span class="pin" style="left:76.3%; top:38.6%;">3</span>
+            <span class="pin" style="left:43.3%; top:56.3%;">4</span>
+            <span class="pin" style="left:39.9%; top:77.2%;">5</span>
+            <span class="pin" style="left:90.8%; top:92.6%;">6</span>
+          </div>
+          <figcaption>
+            <ol class="pins">
+              <li>목록에 <b>준비됨</b> 표시</li>
+              <li><b>등록 준비됨 — 원문과 한 번 대조해 보세요</b></li>
+              <li>셋트가 신청상품에 맞게 잡혔는지 <span class="memo">(예: DPS+1)</span></li>
+              <li>사은품 금액 <span class="memo">(52만원 → 520,000)</span></li>
+              <li>상품 줄 — 상품 · 옵션 · 약정 · 할인탭</li>
+              <li><b>[선택한 1건 등록하기]</b></li>
+            </ol>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>등록 전에 대조할 것</h2><span class="sub">원문 ↔ 오른쪽 결과</span></div>
+        <div class="chk" id="chkAuto">
+          <label class="ck"><input type="checkbox"><span><b>가입통신사</b>가 맞나요? <span class="memo">비워두면 KT</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>상품 줄</b>이 신청상품과 같나요? <span class="memo">상품 · 옵션 · 약정 · 할인탭</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>셋트</b>가 구성에 맞나요? <span class="memo">단독 / DPS / DPS+1 …</span></span></label>
+          <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
+          <label class="ck"><input type="checkbox"><span><b>납부</b>가 맞나요? <span class="memo">비워두면 지로납부</span></span></label>
+          <div class="chk-foot">
+            <span class="cnt" id="chkAutoCnt">0 / 5 확인</span>
+            <button id="chkAutoReset">전체 해제</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><h2>등록하기</h2></div>
+        <div class="flow">
+          <div class="fl"><span class="fno">1</span><span class="ft">왼쪽 목록에서 등록할 건이 <b>체크</b>되어 있는지 확인</span></div>
+          <div class="fl"><span class="fno">2</span><span class="ft">아래 <span class="ubtn" style="padding:2px 9px; font-size:12px;">선택한 1건 등록하기</span> 클릭</span></div>
+          <div class="fl"><span class="fno">3</span><span class="ft"><b>예금주 조회</b>는 이때 진행됩니다</span></div>
+        </div>
+        <div class="todo" data-todo="등록 후 화면" style="margin-top:10px;">
           <div class="tt">📷 캡처 받으면 작성</div>
           <ul>
-            <li>붙여넣은 뒤 <b>자동으로 채워진 결과 화면</b></li>
-            <li>그래도 <b>직접 확인하거나 골라야 하는 칸</b></li>
-            <li>인식이 안 됐을 때 나오는 표시와 대처 방법</li>
+            <li>등록하기를 누른 뒤 나오는 <b>완료 화면</b></li>
+            <li>예금주 조회가 <b>맞지 않을 때</b> 나오는 표시와 대처 방법</li>
           </ul>
         </div>
       </div>
+
       <div class="pager">
-        <button class="pg" data-jump="a2"><span><span class="pl">이전</span><span class="pt">← 붙여넣기</span></span></button>
+        <button class="pg" data-jump="a3"><span><span class="pl">이전</span><span class="pt">← 빨간 칸 채우기</span></span></button>
         <button class="pg next" data-jump="a1"><span><span class="pl">완료</span><span class="pt">↺ 처음으로</span></span></button>
       </div>
     </section>
@@ -1557,6 +1864,41 @@
       <pre id="p-wired-view"></pre>
     </div>
     <div class="prow">
+      <div class="prow-h"><span class="pn">유선 + OSS (자동고객등록)</span><button class="peek">보기</button><button class="copy" data-copy="f-wired-oss">⧉ 복사</button></div>
+      <pre id="f-wired-oss">●유치자 상호/성함/연락처:
+■고객명: 
+■주민번호: 
+■설치주소: 
+■연락처 : 
+■청구매체: 
+■자동이체: 
+■사은계좌(유치자 지급은 미기재) : 
+■가입통신사: 
+■신청상품: 
+■AP(WI-FI)신청여부: 
+■월요금: 
+■설치희망일: 
+■설치비(기사출동비): 
+■상품권: (없으면 기재X)
+■고객 현금사은품 금액("웨이브넷 지급" 일때만 기재) : 
+■현금지급처(웨이브넷지급 or 유치자 직접지급): 
+■본인인증: (통신사 기재)
+■이전통신사 : 
+■기타내용:
+
+[OSS 접수양식]
+-기존통신사 : 
+-해지명의 [성함/연락처/생년월일] : 
+-해지 주소 : 
+-인터넷전화 사용구분 : O / X
+-인터넷/TV 회선수 각각 확인 : [ex) 인1/티1]
+-설치희망일 : 
+-해지희망일 :
+
+1. 개인정보 수집.이용에 동의/거부 합니다 : *동의
+2. 개인정보 제3자 제공에 동의/거부 합니다 : *동의</pre>
+    </div>
+    <div class="prow">
       <div class="prow-h"><span class="pn">KT 유심 MNP</span><button class="peek">보기</button><button class="copy" data-copy="f-kt">⧉ 복사</button></div>
       <pre id="f-kt">● [ 유심 MNP 접수양식 ]
 OO-KT (★UIT) **유심 7700 후납 안내완
@@ -1653,7 +1995,7 @@ OO-KT (★UIT) **유심 7700 후납 안내완
 <script>
   // ===== 구성: 대분류(섹션) → 단계 =====
   var SECTIONS = {
-    auto:   { steps:['a1','a2','a3'], cap:'자동고객등록' },
+    auto:   { steps:['a1','a2','a3','a4'], cap:'자동고객등록' },
     jeopsu: { steps:['s0','s1','s2','s3','s4','s5','s6','s7','s8'], cap:'고객등록(수동)' },
     iryeok: { steps:['i1','i2','i3'], cap:'이력등록' },
     faq:    { steps:['fq'], cap:'FAQ' }
@@ -1757,10 +2099,11 @@ OO-KT (★UIT) **유심 7700 후납 안내완
   }
 
   // 저장 전 최종 점검 체크리스트 (고객 한 명 단위 — 저장하지 않음)
-  var chk = document.getElementById('chk');
-  if(chk){
+  [['chk','chkCnt','chkReset'], ['chkAuto','chkAutoCnt','chkAutoReset']].forEach(function(ids){
+    var chk = document.getElementById(ids[0]);
+    if(!chk) return;
     var boxes = chk.querySelectorAll('input[type=checkbox]');
-    var cnt = document.getElementById('chkCnt');
+    var cnt = document.getElementById(ids[1]);
     function tally(){
       var n = 0;
       boxes.forEach(function(b){ if(b.checked) n++; });
@@ -1768,12 +2111,29 @@ OO-KT (★UIT) **유심 7700 후납 안내완
       cnt.style.color = (n === boxes.length) ? 'var(--fix)' : '';
     }
     boxes.forEach(function(b){ b.addEventListener('change', tally); });
-    document.getElementById('chkReset').addEventListener('click', function(){
+    document.getElementById(ids[2]).addEventListener('click', function(){
       boxes.forEach(function(b){ b.checked = false; });
       tally();
     });
     tally();
-  }
+  });
+
+  // ===== 캡처 크게 보기 =====
+  (function(){
+    var lb = document.createElement('div');
+    lb.className = 'lb';
+    lb.innerHTML = '<span class="lb-x">✕ 닫기 (Esc)</span>';
+    document.body.appendChild(lb);
+    function close(){ lb.classList.remove('on'); var s = lb.querySelector('.shot'); if(s) s.remove(); }
+    document.querySelectorAll('.fig .shot').forEach(function(shot){
+      shot.addEventListener('click', function(){
+        lb.appendChild(shot.cloneNode(true));         // 번호 표시까지 그대로 크게
+        lb.classList.add('on');
+      });
+    });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+  })();
 
   // ===== 양식 모음 패널 =====
   var panel = document.getElementById('panel'), pbg = document.getElementById('pbg');

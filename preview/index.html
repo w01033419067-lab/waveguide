@@ -677,7 +677,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="hsec">
           <div class="hsec-h"><div><h2>꼭 알아둘 5가지</h2><p>가장 자주 틀리는 것만 골랐습니다</p></div></div>
           <div class="rules">
-            <button class="rl" data-go="a1"><span class="num">1</span><span class="tx">■자동이체를 비우면 지로납부로 그냥 등록됩니다<small>빨간 표시가 뜨지 않으니 계좌·카드 납부라면 꼭 적으세요</small><span class="where">자동고객등록 · 양식 작성</span></span></button>
+            <button class="rl" data-go="a1"><span class="num">1</span><span class="tx">■자동이체를 비우거나 틀리게 쓰면 지로납부로 등록됩니다<small>빨간 표시가 뜨지 않으니 계좌 정보를 정확히 적으세요</small><span class="where">자동고객등록 · 양식 작성</span></span></button>
             <button class="rl" data-go="s6"><span class="num">2</span><span class="tx">유심동판은 아직 자동등록이 안 됩니다<small>고객등록(수동)으로 진행합니다</small><span class="where">고객등록(수동) · 6단계</span></span></button>
             <button class="rl" data-go="s5"><span class="num">3</span><span class="tx">사은품 현금 금액은 인터넷(상품1) 행에만<small>TV·부가상품 행에도 적으면 중복지급될 수 있습니다</small><span class="where">고객등록(수동) · 5단계</span></span></button>
             <button class="rl" data-go="i1"><span class="num">4</span><span class="tx">회신·요청은 항상 인터넷 행의 고객명에서<small>TV·부가상품 내용이어도 인터넷 행이 우선입니다</small><span class="where">이력등록 · 시작하기</span></span></button>
@@ -738,8 +738,9 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">■현금지급처 · 사은품 금액</div><div class="f-v"><span class="v">웨이브넷지급</span>이 미리 적혀 있고, 이때는 <b>사은품 금액이 필수</b>입니다 <span class="muted">(52만원처럼 써도 520,000으로 읽힘)</span>
               <span class="hint">유치자 직접지급이면 지우고 <b>유치자지급</b>으로 고쳐 씁니다</span></div></div>
             <div class="f"><div class="f-n">■본인인증</div><div class="f-v">괄호 안내문 자리에 <b>통신사</b>를 적습니다 <span class="muted">(예: LG)</span></div></div>
-            <div class="f hl"><div class="f-n">■자동이체 · ■사은계좌</div><div class="f-v"><b>은행 · 계좌번호 · 예금주를 정확히.</b> 예금주 조회 없이 적은 그대로 등록됩니다
-              <span class="hint">■자동이체를 비우면 빨간 표시 없이 <b>지로납부</b>로 등록됩니다 — 계좌·카드 납부라면 꼭 적으세요</span></div></div>
+            <div class="f hl"><div class="f-n">■자동이체</div><div class="f-v"><b>은행 · 계좌번호 · 예금주를 정확히.</b> 등록할 때 예금주 조회를 거쳐 납부정보에 들어갑니다
+              <span class="hint">계좌가 <b>틀리거나 비어 있으면</b> 빨간 표시 없이 <b>지로납부</b>로 등록됩니다</span></div></div>
+            <div class="f"><div class="f-n">■사은계좌</div><div class="f-v">예금주 조회 없이 <b>적은 그대로</b> 등록됩니다 — 은행 · 계좌번호 · 예금주를 정확히</div></div>
           </div>
           <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>필수 항목</b> — ●유치자 · ■고객명 · ■주민번호 · ■연락처 · ■가입통신사 · ■신청상품 · ■본인인증 · ■현금지급처(웨이브넷지급이면 사은품 금액까지). 빠지면 다음 단계에서 <b>빨간 칸</b>으로 알려줍니다.<span class="hint" style="color:inherit;opacity:.8">접수경로는 협력점 아이디로 자동 입력되고, 지역은 SKB만 도매 / 소매를 직접 고릅니다.</span></div></div>
         </div>
@@ -797,7 +798,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <details class="qa"><summary><span class="q">Q</span>여러 고객의 양식을 한 번에 붙여넣어도 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">됩니다. 고객별 양식을 원문 칸에 <b>아래로 이어 붙이면</b> 왼쪽 목록에 고객마다 카드가 생기고, 체크한 건을 한 번에 등록할 수 있습니다. 양식 하나에는 고객 한 명만 적으세요.</div></details>
             <details class="qa"><summary><span class="q">Q</span>양식 항목을 비워두면 어떻게 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">필수 항목은 <b>빨간 칸</b>으로 표시되어 등록되지 않습니다. 단, <b>■자동이체를 비우면 빨간 표시 없이 지로납부</b>로 등록되니 주의하세요.</div></details>
+              <div class="a">필수 항목은 <b>빨간 칸</b>으로 표시되어 등록되지 않습니다. 단, <b>■자동이체를 비우거나 계좌가 틀리면 빨간 표시 없이 지로납부</b>로 등록되니 주의하세요.</div></details>
             <details class="qa"><summary><span class="q">Q</span>유심동판도 자동등록이 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">아직 개발 중입니다. 지금은 <b>고객등록(수동)</b>으로 진행하세요.</div></details>
           </div>
@@ -869,7 +870,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h2>자주 묻는 질문</h2>
           <div class="qas">
             <details class="qa"><summary><span class="q">Q</span>[테스트]를 누르면 등록되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">아니요. <b>저장하지 않고</b> 등록 가능 여부만 확인합니다.</div></details>
+              <div class="a">아니요. <b>저장하지 않고</b> 등록 가능 여부만 확인합니다. ■자동이체 계좌의 예금주 조회는 실제 등록할 때 진행됩니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>"주민번호 못읽음"이 떠요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">양식의 주민번호가 <b>13자리가 아니거나 형식이 맞지 않을 때</b> 뜹니다. 원문을 보고 앞 6자리 · 뒤 7자리 칸에 직접 넣어 주세요.</div></details>
           </div>
@@ -913,8 +914,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <label class="ck"><input type="checkbox"><span><b>상품 줄</b>이 신청상품과 같나요? <span class="muted">상품 · 옵션 · 약정 · 할인탭</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>셋트</b>가 구성에 맞나요? <span class="muted">신청상품대로 자동 적용 — 누락 확인</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
-            <label class="ck"><input type="checkbox"><span><b>납부</b>가 맞나요? <span class="muted">비워두면 지로납부</span></span></label>
-            <label class="ck"><input type="checkbox"><span><b>계좌번호 · 예금주</b>가 원문과 같나요? <span class="muted">예금주 조회 없이 그대로 등록됨</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>■자동이체</b> 계좌가 정확한가요? <span class="muted">틀리거나 비우면 지로납부</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>■사은계좌</b>가 정확한가요? <span class="muted">적은 그대로 등록됨</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>SKB</b>라면 <b>지역</b>에서 도매 / 소매를 골랐나요?</span></label>
             <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 7 확인</span><button type="button">전체 해제</button></div>
           </div>
@@ -924,11 +925,11 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h2>등록하기</h2>
           <ol class="steps card">
             <li><div>왼쪽 목록에서 등록할 건이 <b>체크</b>됐는지 확인 <span class="hint">여러 건이면 목록 위 <b>전체 선택</b></span></div></li>
-            <li><div><span class="ui">선택한 N건 등록하기</span> 클릭</div></li>
+            <li><div><span class="ui">선택한 N건 등록하기</span> 클릭 <span class="hint">■자동이체 계좌는 이때 예금주 조회를 합니다</span></div></li>
             <li><div>끝. 별도 완료 화면 없이 <b>개인 고객관리 리스트에 바로 추가</b>됩니다
               <span class="hint">상품별로 줄이 나뉘어 들어가고, 사은품 금액은 <b>인터넷 줄에 자동으로</b> 기재됩니다</span></div></li>
           </ol>
-          <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div>자동고객등록은 <b>예금주 조회를 하지 않고</b> 양식에 적은 계좌번호를 그대로 등록합니다. 등록 전에 원문의 <b>은행 · 계좌번호 · 예금주</b>를 한 번 더 확인하세요.</div></div>
+          <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div><b>■자동이체</b> 계좌가 예금주 조회에서 맞지 않으면 <b>지로납부</b>로, <b>■사은계좌</b>는 조회 없이 <b>적은 그대로</b> 등록됩니다. 등록 전에 원문의 계좌 정보를 한 번 더 확인하세요.</div></div>
         </div>
 
         <div class="pager">

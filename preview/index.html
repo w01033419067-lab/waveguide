@@ -199,6 +199,9 @@ h1.title{margin:8px 0 0; font-size:34px; line-height:1.28; font-weight:820; lett
 
 /* 선택지 카드 */
 .opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr));}
+@media (max-width:640px){.opts.two{grid-template-columns:1fr;}}
+.path.seq .crumb.mo{background:var(--brand-50,#eaf3ff); color:var(--brand-700);}
 .opt{padding:18px 20px; border-radius:var(--r-lg); background:#fff; border:1px solid var(--line); box-shadow:var(--sh-1);}
 .opt .k{font-size:13.5px; font-weight:700; color:var(--ink-3);}
 .opt .w{margin-top:6px; font-size:16px; font-weight:750; color:var(--ink); line-height:1.5;}
@@ -1012,6 +1015,15 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <h1 class="title">고객 정보</h1>
         <p class="lead">양식의 <b>고객명 · 주민번호 · 주소 · 연락처</b>를 옮겨 적고, <span class="t t-fix">고정</span> 칸은 정해진 값을 그대로 고릅니다.</p>
 
+        <div class="keys">
+          <h3><svg class="ic"><use href="#i-spark"/></svg>핵심만</h3>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>주민번호는 <b>13자리 전체</b> → <b>불량고객 체크</b>로 접수 가능 여부 확인</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>고객인증 · 접수경로 · 주소증빙 <span class="v">0.협력점★</span> · 물류관리 <span class="v">0.해당없음★</span></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>개통기한 <span class="v">익월 말일</span> · 이미징처리 <span class="v">1.미인증</span> · <b>LG는 이메일 필수</b></span></li>
+          </ul>
+        </div>
+
         <div class="sec">
           <h2>화면 순서대로</h2>
           <div class="fields">
@@ -1095,7 +1107,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="sec">
           <h2>납부 방식</h2>
-          <div class="opts">
+          <div class="opts two">
             <div class="opt"><div class="k">계좌이체</div><div class="w">지급은행 → 계좌번호 → <span class="ui">예금주 조회</span> → 조회하기 → 일치하면 적용하기
               <span class="hint">받을 정보: 은행명 · 계좌번호 · 예금주</span></div></div>
             <div class="opt"><div class="k">카드납부</div><div class="w">카드사 · 카드번호 · 유효기간 <span class="muted">(00년00월)</span> · 카드주명
@@ -1153,7 +1165,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <span class="hint">카드납부로 접수했다면 자동으로 안 들어가니 직접 입력</span></div></div>
             <div class="f dim"><div class="f-n">지급예정일</div><div class="f-t"><span class="t t-skip">비움</span></div><div class="f-v">협력점은 입력 권한 없음</div></div>
             <div class="f"><div class="f-n">사은품 지급처<i class="req"></i></div><div class="f-t"><span class="t t-pick">선택</span></div><div class="f-v">웨이브넷지급 / 유치자지급 <span class="muted">· 위 설명 참고</span></div></div>
-            <div class="f"><div class="f-n">사은품계좌</div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">지급은행 + 계좌번호</div></div>
+            <div class="f"><div class="f-n">사은품계좌</div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">지급은행 + 계좌번호 <span class="muted">· 양식의 ■사은계좌</span></div></div>
             <div class="f"><div class="f-n">예금주</div><div class="f-t"><span class="t t-pick">선택</span></div><div class="f-v">납부정보와 <b>다른 계좌</b>로 받을 때만 <span class="ui">예금주 조회</span></div></div>
             <div class="f dim"><div class="f-n">물류 · 쿠폰</div><div class="f-t"><span class="t t-skip">비움</span></div><div class="f-v">물류사은품(가전) 진행 시에만 가격 <span class="muted">(예: 550,000)</span>
               <span class="hint">가전 발주는 <a href="#" data-open="forms">양식 ▸ 삼성물류 발주요청</a>으로</span></div></div>
@@ -1186,9 +1198,16 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       <div class="page">
         <div class="eyebrow">고객등록(수동) <span class="dot"></span><span class="of">5 / 8</span></div>
         <h1 class="title">상품 정보</h1>
-        <p class="lead">통신사와 상품 구성을 고르고 상품 줄을 채웁니다. <b>가장 중요한 단계</b>입니다.</p>
+        <p class="lead">양식의 <b>■가입통신사 · 신청상품</b>을 보고 회사 → 정책 구분 → 상품 줄 순서로 채웁니다. <b>가장 중요한 단계</b>입니다.</p>
 
-        <div class="co co-danger" style="margin-top:24px;"><svg class="ic"><use href="#i-alert"/></svg><div><b>사은품 현금 금액은 인터넷(상품1) 행에만</b> 적습니다. TV·부가상품 행에도 적으면 <b>중복지급</b>될 수 있습니다.</div></div>
+        <div class="keys">
+          <h3><svg class="ic"><use href="#i-spark"/></svg>핵심만</h3>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>인터넷 <span class="v b">단독</span> · 인터넷+TV <span class="v b">DPS</span> · OSS 등 추가면 <span class="v b">+숫자</span></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>정책 구분은 <span class="v">전국</span> <span class="muted">· SKB만 도매/소매</span></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>사은품 현금 금액은 <b>인터넷(상품1) 행에만</b></span></li>
+          </ul>
+        </div>
 
         <div class="sec">
           <h2>① 회사 선택 <small>무엇을 같이 접수하나요?</small></h2>
@@ -1211,15 +1230,22 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         </div>
 
         <div class="sec">
-          <h2>③ 상품 줄 채우기</h2>
-          <ol class="steps card">
-            <li><div><b>상품선택</b> <span class="muted">인터넷 / TV / 부가상품</span></div></li>
-            <li><div><b>옵션</b> <span class="muted">속도·상품명 (예: 기가라이트(500M)+Wi)</span></div></li>
-            <li><div><b>약정</b> <span class="muted">예: 3년약정</span></div></li>
-            <li><div><b>할인탭</b></div></li>
-            <li><div><b>부가서비스</b></div></li>
-            <li><div><b>회선 수</b> <span class="muted">— 인터넷 행은 마지막에 사은품 금액까지</span></div></li>
-          </ol>
+          <h2>③ 상품 줄 채우기 <small>한 줄에 왼쪽부터</small></h2>
+          <div class="path seq">
+            <span class="crumb">상품선택</span><span class="ar">›</span>
+            <span class="crumb">옵션</span><span class="ar">›</span>
+            <span class="crumb">약정</span><span class="ar">›</span>
+            <span class="crumb">할인탭</span><span class="ar">›</span>
+            <span class="crumb">부가서비스</span><span class="ar">›</span>
+            <span class="crumb">회선 수</span><span class="ar">›</span>
+            <span class="crumb mo">사은품 <small>&nbsp;인터넷 행만</small></span>
+          </div>
+          <div class="fields two" style="margin-top:12px;">
+            <div class="f"><div class="f-n">상품선택</div><div class="f-v">인터넷 / TV / 부가상품</div></div>
+            <div class="f"><div class="f-n">옵션</div><div class="f-v">속도·상품명 <span class="muted">(예: 기가라이트(500M)+Wi)</span></div></div>
+            <div class="f"><div class="f-n">약정</div><div class="f-v">예: 3년약정</div></div>
+          </div>
+          <div class="co co-danger"><svg class="ic"><use href="#i-alert"/></svg><div><b>사은품 현금 금액은 인터넷(상품1) 행에만</b> 적습니다. TV·부가상품 행에도 적으면 <b>중복지급</b>될 수 있습니다.</div></div>
         </div>
 
         <div class="sec">
@@ -1270,14 +1296,6 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <p class="lead">유심동판을 함께 접수할 때만 작성합니다. <b>유선만 접수라면 건너뛰고</b> <a href="#" data-go="s7">7단계</a>로 가세요.</p>
 
         <div class="sec">
-          <h2>번호이동 칸</h2>
-          <div class="fields">
-            <div class="f"><div class="f-n">위 고객정보와 동일</div><div class="f-t"><span class="t t-pick">선택</span></div><div class="f-v"><b>체크</b> 한 번이면 전화번호 · 명의자 · 주민번호 · 연락처가 대부분 자동 입력</div></div>
-            <div class="f"><div class="f-n">기존 통신사</div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">양식의 <b>■이전통신사</b>를 보고 드롭박스에서 선택하면 끝</div></div>
-          </div>
-        </div>
-
-        <div class="sec">
           <h2>유심동판 접수 순서 <small>유선 접수를 마친 뒤</small></h2>
           <ol class="steps card">
             <li><div>유선상품 접수등록 후, 정보가 <b>마킹돼 있으면 해제</b></div></li>
@@ -1285,6 +1303,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <li><div>화면 하단 <span class="ui">고객추가등록</span> → 유심동판 등록</div></li>
             <li><div>웬만한 정보는 <b>자동으로 불러와집니다</b></div></li>
           </ol>
+        </div>
+
+        <div class="sec">
+          <h2>번호이동 칸 <small>고객추가등록 화면에서</small></h2>
+          <div class="fields">
+            <div class="f"><div class="f-n">위 고객정보와 동일</div><div class="f-t"><span class="t t-pick">선택</span></div><div class="f-v"><b>체크</b> 한 번이면 전화번호 · 명의자 · 주민번호 · 연락처가 대부분 자동 입력</div></div>
+            <div class="f"><div class="f-n">기존 통신사</div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">양식의 <b>■이전통신사</b>를 보고 드롭박스에서 선택하면 끝</div></div>
+          </div>
         </div>
 
         <div class="sec">

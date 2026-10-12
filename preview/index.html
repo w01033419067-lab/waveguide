@@ -371,6 +371,17 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 .fc-row:nth-child(4) .n{background:var(--ok-50); color:var(--ok);}
 
 .hsec{margin-top:56px;}
+.newf{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:20px; width:100%; margin-top:20px; padding:22px 24px; border-radius:var(--r-xl); background:linear-gradient(135deg,#ecfdf3 0%,#f0f7ff 100%); border:1px solid #cfeedd; text-align:left; cursor:pointer; font:inherit; color:inherit; transition:transform .15s, box-shadow .15s;}
+.newf:hover{transform:translateY(-2px); box-shadow:var(--sh-2);}
+.newf .nb{display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:6px; background:#12b76a; color:#fff; font-size:11.5px; font-weight:800; letter-spacing:.04em; margin-right:8px; vertical-align:2px;}
+.newf h3{margin:0; font-size:19px; font-weight:820; letter-spacing:-.03em;}
+.newf p{margin:8px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.65;}
+.newf .flow{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:12px; font-size:13.5px; font-weight:650; color:var(--ink-2);}
+.newf .flow .ar{color:var(--ink-4);}
+.newf .go{display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:750; color:var(--brand-600); white-space:nowrap;}
+.newf .go .ic{width:16px; height:16px;}
+@media (max-width:640px){.newf{grid-template-columns:1fr;}}
+.ui.pay{background:#e7f6ec; color:#1e7a3c; border:1px solid #9fd8b0;}
 .hsec-h{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:18px;}
 .hsec-h h2{margin:0; font-size:24px; font-weight:820; letter-spacing:-.035em;}
 .hsec-h p{margin:4px 0 0; color:var(--ink-3); font-size:15px;}
@@ -608,6 +619,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       <button class="si" data-go="i1"><span class="n"><span>1</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">시작하기<small>진입 · 원칙</small></span></button>
       <button class="si" data-go="i2"><span class="n"><span>2</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">상담구분 고르기<small>상황별 선택</small></span></button>
       <button class="si" data-go="i3"><span class="n"><span>3</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">SR 처리양식<small>VOC 답변 · 복명</small></span></button>
+      <button class="si" data-go="i4"><span class="n"><span>4</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">입금요청<small>NEW · 버튼 한 번</small></span></button>
     </div>
     <div class="side-box" id="legend">
       <h4>표시 안내</h4>
@@ -664,10 +676,18 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <button class="pcard" data-go="i1">
               <span class="pi hist"><svg class="ic"><use href="#i-msg"/></svg></span>
               <h3>이력등록</h3>
-              <p>회신답변 · 상부요청 · VOC(SR) 답변 등 등록 이후의 소통.</p>
-              <span class="meta"><span>3단계</span><span class="go">시작 <svg class="ic"><use href="#i-right"/></svg></span></span>
+              <p>회신답변 · 상부요청 · VOC(SR) 답변 · 입금요청 등 등록 이후의 소통.</p>
+              <span class="meta"><span>4단계</span><span class="go">시작 <svg class="ic"><use href="#i-right"/></svg></span></span>
             </button>
           </div>
+          <button class="newf" data-go="i4">
+            <span>
+              <h3><span class="nb">NEW</span>사은품 입금요청은 버튼 한 번</h3>
+              <p>개인 고객관리 리스트에서 <b>사은품 금액이 적힌 행만 체크</b>하고 <b>입금요청(협력점)</b>을 누르면 끝. 상부요청 · 사은품요청 이력이나 청약톡방 요청이 필요 없습니다.</p>
+              <span class="flow"><span>사은품 금액 행 체크</span><span class="ar">›</span><span class="ui pay">입금요청(협력점)</span><span class="ar">›</span><span>요청 완료</span></span>
+            </span>
+            <span class="go">사용법 보기 <svg class="ic"><use href="#i-right"/></svg></span>
+          </button>
         </div>
 
         <div class="hsec">
@@ -946,6 +966,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <li><div>끝. 별도 완료 화면 없이 <b>개인 고객관리 리스트에 바로 추가</b>됩니다
               <span class="hint">상품별로 줄이 나뉘어 들어가고, 사은품 금액은 <b>인터넷 줄에 자동으로</b> 기재됩니다</span></div></li>
           </ol>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div>고객명 옆에 <span class="t" style="background:#fdecec;color:#c92a2a">⚠ 이미 등록됨</span>이 뜨면 <b>고객관리에 같은 고객명이 이미 있다</b>는 뜻입니다. 같은 고객을 두 번 등록하는 건 아닌지 확인하세요.</div></div>
           <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div><b>■자동이체</b> 계좌가 예금주 조회에서 맞지 않으면 <b>지로납부</b>로, <b>■사은계좌</b>는 조회 없이 <b>적은 그대로</b> 등록됩니다. 등록 전에 원문의 계좌 정보를 한 번 더 확인하세요.</div></div>
         </div>
 
@@ -1160,7 +1181,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       <div class="page">
         <div class="eyebrow">고객등록(수동) <span class="dot"></span><span class="of">4 / 8</span></div>
         <h1 class="title">사은품 정보</h1>
-        <p class="lead"><b>웨이브넷에 입금요청할 현금 사은품</b>만 다룹니다. 지급처를 고르고 입금 계좌를 확인합니다. 기본 입금은 요청 없이 <b>개통완료 익일 자동</b>이고, 따로 요청할 땐 <b>입금요청(협력점)</b> 버튼을 씁니다.</p>
+        <p class="lead"><b>웨이브넷에 입금요청할 현금 사은품</b>만 다룹니다. 지급처를 고르고 입금 계좌를 확인합니다.</p>
 
         <div class="sec">
           <h2>사은품 지급처 <small>양식의 ■현금지급처를 보고</small></h2>
@@ -1186,35 +1207,12 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         </div>
 
         <div class="sec">
-          <h2>입금 요청하기 <small>당일입금 등 따로 요청할 때</small></h2>
-          <div class="path">
-            <span class="crumb">고객관리</span><span class="ar">›</span>
-            <span class="crumb on">개인 고객관리</span>
-          </div>
-          <div class="ubar">고객 리스트 맨 아래 <span class="ui ghost">파일첨부</span><span class="ui ghost">선택</span><span class="ui ghost">적용</span><span class="ui on">입금요청(협력점)</span></div>
-          <ol class="steps card" style="margin-top:12px;">
-            <li><div>리스트의 <b>선택</b> 칸에서 <b>사은품 금액이 입력된 행만</b> 체크합니다
-              <span class="hint">유선은 <b>인터넷 행</b>, 유심동판은 <b>모바일 행</b> · TV·부가상품 행은 체크하지 않습니다</span></div></li>
-            <li><div>맨 아래 <span class="ui">입금요청(협력점)</span> 버튼을 누르면 요청 끝
-              <span class="hint">당일입금은 <b>개통완료 고객 · 오후 6시 이전(시간엄수)</b> 조건이 그대로입니다</span></div></li>
-          </ol>
-          <div class="co co-ok"><svg class="ic"><use href="#i-check"/></svg><div>입금 요청을 위해 <b>상부요청 · 사은품요청 이력을 남기거나 청약톡방에 요청할 필요가 없습니다.</b></div></div>
-        </div>
-
-        <div class="sec">
-          <h2>입금 관련 질문</h2>
+          <h2>자주 묻는 질문</h2>
           <div class="qas">
-            <details class="qa"><summary><span class="q">Q</span>입금요청(협력점) 버튼은 어떻게 써요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a"><b>개인 고객관리</b> 리스트의 <b>선택</b> 칸에서 사은품 금액이 입력된 행만 체크하고, 맨 아래 <b>입금요청(협력점)</b> 버튼을 누릅니다. 유선은 <b>인터넷 행</b>, 유심동판은 <b>모바일 행</b>입니다. 기본 입금은 요청하지 않아도 개통완료 익일에 자동으로 됩니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>웨이브넷지급과 유치자지급 차이가 뭐예요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a"><b>웨이브넷지급</b>은 웨이브넷이 사은품을 지급한 후 정산수수료에서 차감하는 방식, <b>유치자지급</b>은 협력점이 직접 지급하는 경우입니다.</div></details>
-            <details class="qa" data-featured><summary><span class="q">Q</span>현금 사은품은 언제 입금되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">기본 프로세스는 <b>영업일 기준 개통 익일 오후 7시</b>에 일괄지급입니다.</div></details>
-            <details class="qa" data-featured><summary><span class="q">Q</span>개통 당일에 입금받으려면요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a"><b>개통완료 고객에 한하여 오후 6시 이전(시간엄수)</b>까지, 사은품 금액이 적힌 <b>인터넷 행(유심동판은 모바일 행)</b>만 체크하고 <b>입금요청(협력점)</b> 버튼을 누르세요. 상부요청 · 사은품요청 이력이나 청약톡방 요청은 필요 없습니다.</div></details>
-            <details class="qa"><summary><span class="q">Q</span>주말·공휴일에도 입금되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">아니요. <b>영업일 외에는 입금작업이 불가</b>합니다. 금요일 개통 고객이 당일입금 신청을 하지 않으면 <b>월요일 오후 7시경</b>에 입금됩니다.</div></details>
           </div>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div>개통 후 사은품 <b>입금 요청</b>은 <a href="#" data-go="i4">이력등록 ▸ 입금요청</a>에서 안내합니다.</div></div>
         </div>
 
         <div class="pager">
@@ -1492,7 +1490,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     <!-- ================= 이력등록 1 ================= -->
     <section class="step" id="i1">
       <div class="page">
-        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">1 / 3</span></div>
+        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">1 / 4</span></div>
         <h1 class="title">시작하기</h1>
         <p class="lead">접수가 끝난 고객에 대해 <b>웹전산만으로 협력점 ↔ 웨이브넷이 소통</b>하는 기능입니다. 웨이브넷의 회신요청엔 <b>회신답변</b>, 협력점의 변경·요청은 <b>상부요청</b>으로 남깁니다.</p>
 
@@ -1525,7 +1523,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <span class="hint">리스트에서 정책지역 <b>MNP</b> · 통신사 <b>모바일</b>로 표시된 행입니다</span></div></div>
           </div>
           <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div>인터넷·TV·부가상품을 <b>각각 따로 추가등록한 게 아니라면</b>, 항상 인터넷 행에서 진행하세요.</div></div>
-          <div class="co co-usim"><svg class="ic"><use href="#i-info"/></svg><div><b>유심동판 고객</b>은 상부요청 · 회신답변 · 개통요청 · 결합요청 등 <b>모든 요청과 회신을 이력등록</b>으로 합니다. 긴급 건은 유선과 같이 청약톡방을 이용하세요. 사은품 입금 요청은 모바일 행을 체크해 <a href="#" data-go="s4">입금요청(협력점) 버튼</a>으로 합니다.</div></div>
+          <div class="co co-usim"><svg class="ic"><use href="#i-info"/></svg><div><b>유심동판 고객</b>은 상부요청 · 회신답변 · 개통요청 · 결합요청 등 <b>모든 요청과 회신을 이력등록</b>으로 합니다. 긴급 건은 유선과 같이 청약톡방을 이용하세요. 사은품 입금 요청은 모바일 행을 체크해 <a href="#" data-go="i4">입금요청(협력점) 버튼</a>으로 합니다.</div></div>
         </div>
 
         <div class="pager">
@@ -1538,7 +1536,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     <!-- ================= 이력등록 2 ================= -->
     <section class="step" id="i2">
       <div class="page">
-        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">2 / 3</span></div>
+        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">2 / 4</span></div>
         <h1 class="title">상담구분 고르기</h1>
         <p class="lead">상황만 찾으면 고를 항목이 정해집니다. 아래 표에서 먼저 찾고, 자세한 설명은 그 아래 카드를 보세요.</p>
 
@@ -1547,7 +1545,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <div class="rule">
             <div class="head"><span>상황</span><span>상담구분</span></div>
             <div><span class="if">상품변경 · 접수내용 수정 · 긴급접수 요청 등 <b>웨이브넷에 요청할 때</b></span><span class="then"><span class="v b">상부요청</span></span></div>
-            <div><span class="if"><b>사은품 입금 · 당일입금</b> 요청 <span class="muted">(당일입금은 개통완료 · 오후 6시 전)</span></span><span class="then">이력 없이 <a href="#" data-go="s4"><b>입금요청(협력점)</b> 버튼</a></span></div>
+            <div><span class="if"><b>사은품 입금 · 당일입금</b> 요청 <span class="muted">(당일입금은 개통완료 · 오후 6시 전)</span></span><span class="then">이력 없이 <a href="#" data-go="i4"><b>입금요청(협력점)</b> 버튼</a></span></div>
             <div><span class="if">리스트에 <span class="t" style="background:#f08c00;color:#fff">회신</span> — 웨이브넷의 <b>회신요청에 답할 때</b></span><span class="then"><span class="v b">회신답변</span></span></div>
             <div><span class="if">리스트에 <span class="t" style="background:#e0457a;color:#fff">VOC</span> — 고객 <b>불만·민원</b>에 답할 때</span><span class="then"><span class="v b">VOC 답변</span> <span class="muted">· <a href="#" data-go="i3">SR 처리양식</a>대로</span></span></div>
             <div><span class="if">사은 <b>금액 · 계좌 · 지급처</b>를 바꿀 때</span><span class="then"><span class="v b">사은품요청</span></span></div>
@@ -1581,7 +1579,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <h3>사은품요청</h3>
               <dl><dt>언제</dt><dd>사은품 <b>내용을 바꿀 때</b></dd>
                   <dt>내용</dt><dd>사은 금액변경, 계좌변경, 지급처변경 등</dd>
-                  <dt>입금</dt><dd>입금 · 당일입금 요청은 이력 없이 <a href="#" data-go="s4">입금요청(협력점) 버튼</a>으로</dd></dl>
+                  <dt>입금</dt><dd>입금 · 당일입금 요청은 이력 없이 <a href="#" data-go="i4">입금요청(협력점) 버튼</a>으로</dd></dl>
             </div>
             <div class="kind">
               <h3>고객메모 <span class="t t-skip">알림 없음</span></h3>
@@ -1615,7 +1613,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     <!-- ================= 이력등록 3 ================= -->
     <section class="step" id="i3">
       <div class="page">
-        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">3 / 3</span></div>
+        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">3 / 4</span></div>
         <h1 class="title">SR 처리양식 <span class="muted" style="font-size:22px; font-weight:700">VOC 답변 · 복명</span></h1>
         <p class="lead">VOC 답변은 <b>통신사별 양식대로 복명하는 것이 원칙</b>입니다. 해당 통신사 양식을 복사해서 채우세요.</p>
 
@@ -1661,6 +1659,89 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="pager">
           <button class="pg" data-go="i2"><span class="l">이전</span><span class="w"><svg class="ic"><use href="#i-left"/></svg>상담구분 고르기</span></button>
+          <button class="pg next" data-go="i4"><span class="l">다음</span><span class="w">입금요청<svg class="ic"><use href="#i-right"/></svg></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 이력등록 4 ================= -->
+    <section class="step" id="i4">
+      <div class="page">
+        <div class="eyebrow">이력등록 <span class="dot"></span><span class="of">4 / 4</span></div>
+        <h1 class="title">입금요청 <span class="t" style="background:#12b76a;color:#fff;vertical-align:8px">NEW</span></h1>
+        <p class="lead">새 웹전산의 <b>입금요청(협력점)</b> 버튼으로 사은품 입금을 요청합니다. 이력을 남기거나 청약톡방에 요청할 필요가 없습니다.</p>
+
+        <div class="keys">
+          <h3><svg class="ic"><use href="#i-spark"/></svg>핵심만</h3>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>사은품 금액이 적힌 행만</b> 체크 — 유선은 인터넷 행, 유심동판은 모바일 행</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>맨 아래 <span class="ui pay">입금요청(협력점)</span> 클릭이면 끝</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>개통완료 상태가 아니면 <b>개통확인요청</b>이 자동으로 함께 요청됩니다</span></li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <h2>들어가는 곳</h2>
+          <div class="path">
+            <span class="crumb">고객관리</span><span class="ar">›</span>
+            <span class="crumb on">개인 고객관리</span>
+          </div>
+          <div class="ubar">고객 리스트 맨 아래 <span class="ui ghost">파일첨부</span><span class="ui ghost">선택</span><span class="ui ghost">적용</span><span class="ui pay">입금요청(협력점)</span></div>
+        </div>
+
+        <div class="sec">
+          <h2>순서</h2>
+          <ol class="steps card">
+            <li><div>리스트의 <b>선택</b> 칸에서 <b>사은품 금액(현금)이 적힌 행만</b> 체크합니다
+              <span class="hint">TV · 부가상품 행은 체크하지 않습니다</span></div></li>
+            <li><div>맨 아래 <span class="ui pay">입금요청(협력점)</span>을 누릅니다</div></li>
+            <li><div>끝. 개통상태가 <b>개통완료가 아니면</b> 개통확인요청이 자동으로 함께 들어갑니다</div></li>
+          </ol>
+        </div>
+
+        <div class="sec">
+          <h2>이런 화면이에요</h2>
+          <div class="shot-card">
+            <div class="shot-bar"><i></i><i></i><i></i><span>개인 고객관리</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
+            <div class="shot"><img src="../assets/auto/pay-request.png" alt="개인 고객관리 리스트 — 사은품 금액 450,000원이 적힌 인터넷 행만 체크하고 입금요청(협력점) 버튼" loading="lazy" width="1368" height="282"><span class="pin" style="left:3.5%;top:42.9%">1</span><span class="pin" style="left:82.2%;top:42.9%">2</span><span class="pin" style="left:32.2%;top:93.3%">3</span><span class="pin" style="left:70.0%;top:7.8%">4</span></div>
+            <div class="shot-cap">
+              <ol class="pins">
+                <li><b>선택</b> 칸 — 사은품 금액이 적힌 행만 체크</li>
+                <li>현금 칸에 <b>사은품 금액</b>이 있는 행 <span class="muted">(예: 인터넷 행 450,000)</span></li>
+                <li><b>입금요청(협력점)</b> 클릭</li>
+                <li>개통상태가 개통완료가 아니면 <b>개통확인요청</b>이 자동으로 <span class="muted">(캡처는 테스트 건이라 취소완료로 보입니다)</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>언제 누르나요?</h2>
+          <div class="rule">
+            <div class="head"><span>상황</span><span>할 일</span></div>
+            <div><span class="if">기본 입금</span><span class="then"><b>요청 없음</b> <span class="muted">· 영업일 기준 개통완료 익일 오후 7시 자동 일괄지급</span></span></div>
+            <div><span class="if">당일입금</span><span class="then"><span class="ui pay">입금요청(협력점)</span> <span class="muted">· 개통완료 고객 · 오후 6시 이전(시간엄수)</span></span></div>
+            <div><span class="if">그 밖의 사은품 입금 요청</span><span class="then"><span class="ui pay">입금요청(협력점)</span></span></div>
+            <div><span class="if">사은 금액 · 계좌 · 지급처 <b>변경</b></span><span class="then">이력등록 <span class="v b">사은품요청</span> <span class="muted">· <a href="#" data-go="i2">상담구분</a></span></span></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>자주 묻는 질문</h2>
+          <div class="qas">
+            <details class="qa"><summary><span class="q">Q</span>입금요청(협력점) 버튼은 어떻게 써요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a"><b>개인 고객관리</b> 리스트의 <b>선택</b> 칸에서 사은품 금액이 입력된 행만 체크하고, 맨 아래 <b>입금요청(협력점)</b> 버튼을 누릅니다. 유선은 <b>인터넷 행</b>, 유심동판은 <b>모바일 행</b>입니다. 기본 입금은 요청하지 않아도 개통완료 익일에 자동으로 됩니다.</div></details>
+            <details class="qa" data-featured><summary><span class="q">Q</span>현금 사은품은 언제 입금되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">기본 프로세스는 <b>영업일 기준 개통 익일 오후 7시</b>에 일괄지급입니다.</div></details>
+            <details class="qa" data-featured><summary><span class="q">Q</span>개통 당일에 입금받으려면요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a"><b>개통완료 고객에 한하여 오후 6시 이전(시간엄수)</b>까지, 사은품 금액이 적힌 <b>인터넷 행(유심동판은 모바일 행)</b>만 체크하고 <b>입금요청(협력점)</b> 버튼을 누르세요. 상부요청 · 사은품요청 이력이나 청약톡방 요청은 필요 없습니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>주말·공휴일에도 입금되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">아니요. <b>영업일 외에는 입금작업이 불가</b>합니다. 금요일 개통 고객이 당일입금 신청을 하지 않으면 <b>월요일 오후 7시경</b>에 입금됩니다.</div></details>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="pg" data-go="i3"><span class="l">이전</span><span class="w"><svg class="ic"><use href="#i-left"/></svg>SR 처리양식</span></button>
           <button class="pg next" data-go="fq"><span class="l">더 보기</span><span class="w">자주 묻는 질문<svg class="ic"><use href="#i-right"/></svg></span></button>
         </div>
       </div>
@@ -1870,7 +1951,7 @@ OO-KT (★UIT) **유심 7700 후납 안내완
     home:   { steps:['home'], wide:true },
     auto:   { steps:['a1','a2','a3'], name:'자동고객등록' },
     jeopsu: { steps:['s0','s1','s2','s3','s4','s5','s6','s7','s8'], name:'고객등록(수동)' },
-    iryeok: { steps:['i1','i2','i3'], name:'이력등록' },
+    iryeok: { steps:['i1','i2','i3','i4'], name:'이력등록' },
     faq:    { steps:['fq'], wide:true, name:'FAQ' }
   };
   function secOf(id){ for(var k in SECTIONS){ if(SECTIONS[k].steps.indexOf(id) > -1) return k; } return null; }

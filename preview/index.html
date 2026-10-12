@@ -715,6 +715,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <li><svg class="ic"><use href="#i-check"/></svg><span>정해진 양식을 <b>항목 하나 빠짐없이</b> 채웁니다</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>자동등록은 <b>유선 · 유선+OSS</b>만 됩니다 — 유심동판은 <a href="#" data-go="s6">고객등록(수동)</a>으로</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>여러 고객도 양식을 <b>아래로 이어 붙여</b> 한 번에 등록할 수 있습니다</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>SK 결합</b>은 양식에 적어도 아직 자동으로 들어가지 않습니다 — 검토 화면에서 <b>직접 선택</b></span></li>
           </ul>
         </div>
 
@@ -742,7 +743,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h2>이것만 지키세요</h2>
           <div class="fields two">
             <div class="f"><div class="f-n">■가입통신사 · ■신청상품</div><div class="f-v"><b>정확하고 자세하게.</b> 상품 줄과 셋트(단독 / DPS / DPS+1 …)가 이걸 보고 자동으로 잡힙니다
-              <span class="hint">예: 인터넷 1G + All(254ch)(스마트3) / TV 추가 1대(스탠다드·스마트3 셋탑)</span></div></div>
+              <span class="hint">예: 인터넷 1G + All(254ch)(스마트3) / TV 추가 1대(스탠다드·스마트3 셋탑) — 추가 TV는 <b>(추단)</b> 상품 줄로 따로 잡힙니다</span></div></div>
             <div class="f"><div class="f-n">■주민번호</div><div class="f-v"><b>13자리 전체.</b> 자릿수가 틀리면 "주민번호 못읽음"이 뜹니다</div></div>
             <div class="f"><div class="f-n">■현금지급처 · 사은품 금액</div><div class="f-v"><span class="v">웨이브넷지급</span>이 미리 적혀 있고, 이때는 <b>사은품 금액이 필수</b>입니다 <span class="muted">(52만원처럼 써도 520,000으로 읽힘)</span>
               <span class="hint">유치자 직접지급이면 지우고 <b>유치자지급</b>으로 고쳐 씁니다</span></div></div>
@@ -752,6 +753,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">■사은계좌</div><div class="f-v">예금주 조회 없이 <b>적은 그대로</b> 등록됩니다 — 은행 · 계좌번호 · 예금주를 정확히</div></div>
           </div>
           <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>필수 항목</b> — ●유치자 · ■고객명 · ■주민번호 · ■연락처 · ■가입통신사 · ■신청상품 · ■본인인증 · ■현금지급처(웨이브넷지급이면 사은품 금액까지). 빠지면 다음 단계에서 <b>빨간 칸</b>으로 알려줍니다.<span class="hint" style="color:inherit;opacity:.8">접수경로는 협력점 아이디로 자동 입력되고, 지역은 SKB만 도매 / 소매를 직접 고릅니다.</span></div></div>
+          <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div><b>SK 결합은 아직 자동 인식되지 않습니다.</b> ■월요금 · ■기타내용에 결합을 적어도 인터넷 행 부가서비스가 비어서(-) 들어갑니다. 결합 요청 건이면 <a href="#" data-go="a2">2단계 검토</a>에서 <b>인터넷 행 부가서비스</b>를 직접 고르세요.<span class="hint" style="color:inherit;opacity:.8">웹전산이 결합을 읽도록 수정되면 이 안내는 빠집니다.</span></div></div>
         </div>
 
         <div class="sec">
@@ -845,7 +847,10 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <span class="hint">양식이 없으면 <span class="ui ghost">빈 유선 양식 불러오기</span>로 불러와서 바로 채워도 됩니다</span></div></li>
             <li><div>왼쪽 목록의 <span class="t t-must">N칸</span> 표시를 눌러 <b>빨간 테두리 칸만 채웁니다</b>
               <span class="hint">"○○ 못읽음"은 원문을 보고 직접 넣습니다. 빨간 칸이 아니어도 글자를 누르면 고칠 수 있습니다</span>
-              <span class="hint">"비어 있음 · 등록은 됩니다"로 뜨는 칸(회사, 본인인증)은 비어도 등록되지만 한 번 확인하세요</span></div></li>
+              <span class="hint">"비어 있음 · 등록은 됩니다"로 뜨는 칸(회사, 본인인증)은 비어도 등록되지만 한 번 확인하세요</span>
+              <span class="hint">주소를 고칠 땐 주소 칸 오른쪽 <span class="ui ghost">검색</span>으로 찾아 넣습니다</span></div></li>
+            <li><div><span class="cr skt" style="height:20px;font-size:11.5px;">SK</span> <b>결합 요청 건이면</b> 오른쪽 상품 표 <b>인터넷 행 ▸ 부가서비스</b>에서 결합을 직접 고릅니다
+              <span class="hint">예: 이미 SK 휴대폰을 쓰는 고객 → <b>요즘가족결합</b> · 인터넷+TV 홈결합 → <b>요즘우리집결합</b> · <a href="#" data-go="s5">결합종류 설명</a></span></div></li>
           </ol>
         </div>
 
@@ -902,14 +907,16 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="sec">
           <div class="shot-card">
             <div class="shot-bar"><i></i><i></i><i></i><span>자동 고객등록</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
-            <div class="shot"><img src="../assets/auto/auto-5-ready.png" alt="등록 준비됨 화면 — 원문과 결과, 상품 줄, 등록하기 버튼" loading="lazy" width="1212" height="842"><span class="pin" style="left:14.0%;top:4.8%">1</span><span class="pin" style="left:39.8%;top:9.1%">2</span><span class="pin" style="left:76.3%;top:38.6%">3</span><span class="pin" style="left:43.3%;top:56.3%">4</span><span class="pin" style="left:39.9%;top:77.2%">5</span><span class="pin" style="left:90.8%;top:92.6%">6</span></div>
+            <div class="shot"><img src="../assets/auto/auto-5-ready.png" alt="등록 준비됨 화면 — 주소 검색, 셋트, 상품 줄(추단), 인터넷 행 부가서비스 결합 선택, 등록하기 버튼" loading="lazy" width="1188" height="874"><span class="pin" style="left:14.3%;top:4.3%">1</span><span class="pin" style="left:41.8%;top:8.8%">2</span><span class="pin" style="left:92.6%;top:26.3%">3</span><span class="pin" style="left:76.2%;top:43.2%">4</span><span class="pin" style="left:43.8%;top:60.3%">5</span><span class="pin" style="left:41.8%;top:90.2%">6</span><span class="pin" style="left:88.4%;top:80.8%">7</span><span class="pin" style="left:85.7%;top:96.8%">8</span></div>
             <div class="shot-cap">
               <ol class="pins">
                 <li>목록에 <b>준비됨</b></li>
                 <li><b>등록 준비됨 — 원문과 한 번 대조해 보세요</b></li>
+                <li>주소를 고칠 땐 <b>검색</b></li>
                 <li>셋트가 신청상품대로 잡혔는지 <span class="muted">(예: DPS+1)</span></li>
-                <li>사은품 금액 <span class="muted">(52만원 → 520,000)</span></li>
-                <li>상품 줄 — 상품 · 옵션 · 약정 · 할인탭</li>
+                <li>사은품 금액 <span class="muted">(50만원 → 500,000)</span></li>
+                <li>상품 줄 — 추가 TV는 <b>(추단)</b> 줄로 따로</li>
+                <li><b>SK 결합</b>은 인터넷 행 부가서비스에서 <b>직접 선택</b></li>
                 <li><b>선택한 1건 등록하기</b></li>
               </ol>
             </div>
@@ -920,13 +927,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h2>등록 전 대조 <small>원문 ↔ 오른쪽 결과</small></h2>
           <div class="check" data-check>
             <label class="ck"><input type="checkbox"><span><b>가입통신사</b>가 맞나요?</span></label>
-            <label class="ck"><input type="checkbox"><span><b>상품 줄</b>이 신청상품과 같나요? <span class="muted">상품 · 옵션 · 약정 · 할인탭</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>상품 줄</b>이 신청상품과 같나요? <span class="muted">상품 · 옵션 · 약정 · 할인탭 · 추가 TV는 (추단)</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>셋트</b>가 구성에 맞나요? <span class="muted">신청상품대로 자동 적용 — 누락 확인</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
             <label class="ck"><input type="checkbox"><span><b>■자동이체</b> 계좌가 정확한가요? <span class="muted">틀리거나 비우면 지로납부</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>■사은계좌</b>가 정확한가요? <span class="muted">적은 그대로 등록됨</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>SKB</b>라면 <b>지역</b>에서 도매 / 소매를 골랐나요?</span></label>
-            <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 7 확인</span><button type="button">전체 해제</button></div>
+            <label class="ck"><input type="checkbox"><span><b>SK 결합</b> 요청 건이라면 <b>인터넷 행 부가서비스</b>에서 결합을 골랐나요? <span class="muted">자동으로 안 들어감</span></span></label>
+            <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 8 확인</span><button type="button">전체 해제</button></div>
           </div>
         </div>
 

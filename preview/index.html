@@ -284,6 +284,11 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 .ex-h .muted{font-weight:550; font-size:13.5px;}
 .cr{display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:7px; color:#fff; font-size:12.5px; font-weight:800;}
 .cr.kt{background:#e2001a;} .cr.skt{background:#f47725;} .cr.usim{background:var(--violet);}
+.cr.sk{background:#f47725;} .cr.lg{background:#a50034;}
+.ex-r .exl{display:inline-block; margin-left:4px; padding:0 6px; border-radius:5px; background:var(--brand-50); color:var(--brand-600); font-size:11.5px; font-weight:750; line-height:18px; vertical-align:1px;}
+.carr .f-n{display:flex; align-items:center;}
+.carr .f-v .k{display:inline-block; min-width:46px; font-size:13px; font-weight:750; color:var(--ink-3);}
+.carr .f-v .ln{display:block; line-height:1.9;}
 .ex-r{display:grid; grid-template-columns:96px minmax(0,1fr); gap:12px; padding:11px 18px; border-top:1px solid var(--line-2); font-size:14.5px; color:var(--ink);}
 .ex-r:first-of-type{border-top:none;}
 .ex-r .l{font-size:13px; font-weight:750; color:var(--ink-3); padding-top:2px;}
@@ -1147,7 +1152,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       <div class="page">
         <div class="eyebrow">고객등록(수동) <span class="dot"></span><span class="of">4 / 8</span></div>
         <h1 class="title">사은품 정보</h1>
-        <p class="lead"><b>웨이브넷에 입금요청할 현금 사은품</b>만 다룹니다. 지급처를 고르고 입금 계좌를 확인합니다.</p>
+        <p class="lead"><b>웨이브넷에 입금요청할 현금 사은품</b>만 다룹니다. 지급처를 고르고 입금 계좌를 확인합니다. 입금 요청은 개통 후 <b>사은품 입금요청 버튼</b>으로 합니다.</p>
 
         <div class="sec">
           <h2>사은품 지급처 <small>양식의 ■현금지급처를 보고</small></h2>
@@ -1173,14 +1178,26 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         </div>
 
         <div class="sec">
+          <h2>입금 요청하기 <small>개통 후 · 새 웹전산</small></h2>
+          <ol class="steps card">
+            <li><div>고객 리스트에서 <b>사은품 금액이 적힌 행만</b> 선택합니다
+              <span class="hint">유선은 <b>인터넷 행</b>, 유심동판은 <b>모바일 행</b> · TV·부가상품 행은 선택하지 않습니다</span></div></li>
+            <li><div><span class="ui">사은품 입금요청</span> 버튼을 누르면 요청 끝 <span class="hint">당일입금 요청도 같은 버튼으로 합니다</span></div></li>
+          </ol>
+          <div class="co co-ok"><svg class="ic"><use href="#i-check"/></svg><div>입금 요청을 위해 <b>상부요청 · 사은품요청 이력을 남기거나 청약톡방에 요청할 필요가 없습니다.</b></div></div>
+        </div>
+
+        <div class="sec">
           <h2>입금 관련 질문</h2>
           <div class="qas">
+            <details class="qa"><summary><span class="q">Q</span>사은품 입금요청 버튼은 어느 행에서 눌러요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">사은품 금액이 적힌 행만 선택합니다. 유선은 <b>인터넷 행</b>, 유심동판은 <b>모바일 행</b>입니다. TV·부가상품 행은 선택하지 않습니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>웨이브넷지급과 유치자지급 차이가 뭐예요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a"><b>웨이브넷지급</b>은 웨이브넷이 사은품을 지급한 후 정산수수료에서 차감하는 방식, <b>유치자지급</b>은 협력점이 직접 지급하는 경우입니다.</div></details>
             <details class="qa" data-featured><summary><span class="q">Q</span>현금 사은품은 언제 입금되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">기본 프로세스는 <b>영업일 기준 개통 익일 오후 7시</b>에 일괄지급입니다.</div></details>
             <details class="qa" data-featured><summary><span class="q">Q</span>개통 당일에 입금받으려면요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a"><b>개통완료 고객에 한하여 오후 6시 이전(시간엄수)</b>까지 <b>이력등록 ▸ 상부요청</b>으로 당일입금을 요청하거나, 각 통신사 <b>청약톡방</b>으로 요청하세요.<br>예) <i>KT ○○○고객 개통완료. 당일입금 요청합니다.</i></div></details>
+              <div class="a"><b>개통완료 고객에 한하여 오후 6시 이전(시간엄수)</b>까지, 사은품 금액이 적힌 <b>인터넷 행(유심동판은 모바일 행)</b>만 선택하고 <b>사은품 입금요청</b> 버튼을 누르세요. 상부요청 · 사은품요청 이력이나 청약톡방 요청은 필요 없습니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>주말·공휴일에도 입금되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">아니요. <b>영업일 외에는 입금작업이 불가</b>합니다. 금요일 개통 고객이 당일입금 신청을 하지 않으면 <b>월요일 오후 7시경</b>에 입금됩니다.</div></details>
           </div>
@@ -1244,8 +1261,26 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">상품선택</div><div class="f-v">인터넷 / TV / 부가상품</div></div>
             <div class="f"><div class="f-n">옵션</div><div class="f-v">속도·상품명 <span class="muted">(예: 기가라이트(500M)+Wi)</span></div></div>
             <div class="f"><div class="f-n">약정</div><div class="f-v">예: 3년약정</div></div>
+            <div class="f"><div class="f-n">할인탭</div><div class="f-v">통신사·상품마다 다름 <span class="muted">· 아래 표</span></div></div>
+            <div class="f"><div class="f-n">부가서비스</div><div class="f-v">SK만 결합종류 선택 <span class="muted">· 아래 표</span></div></div>
           </div>
           <div class="co co-danger"><svg class="ic"><use href="#i-alert"/></svg><div><b>사은품 현금 금액은 인터넷(상품1) 행에만</b> 적습니다. TV·부가상품 행에도 적으면 <b>중복지급</b>될 수 있습니다.</div></div>
+        </div>
+
+        <div class="sec">
+          <h2>④ 할인탭 · 부가서비스 <small>통신사마다 다릅니다</small></h2>
+          <div class="fields two carr">
+            <div class="f"><div class="f-n"><span class="cr kt">KT</span></div><div class="f-v">
+              <span class="ln"><span class="k">인터넷</span>할인탭 = <b>와이파이 유·무</b> <span class="muted">(예: WIFI(AX)패키지)</span></span>
+              <span class="ln"><span class="k">TV</span>할인탭 = <b>셋탑 종류</b> <span class="muted">(예: 지니3셋탑)</span></span></div></div>
+            <div class="f"><div class="f-n"><span class="cr sk">SK</span></div><div class="f-v">
+              <span class="ln"><span class="k">인터넷</span>할인탭 <b>없음</b> · 부가서비스 = <b>결합종류</b> <span class="muted">(예: 요즘우리집결합)</span></span>
+              <span class="ln"><span class="k">TV</span>할인탭 = <b>셋탑 종류</b> <span class="muted">(예: 스마트3셋탑)</span></span></div></div>
+            <div class="f"><div class="f-n"><span class="cr lg">LG</span></div><div class="f-v">
+              <span class="ln"><span class="k">인터넷</span>할인탭 <b>없음</b></span>
+              <span class="ln"><span class="k">TV</span>할인탭 = <b>셋탑 종류</b></span></div></div>
+          </div>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>SK만 예외</b> — 이미 SK 휴대폰을 쓰는 고객은 새로 가입하는 SK 인터넷과 결합할 수 있어서, 부가서비스에서 <b>결합종류</b>를 고를 수 있습니다.</div></div>
         </div>
 
         <div class="sec">
@@ -1254,14 +1289,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="ex">
               <div class="ex-h"><span class="cr kt">KT</span>DPS <span class="muted">· OSS 없음 · 상품 2개</span></div>
               <div class="ex-r"><span class="l">회사/구분</span><span><b>KT</b> / <b>DPS</b> / 전국</span></div>
-              <div class="ex-r hl"><span class="l">상품1 인터넷</span><span>인터넷 · 에센스(1G) · 3년약정 · WIFI(AX)패키지 · 1회선<br><span class="money">사은품 450,000원</span></span></div>
-              <div class="ex-r"><span class="l">상품2 TV</span><span>TV · TV모든G(+1G) · 3년약정 · 지니3셋탑 · 1회선</span></div>
+              <div class="ex-r hl"><span class="l">상품1 인터넷</span><span>인터넷 · 에센스(1G) · 3년약정 · WIFI(AX)패키지<span class="exl">할인탭</span> · 1회선<br><span class="money">사은품 450,000원</span></span></div>
+              <div class="ex-r"><span class="l">상품2 TV</span><span>TV · TV모든G(+1G) · 3년약정 · 지니3셋탑<span class="exl">할인탭</span> · 1회선</span></div>
             </div>
             <div class="ex">
               <div class="ex-h"><span class="cr skt">SKT</span>DPS+1 <span class="muted">· OSS 동시 접수 · 상품 3개</span></div>
               <div class="ex-r"><span class="l">회사/구분</span><span><b>SKT</b> / <b>DPS+1</b> / 전국</span></div>
-              <div class="ex-r hl"><span class="l">상품1 인터넷</span><span>인터넷 · 기가라이트(500M)+Wi · 3년약정 · 없음 · 요즘우리집결합 · 1회선<br><span class="money">사은품 500,000원</span></span></div>
-              <div class="ex-r"><span class="l">상품2 TV</span><span>TV · All · 3년약정 · 스마트3셋탑 · 1회선</span></div>
+              <div class="ex-r hl"><span class="l">상품1 인터넷</span><span>인터넷 · 기가라이트(500M)+Wi · 3년약정 · 없음<span class="exl">할인탭</span> · 요즘우리집결합<span class="exl">부가서비스</span> · 1회선<br><span class="money">사은품 500,000원</span></span></div>
+              <div class="ex-r"><span class="l">상품2 TV</span><span>TV · All · 3년약정 · 스마트3셋탑<span class="exl">할인탭</span> · 1회선</span></div>
               <div class="ex-r"><span class="l">상품3 OSS</span><span>부가상품 · 원스톱해지(OSS) · 없음 · 없음 · 1회선</span></div>
             </div>
           </div>
@@ -1276,6 +1311,10 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <div class="a">인터넷+TV만 접수하면 <b>DPS</b>, 여기에 OSS 같은 부가상품을 함께 접수하면 <b>DPS+1</b>처럼 +숫자를 선택해 상품 탭을 늘립니다. 인터넷 단독이면 <b>단독</b>, 단독+부가상품이면 <b>단독+1</b>입니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>OSS도 같이 접수하려면?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">회사 선택 옆 드롭박스에서 <b>+숫자(예: DPS+1)</b>를 선택하면 상품행이 추가됩니다. 거기에 부가상품 · 원스톱해지(OSS)를 입력하고, <b>비고 사항 ▸ 기타 내용</b>에 OSS 접수양식을 유선 접수양식 하단에 함께 기재하세요.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>할인탭에는 뭘 골라요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a"><b>KT 인터넷</b>은 와이파이 유·무를 고르고, <b>SK · LG 인터넷</b>은 할인탭 선택이 없습니다. <b>TV</b>는 통신사와 관계없이 셋탑 종류를 고릅니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>SK 휴대폰을 쓰는 고객이에요. 결합은 어디서 해요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">SK 인터넷 상품 줄의 <b>부가서비스</b>에서 <b>결합종류</b>를 고릅니다(예: 요즘우리집결합). 이미 SK 휴대폰을 쓰는 고객은 새로 가입하는 SK 인터넷과 결합할 수 있어서, SK만 예외로 부가서비스에서 결합을 선택합니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>정책구분에 전국이 안 뜨고 다른 게 떠요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a"><b>SKB만</b> 도매 / 소매_일반 / 소매_소상공인이 뜹니다. SKB는 접수 상품에 맞게 고르고, <b>그 외 모든 통신사는 전국</b>입니다.</div></details>
           </div>
@@ -1466,7 +1505,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <span class="hint">리스트에서 정책지역 <b>MNP</b> · 통신사 <b>모바일</b>로 표시된 행입니다</span></div></div>
           </div>
           <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div>인터넷·TV·부가상품을 <b>각각 따로 추가등록한 게 아니라면</b>, 항상 인터넷 행에서 진행하세요.</div></div>
-          <div class="co co-usim"><svg class="ic"><use href="#i-info"/></svg><div><b>유심동판 고객</b>은 상부요청 · 회신답변 · 개통요청 · 결합요청 · 사은품입금요청 등 <b>모든 요청과 회신을 이력등록</b>으로 합니다. 긴급 건은 유선과 같이 청약톡방을 이용하세요.</div></div>
+          <div class="co co-usim"><svg class="ic"><use href="#i-info"/></svg><div><b>유심동판 고객</b>은 상부요청 · 회신답변 · 개통요청 · 결합요청 등 <b>모든 요청과 회신을 이력등록</b>으로 합니다. 긴급 건은 유선과 같이 청약톡방을 이용하세요. 사은품 입금은 모바일 행을 선택해 <a href="#" data-go="s4">사은품 입금요청 버튼</a>으로 요청합니다.</div></div>
         </div>
 
         <div class="pager">
@@ -1488,7 +1527,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <div class="rule">
             <div class="head"><span>상황</span><span>상담구분</span></div>
             <div><span class="if">상품변경 · 접수내용 수정 · 긴급접수 요청 등 <b>웨이브넷에 요청할 때</b></span><span class="then"><span class="v b">상부요청</span></span></div>
-            <div><span class="if">개통완료 고객의 <b>사은품 당일입금</b> 요청 <span class="muted">(오후 6시 전)</span></span><span class="then"><span class="v b">상부요청</span> <span class="muted">· 또는 청약톡방</span></span></div>
+            <div><span class="if"><b>사은품 입금 · 당일입금</b> 요청 <span class="muted">(당일입금은 개통완료 · 오후 6시 전)</span></span><span class="then">이력 없이 <a href="#" data-go="s4"><b>사은품 입금요청 버튼</b></a></span></div>
             <div><span class="if">리스트에 <span class="t" style="background:#f08c00;color:#fff">회신</span> — 웨이브넷의 <b>회신요청에 답할 때</b></span><span class="then"><span class="v b">회신답변</span></span></div>
             <div><span class="if">리스트에 <span class="t" style="background:#e0457a;color:#fff">VOC</span> — 고객 <b>불만·민원</b>에 답할 때</span><span class="then"><span class="v b">VOC 답변</span> <span class="muted">· <a href="#" data-go="i3">SR 처리양식</a>대로</span></span></div>
             <div><span class="if">사은 <b>금액 · 계좌 · 지급처</b>를 바꿀 때</span><span class="then"><span class="v b">사은품요청</span></span></div>
@@ -1520,8 +1559,9 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             </div>
             <div class="kind">
               <h3>사은품요청</h3>
-              <dl><dt>언제</dt><dd>사은품에 관한 <b>모든 요청</b></dd>
-                  <dt>내용</dt><dd>사은 금액변경, 계좌변경, 지급처변경 등</dd></dl>
+              <dl><dt>언제</dt><dd>사은품 <b>내용을 바꿀 때</b></dd>
+                  <dt>내용</dt><dd>사은 금액변경, 계좌변경, 지급처변경 등</dd>
+                  <dt>입금</dt><dd>입금 · 당일입금 요청은 이력 없이 <a href="#" data-go="s4">사은품 입금요청 버튼</a>으로</dd></dl>
             </div>
             <div class="kind">
               <h3>고객메모 <span class="t t-skip">알림 없음</span></h3>

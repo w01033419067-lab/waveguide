@@ -251,7 +251,8 @@ h1.title{margin:8px 0 0; font-size:34px; line-height:1.28; font-weight:820; lett
      font-weight:800; display:grid; place-items:center; pointer-events:none; box-shadow:0 0 0 2.5px #fff, 0 3px 8px rgba(0,0,0,.3);}
 .shot-cap{padding:16px 20px 18px; border-top:1px solid var(--line-2);}
 .pins{margin:0; padding:0; list-style:none; counter-reset:p; display:grid; gap:7px;}
-.pins li{counter-increment:p; display:flex; gap:10px; font-size:14.5px; color:var(--ink-2);}
+.pins li{counter-increment:p; position:relative; padding-left:30px; font-size:14.5px; line-height:1.6; color:var(--ink-2);}
+.pins li::before{position:absolute; left:0; top:0;}
 .pins li::before{content:counter(p); flex-shrink:0; width:20px; height:20px; margin-top:2px; border-radius:50%; background:#f03e3e; color:#fff;
                  font-size:11px; font-weight:800; display:grid; place-items:center;}
 .shot-note{margin:10px 0 0; font-size:13px; color:var(--ink-3);}
@@ -713,7 +714,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="hsec">
           <div class="hsec-h"><div><h2>꼭 알아둘 5가지</h2><p>가장 자주 틀리는 것만 골랐습니다</p></div></div>
           <div class="rules">
-            <button class="rl" data-go="a1"><span class="num">1</span><span class="tx">■자동이체를 비우거나 틀리게 쓰면 지로납부로 등록됩니다<small>빨간 표시가 뜨지 않으니 계좌 정보를 정확히 적으세요</small><span class="where">자동고객등록 · 양식 작성</span></span></button>
+            <button class="rl" data-go="a1"><span class="num">1</span><span class="tx">■자동이체 계좌가 틀리면 등록할 때 팝업으로 알려줍니다<small>예금주 조회에 실패한 건은 지로납부로 등록되니, 팝업이 뜨면 계좌번호를 확인하세요 · 비워두면 납부 칸에 지로납부로 표시</small><span class="where">자동고객등록 · 양식 작성</span></span></button>
             <button class="rl" data-go="s6"><span class="num">2</span><span class="tx">유심동판은 아직 자동등록이 안 됩니다<small>고객등록(수동)으로 진행합니다</small><span class="where">고객등록(수동) · 6단계</span></span></button>
             <button class="rl" data-go="s5"><span class="num">3</span><span class="tx">사은품 현금 금액은 인터넷(상품1) 행에만<small>TV·부가상품 행에도 적으면 중복지급될 수 있습니다</small><span class="where">고객등록(수동) · 5단계</span></span></button>
             <button class="rl" data-go="i1"><span class="num">4</span><span class="tx">회신·요청은 항상 인터넷 행의 고객명에서<small>TV·부가상품 내용이어도 인터넷 행이 우선입니다</small><span class="where">이력등록 · 시작하기</span></span></button>
@@ -774,12 +775,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">■주민번호</div><div class="f-v"><b>13자리 전체.</b> 자릿수가 틀리면 "주민번호 못읽음"이 뜹니다</div></div>
             <div class="f"><div class="f-n">■현금지급처 · 사은품 금액</div><div class="f-v"><span class="v">웨이브넷지급</span>이 미리 적혀 있고, 이때는 <b>사은품 금액이 필수</b>입니다 <span class="muted">(52만원처럼 써도 520,000으로 읽힘)</span>
               <span class="hint">유치자 직접지급이면 지우고 <b>유치자지급</b>으로 고쳐 씁니다</span></div></div>
-            <div class="f"><div class="f-n">■본인인증</div><div class="f-v">괄호 안내문 자리에 <b>통신사</b>를 적습니다 <span class="muted">(예: LG)</span></div></div>
+            <div class="f"><div class="f-n">■본인인증</div><div class="f-v">괄호 안내문 자리에 고객이 쓰는 휴대폰 <b>통신사</b>를 적습니다 <span class="muted">(예: LG)</span> — 인증통신사에 들어가고, 본인인증은 <span class="v">1.미인증</span>으로 자동 설정
+              <span class="hint"><b>안 적으면</b> 인증통신사가 빨간 칸이 되어 등록되지 않습니다 · KT 접점등록 후 협력점이 <b>직접 인증</b>했다면 검토 화면에서 본인인증만 <b>2.인증완료</b>로 바꿉니다</span></div></div>
             <div class="f hl"><div class="f-n">■자동이체</div><div class="f-v"><b>은행 · 계좌번호 · 예금주를 정확히.</b> 등록할 때 예금주 조회를 거쳐 납부정보에 들어갑니다
-              <span class="hint">계좌가 <b>틀리거나 비어 있으면</b> 빨간 표시 없이 <b>지로납부</b>로 등록됩니다</span></div></div>
-            <div class="f"><div class="f-n">■사은계좌</div><div class="f-v">예금주 조회 없이 <b>적은 그대로</b> 등록됩니다 — 은행 · 계좌번호 · 예금주를 정확히</div></div>
+              <span class="hint"><b>틀리면</b> 등록할 때 <b>예금주 조회 실패 팝업</b>으로 알려주고 지로납부로 등록됩니다 · <b>비어 있으면</b> 검토 화면 납부 칸에 <b>지로납부</b>로 표시됩니다</span></div></div>
+            <div class="f"><div class="f-n">■사은계좌</div><div class="f-v">예금주 조회 없이 <b>적은 그대로</b> 등록됩니다 — 은행 · 계좌번호 · 예금주를 정확히
+              <span class="hint">웨이브넷지급인데 비워두면 검토 화면에서 <span class="t" style="background:#fff4e6;color:#b45309;border:1px solid #d9a066">노란 테두리</span>로 알려줍니다 <span class="muted">(등록은 됩니다)</span></span></div></div>
           </div>
-          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>필수 항목</b> — ●유치자 · ■고객명 · ■주민번호 · ■연락처 · ■가입통신사 · ■신청상품 · ■본인인증 · ■현금지급처(웨이브넷지급이면 사은품 금액까지). 빠지면 다음 단계에서 <b>빨간 칸</b>으로 알려줍니다.<span class="hint" style="color:inherit;opacity:.8">접수경로는 협력점 아이디로 자동 입력되고, 지역은 SKB만 도매 / 소매를 직접 고릅니다.</span></div></div>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>필수 항목</b> — ●유치자 · ■고객명 · ■주민번호 · ■연락처 · ■가입통신사 · ■신청상품 · ■본인인증 · ■현금지급처(웨이브넷지급이면 사은품 금액까지). 빠지면 다음 단계에서 <b>빨간 칸</b>으로 알려줍니다.<span class="hint" style="color:inherit;opacity:.8"><b>회사</b>는 접속한 아이디의 <b>소속 협력점으로 자동 지정</b>되고, 접수경로도 협력점 아이디로 자동 입력됩니다. 지역은 SKB만 도매 / 소매를 직접 고릅니다.</span></div></div>
           <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div><b>SK 결합은 아직 자동 인식되지 않습니다.</b> ■월요금 · ■기타내용에 결합을 적어도 인터넷 행 부가서비스가 비어서(-) 들어갑니다. 결합 요청 건이면 <a href="#" data-go="a2">2단계 검토</a>에서 <b>인터넷 행 부가서비스</b>를 직접 고르세요.<span class="hint" style="color:inherit;opacity:.8">웹전산이 결합을 읽도록 수정되면 이 안내는 빠집니다.</span></div></div>
         </div>
 
@@ -836,7 +839,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <details class="qa"><summary><span class="q">Q</span>여러 고객의 양식을 한 번에 붙여넣어도 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">됩니다. 고객별 양식을 원문 칸에 <b>아래로 이어 붙이면</b> 왼쪽 목록에 고객마다 카드가 생기고, 체크한 건을 한 번에 등록할 수 있습니다. 양식 하나에는 고객 한 명만 적으세요.</div></details>
             <details class="qa"><summary><span class="q">Q</span>양식 항목을 비워두면 어떻게 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">필수 항목은 <b>빨간 칸</b>으로 표시되어 등록되지 않습니다. 단, <b>■자동이체를 비우거나 계좌가 틀리면 빨간 표시 없이 지로납부</b>로 등록되니 주의하세요.</div></details>
+              <div class="a">필수 항목은 <b>빨간 칸</b>으로 표시되어 등록되지 않습니다. 단, <b>■자동이체</b>는 빨간 칸이 되지 않습니다. 비우면 검토 화면 납부 칸에 <b>지로납부</b>로 표시되고, 계좌가 틀리면 등록할 때 <b>예금주 조회 실패 팝업</b>이 뜬 뒤 지로납부로 등록됩니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>유심동판도 자동등록이 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">아직 개발 중입니다. 지금은 <b>고객등록(수동)</b>으로 진행하세요.</div></details>
           </div>
@@ -884,7 +887,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <span class="hint">양식이 없으면 <span class="ui ghost">빈 유선 양식 불러오기</span>로 불러와서 바로 채워도 됩니다</span></div></li>
             <li><div>왼쪽 목록의 <span class="t t-must">N칸</span> 표시를 눌러 <b>빨간 테두리 칸만 채웁니다</b>
               <span class="hint">"○○ 못읽음"은 원문을 보고 직접 넣습니다. 빨간 칸이 아니어도 글자를 누르면 고칠 수 있습니다</span>
-              <span class="hint">"비어 있음 · 등록은 됩니다"로 뜨는 칸(회사, 본인인증)은 비어도 등록되지만 한 번 확인하세요</span>
+              <span class="hint"><span class="t" style="background:#fff4e6;color:#b45309;border:1px solid #d9a066">노란 테두리</span> 칸(예: 사은계좌)은 비어도 등록되지만 한 번 확인하세요</span>
+              <span class="hint">■본인인증을 안 적었다면 <b>인증통신사</b>(빨간 칸)에 통신사를 넣고 <b>본인인증</b>도 골라 주세요 <span class="muted">(보통 1.미인증)</span></span>
               <span class="hint">주소를 고칠 땐 주소 칸 오른쪽 <span class="ui ghost">검색</span>으로 찾아 넣습니다</span></div></li>
             <li><div><span class="cr skt" style="height:20px;font-size:11.5px;">SK</span> <b>결합 요청 건이면</b> 오른쪽 상품 표 <b>인터넷 행 ▸ 부가서비스</b>에서 결합을 직접 고릅니다
               <span class="hint">예: 이미 SK 휴대폰을 쓰는 고객 → <b>요즘가족결합</b> · 인터넷+TV 홈결합 → <b>요즘우리집결합</b> · <a href="#" data-go="s5">결합종류 설명</a></span></div></li>
@@ -893,7 +897,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="sec">
           <h2>빠지거나 틀린 칸은 화면이 알려줍니다</h2>
-          <p class="sec-lead">필수 항목이 비었거나 값을 읽지 못하면 그 고객은 <span class="t" style="background:#fff4e6;color:#d9480f">⚠ 보완필요</span>로 표시되고, 고칠 칸이 <b>빨간 테두리</b>로 표시됩니다. <b>빨간 칸을 모두 채워야 등록됩니다.</b></p>
+          <p class="sec-lead">필수 항목이 비었거나 값을 읽지 못하면 그 고객은 <span class="t" style="background:#fff4e6;color:#d9480f">⚠ 보완필요</span>로 표시되고, 고칠 칸이 <b>빨간 테두리</b>로 표시됩니다. <b>빨간 칸을 모두 채워야 등록됩니다.</b> <span class="t" style="background:#fff4e6;color:#b45309;border:1px solid #d9a066">노란 테두리</span>는 비어 있어도 등록은 되지만 한 번 확인할 칸입니다.</p>
           <div class="shot-card">
             <div class="shot-bar"><i></i><i></i><i></i><span>예시 — 주민번호 한 자리를 빼고, 사은품 금액을 비운 양식</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
             <div class="shot"><img src="assets/auto/auto-3-fix.png" alt="보완필요 화면 — 채워야 등록되는 칸 안내, 주민번호 못읽음, 현금 칸 빨간 테두리" loading="lazy" width="1234" height="843"><span class="pin" style="left:13.8%;top:4.7%">1</span><span class="pin" style="left:39.1%;top:8.9%">2</span><span class="pin" style="left:39.1%;top:16.0%">3</span><span class="pin" style="left:40.0%;top:70.0%">4</span></div>
@@ -910,8 +914,30 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="head"><span>양식이 이럴 때</span><span>화면 표시</span></div>
             <div><span class="if">필수 항목이 <b>비었을 때</b> <span class="muted">(예: 웨이브넷지급인데 사은품 금액 없음)</span></span><span class="then">그 칸 <b>빨간 테두리</b></span></div>
             <div><span class="if">값을 <b>읽지 못했을 때</b> <span class="muted">(예: 주민번호 자릿수 틀림)</span></span><span class="then"><b>○○ 못읽음</b> + 직접 입력 칸</span></div>
-            <div><span class="if">회사 · 본인인증이 비었을 때</span><span class="then">"비어 있음 · 등록은 됩니다" <span class="muted">· 빨간 칸 아님, 한 번 확인</span></span></div>
-            <div><span class="if">■자동이체 계좌가 <b>틀리거나 비었을 때</b></span><span class="then" style="color:var(--danger-ink)"><b>표시 없음</b> → 지로납부로 등록</span></div>
+            <div><span class="if">■본인인증(휴대폰 통신사)을 <b>안 적었을 때</b></span><span class="then">인증통신사 <b>빨간 테두리</b> + 본인인증 비어 있음 <span class="muted">· 통신사를 넣고 본인인증 선택</span></span></div>
+            <div><span class="if">웨이브넷지급인데 ■사은계좌를 <b>안 적었을 때</b></span><span class="then">사은계좌 <span class="t" style="background:#fff4e6;color:#b45309;border:1px solid #d9a066">노란 테두리</span> + "비어 있음 · 등록은 됩니다" <span class="muted">· 등록은 되지만 확인</span></span></div>
+            <div><span class="if">■자동이체 계좌가 <b>비었을 때</b></span><span class="then">납부 칸에 <b>지로납부</b> <span class="muted">· 빨간 칸 아님</span></span></div>
+            <div><span class="if">■자동이체 계좌가 <b>틀렸을 때</b></span><span class="then">검토 화면엔 표시 없음 → 등록할 때 <b>예금주 조회 실패 팝업</b> <span class="muted">· <a href="#" data-go="a3">3단계</a></span></span></div>
+          </div>
+          <div class="shot-card" style="margin-top:14px;">
+            <div class="shot-bar"><i></i><i></i><i></i><span>예시 — ■자동이체를 비운 양식</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
+            <div class="shot"><img src="assets/auto/auto-7-giro.png" alt="자동이체를 비운 양식 — 납부 칸에 지로납부로 표시" loading="lazy" width="1211" height="570"><span class="pin" style="left:22.1%;top:33.9%">1</span><span class="pin" style="left:84.6%;top:88.6%">2</span></div>
+            <div class="shot-cap">
+              <ol class="pins">
+                <li>원문의 <b>■자동이체</b>가 비어 있으면</li>
+                <li>검토 화면 <b>납부</b> 칸에 <b>지로납부</b>로 미리 보입니다 — 계좌이체로 받을 고객이면 ■자동이체에 은행 · 계좌번호 · 예금주를 채우세요</li>
+              </ol>
+            </div>
+          </div>
+          <div class="shot-card" style="margin-top:14px; max-width:600px;">
+            <div class="shot-bar"><i></i><i></i><i></i><span>예시 — 웨이브넷지급인데 ■사은계좌를 비운 양식</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
+            <div class="shot"><img src="assets/auto/auto-8-gift-yellow.png" alt="사은계좌를 비운 양식 — 노란 안내와 사은계좌 노란 테두리" loading="lazy" width="696" height="618"><span class="pin" style="left:96.0%;top:9.7%">1</span><span class="pin" style="left:43.1%;top:96.0%">2</span></div>
+            <div class="shot-cap">
+              <ol class="pins">
+                <li><b>비어 있음 · 등록은 됩니다 사은계좌</b> — 노란 안내로 알려줍니다</li>
+                <li>사은계좌 칸이 <b>노란 테두리</b> — 등록은 되지만, 입금받을 계좌가 맞는지 확인하고 채우세요</li>
+              </ol>
+            </div>
           </div>
         </div>
 
@@ -938,6 +964,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <div class="a">고객관리에 <b>같은 고객명이 이미 있을 때</b> 뜹니다. 같은 고객을 두 번 등록하는 건 아닌지 확인하세요.</div></details>
             <details class="qa"><summary><span class="q">Q</span>주소를 고치고 싶어요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">검토 화면 주소 칸 오른쪽의 <b>검색</b>으로 주소를 찾아 넣을 수 있습니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>납부 칸에 지로납부라고 떠요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">양식의 <b>■자동이체가 비어 있다</b>는 뜻입니다. 빨간 칸은 아니라서 그대로 등록하면 지로납부로 들어갑니다. 계좌이체로 받을 고객이면 ■자동이체에 은행 · 계좌번호 · 예금주를 채워 주세요.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>인증통신사가 빨간 칸이고 본인인증이 "선택"으로 떠요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">양식의 <b>■본인인증</b>에 휴대폰 통신사를 안 적은 경우입니다. 인증통신사는 채워야 등록되니 고객 휴대폰 통신사를 넣고, 본인인증도 골라 주세요(보통 <b>1.미인증</b>). 다음부터는 양식에 통신사를 적으면 둘 다 자동으로 채워집니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>본인인증을 2.인증완료로 바꿔야 할 때가 있나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a"><b>KT</b>는 접점등록 후 협력점에서 <b>직접 인증</b>하고 접수하는 경우가 있습니다. 그때만 검토 화면에서 본인인증을 <b>2.인증완료</b>로 바꾸세요. 그 외에는 기본값 1.미인증 그대로 둡니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>빨간 테두리와 노란 테두리는 뭐가 달라요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a"><b>빨간 테두리</b>는 채워야 등록되는 칸입니다(예: 주민번호, 사은품 금액, 인증통신사). <b>노란 테두리</b>는 비어 있어도 등록은 되지만 확인이 필요한 칸입니다. 예를 들어 웨이브넷지급인데 ■사은계좌를 안 적으면 사은계좌 칸이 노란 테두리로 표시됩니다.</div></details>
           </div>
         </div>
 
@@ -981,11 +1015,12 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <label class="ck"><input type="checkbox"><span><b>상품 줄</b>이 신청상품과 같나요? <span class="muted">상품 · 옵션 · 약정 · 할인탭 · 추가 TV는 (추단)</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>셋트</b>가 구성에 맞나요? <span class="muted">신청상품대로 자동 적용 — 누락 확인</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
-            <label class="ck"><input type="checkbox"><span><b>■자동이체</b> 계좌가 정확한가요? <span class="muted">틀리거나 비우면 지로납부</span></span></label>
-            <label class="ck"><input type="checkbox"><span><b>■사은계좌</b>가 정확한가요? <span class="muted">적은 그대로 등록됨</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>납부</b>가 맞나요? <span class="muted">지로납부로 보이면 ■자동이체가 빈 것 · 계좌가 틀린 건 등록할 때 팝업으로 알려줌</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>■사은계좌</b>가 정확한가요? <span class="muted">적은 그대로 등록됨 · 비면 노란 테두리</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>SKB</b>라면 <b>지역</b>에서 도매 / 소매를 골랐나요?</span></label>
             <label class="ck"><input type="checkbox"><span><b>SK 결합</b> 요청 건이라면 <b>인터넷 행 부가서비스</b>에서 결합을 골랐나요? <span class="muted">자동으로 안 들어감</span></span></label>
-            <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 8 확인</span><button type="button">전체 해제</button></div>
+            <label class="ck"><input type="checkbox"><span><b>본인인증</b>이 맞나요? <span class="muted">기본 1.미인증 · KT 직접 인증 건만 2.인증완료</span></span></label>
+            <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 9 확인</span><button type="button">전체 해제</button></div>
           </div>
         </div>
 
@@ -993,12 +1028,21 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h2>등록하기</h2>
           <ol class="steps card">
             <li><div>왼쪽 목록에서 등록할 건이 <b>체크</b>됐는지 확인 <span class="hint">여러 건이면 목록 위 <b>전체 선택</b></span></div></li>
-            <li><div><span class="ui">선택한 N건 등록하기</span> 클릭 <span class="hint">■자동이체 계좌는 이때 예금주 조회를 합니다</span></div></li>
+            <li><div><span class="ui">선택한 N건 등록하기</span> 클릭 <span class="hint">■자동이체 계좌는 이때 예금주 조회를 합니다 — 실패하면 팝업으로 알려줍니다 (아래)</span></div></li>
             <li><div>끝. 별도 완료 화면 없이 <b>개인 고객관리 리스트에 바로 추가</b>됩니다
               <span class="hint">상품별로 줄이 나뉘어 들어가고, 사은품 금액은 <b>인터넷 줄에 자동으로</b> 기재됩니다</span></div></li>
           </ol>
           <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div>고객명 옆에 <span class="t" style="background:#fdecec;color:#c92a2a">⚠ 이미 등록됨</span>이 뜨면 <b>고객관리에 같은 고객명이 이미 있다</b>는 뜻입니다. 같은 고객을 두 번 등록하는 건 아닌지 확인하세요.</div></div>
-          <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div><b>■자동이체</b> 계좌가 예금주 조회에서 맞지 않으면 <b>지로납부</b>로, <b>■사은계좌</b>는 조회 없이 <b>적은 그대로</b> 등록됩니다. 등록 전에 원문의 계좌 정보를 한 번 더 확인하세요.</div></div>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>예금주 조회에 실패하면 팝업으로 바로 알려줍니다.</b> 계좌가 틀려도 모르고 지나칠 일이 없습니다. 그 건은 <b>지로납부</b>로 등록되니, 팝업에 나온 고객의 <b>■자동이체 계좌번호를 확인</b>하세요. <b>■사은계좌</b>는 조회 없이 적힌 그대로 저장됩니다.
+            <img class="popup" src="assets/auto/auto-6-giro-popup.png" alt="예금주 조회에 실패해 1건이 지로납부로 등록됐습니다. 자동이체 계좌번호를 확인해 주세요. 사은계좌는 적힌 그대로 저장됐습니다." loading="lazy" width="450" height="230"></div></div>
+        </div>
+
+        <div class="sec">
+          <h2>자주 묻는 질문</h2>
+          <div class="qas">
+            <details class="qa"><summary><span class="q">Q</span>등록했더니 "예금주 조회에 실패해 지로납부로 등록됐습니다" 팝업이 떠요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">■자동이체에 적힌 계좌가 <b>예금주 조회를 통과하지 못한 것</b>입니다. 등록은 <b>지로납부</b>로 되었으니, 팝업에 나온 고객의 자동이체 계좌번호(은행 · 계좌번호 · 예금주)를 확인하세요. ■사은계좌는 조회 없이 적힌 그대로 저장됩니다.</div></details>
+          </div>
         </div>
 
         <div class="pager">

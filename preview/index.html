@@ -80,6 +80,8 @@ button{font-family:inherit; letter-spacing:inherit;}
             cursor:pointer; white-space:nowrap; transition:background .15s, color .15s;}
 .nav button:hover{background:var(--surface-3); color:var(--ink);}
 .nav button.on{background:var(--brand-50); color:var(--brand-600);}
+.nav .ns{display:none;}
+@media (max-width:1240px){ .nav .nl{display:none;} .nav .ns{display:inline;} }
 .hd-sp{flex:1;}
 .sbtn{display:flex; align-items:center; gap:9px; width:236px; height:40px; padding:0 10px 0 13px; border:1px solid var(--line);
       border-radius:12px; background:var(--surface-2); color:var(--ink-3); font-size:14px; cursor:pointer; transition:border-color .15s, background .15s;}
@@ -284,6 +286,7 @@ details[open] > summary .chev{transform:rotate(180deg);}
 details.acc > summary .ic:first-child{color:var(--brand);}
 .acc-b{padding:2px 18px 18px;}
 .qas{display:grid; gap:8px;}
+.pcard .pi.usim{background:var(--violet-50); color:var(--violet);}
 .sec-lead{margin:-4px 0 14px; font-size:15.5px; line-height:1.7; color:var(--ink-2);}
 .fq-tools{display:flex; gap:8px; margin-top:24px;}
 .fq-find{flex:1; display:flex; align-items:center; gap:10px; height:48px; padding:0 16px; background:#fff; border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--sh-1);}
@@ -420,7 +423,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 .linkbtn{display:inline-flex; align-items:center; gap:4px; border:none; background:none; color:var(--brand-600); font-size:14.5px; font-weight:750; cursor:pointer; padding:4px 0; white-space:nowrap;}
 .linkbtn .ic{width:16px; height:16px;}
 
-.paths{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;}
+.paths{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px;}
+@media (max-width:1100px){ .paths{grid-template-columns:repeat(2,minmax(0,1fr));} }
 .pcard{position:relative; display:flex; flex-direction:column; gap:12px; padding:24px; border-radius:var(--r-xl); background:#fff; border:1px solid var(--line);
        box-shadow:var(--sh-1); text-align:left; cursor:pointer; transition:transform .15s, box-shadow .15s, border-color .15s;}
 .pcard:hover{transform:translateY(-3px); box-shadow:var(--sh-2); border-color:#d5e4f7;}
@@ -613,8 +617,9 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       <span class="logo-tx">웨이브넷 <span>웹전산 가이드</span></span>
     </button>
     <nav class="nav" aria-label="가이드 구분">
-      <button data-sec="auto">자동고객등록</button>
-      <button data-sec="jeopsu">고객등록(수동)</button>
+      <button data-sec="auto"><span class="nl">자동고객등록(유선)</span><span class="ns">자동(유선)</span></button>
+      <button data-sec="usim"><span class="nl">자동고객등록(유심동판)</span><span class="ns">자동(유심)</span></button>
+      <button data-sec="jeopsu"><span class="nl">고객등록(수동)</span><span class="ns">수동등록</span></button>
       <button data-sec="iryeok">이력등록</button>
       <button data-sec="faq">FAQ</button>
     </nav>
@@ -630,11 +635,16 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 <div class="wrap">
 
   <aside class="side" aria-label="단계">
-    <p class="side-cap" id="sideCap">자동고객등록</p>
+    <p class="side-cap" id="sideCap">자동고객등록(유선)</p>
     <div class="steplist" data-sec="auto">
       <button class="si" data-go="a1"><span class="n"><span>1</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">양식 작성<small>빠짐없이 바르게</small></span></button>
       <button class="si" data-go="a2"><span class="n"><span>2</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">붙여넣고 검토<small>빨간 칸만 손보기</small></span></button>
       <button class="si" data-go="a3"><span class="n"><span>3</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">등록<small>대조 후 등록하기</small></span></button>
+    </div>
+    <div class="steplist" data-sec="usim" hidden>
+      <button class="si" data-go="u1"><span class="n"><span>1</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">양식 작성<small>유선 먼저 · 통신사 양식</small></span></button>
+      <button class="si" data-go="u2"><span class="n"><span>2</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">붙여넣고 검토<small>명의자 · 옵션 · 약정 · 할인탭</small></span></button>
+      <button class="si" data-go="u3"><span class="n"><span>3</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">등록<small>모바일 행으로 등록</small></span></button>
     </div>
     <div class="steplist" data-sec="jeopsu" hidden>
       <button class="si" data-go="s0"><span class="n"><span>0</span><svg class="ic"><use href="#i-check"/></svg></span><span class="tt">시작 전 준비<small>양식 → 비고 사항</small></span></button>
@@ -704,14 +714,20 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <button class="pcard" data-go="a1">
               <span class="badge">추천</span>
               <span class="pi auto"><svg class="ic"><use href="#i-zap"/></svg></span>
-              <h3>자동고객등록</h3>
+              <h3>자동고객등록(유선)</h3>
               <p>접수양식을 붙여넣어 등록합니다. 유선, 유선+OSS 접수.</p>
+              <span class="meta"><span>3단계</span><span class="go">시작 <svg class="ic"><use href="#i-right"/></svg></span></span>
+            </button>
+            <button class="pcard" data-go="u1">
+              <span class="pi usim"><svg class="ic"><use href="#i-zap"/></svg></span>
+              <h3>자동고객등록(유심동판)</h3>
+              <p>유선을 먼저 등록한 뒤, 통신사별 유심 양식을 붙여넣어 등록합니다.</p>
               <span class="meta"><span>3단계</span><span class="go">시작 <svg class="ic"><use href="#i-right"/></svg></span></span>
             </button>
             <button class="pcard" data-go="s0">
               <span class="pi man"><svg class="ic"><use href="#i-pen"/></svg></span>
               <h3>고객등록(수동)</h3>
-              <p>칸을 하나씩 직접 입력합니다. 유심동판 접수도 여기서.</p>
+              <p>칸을 하나씩 직접 입력합니다. 자동등록이 어려운 접수도 여기서.</p>
               <span class="meta"><span>0~8단계</span><span class="go">시작 <svg class="ic"><use href="#i-right"/></svg></span></span>
             </button>
             <button class="pcard" data-go="i1">
@@ -739,8 +755,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="hsec">
           <div class="hsec-h"><div><h2>꼭 알아둘 5가지</h2><p>가장 자주 틀리는 것만 골랐습니다</p></div></div>
           <div class="rules">
-            <button class="rl" data-go="a1"><span class="num">1</span><span class="tx">■자동이체 계좌가 틀리면 등록할 때 팝업으로 알려줍니다<small>예금주 조회에 실패한 건은 지로납부로 등록되니, 팝업이 뜨면 계좌번호를 확인하세요 · 비워두면 납부 칸에 지로납부로 표시</small><span class="where">자동고객등록 · 양식 작성</span></span></button>
-            <button class="rl" data-go="s6"><span class="num">2</span><span class="tx">유심동판은 아직 자동등록이 안 됩니다<small>고객등록(수동)으로 진행합니다</small><span class="where">고객등록(수동) · 6단계</span></span></button>
+            <button class="rl" data-go="a1"><span class="num">1</span><span class="tx">■자동이체 계좌가 틀리면 등록할 때 팝업으로 알려줍니다<small>예금주 조회에 실패한 건은 지로납부로 등록되니, 팝업이 뜨면 계좌번호를 확인하세요 · 비워두면 납부 칸에 지로납부로 표시</small><span class="where">자동고객등록(유선) · 양식 작성</span></span></button>
+            <button class="rl" data-go="u2"><span class="num">2</span><span class="tx">유심동판은 유선을 먼저 등록한 뒤 자동등록<small>유선동판 명의자와 옵션 · 약정 · 할인탭은 검토 화면에서 직접 넣습니다</small><span class="where">자동고객등록(유심동판) · 붙여넣고 검토</span></span></button>
             <button class="rl" data-go="s5"><span class="num">3</span><span class="tx">사은품 현금 금액은 인터넷(상품1) 행에만<small>TV·부가상품 행에도 적으면 중복지급될 수 있습니다</small><span class="where">고객등록(수동) · 5단계</span></span></button>
             <button class="rl" data-go="i1"><span class="num">4</span><span class="tx">회신·요청은 항상 인터넷 행의 고객명에서<small>TV·부가상품 내용이어도 인터넷 행이 우선입니다</small><span class="where">이력등록 · 시작하기</span></span></button>
             <button class="rl" data-go="i1"><span class="num">5</span><span class="tx">긴급 건은 청약톡방에 먼저<small>설치기사 현장방문 중 상품변경 등 급한 건</small><span class="where">이력등록 · 시작하기</span></span></button>
@@ -758,7 +774,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     <!-- ================= 자동고객등록 1 ================= -->
     <section class="step" id="a1">
       <div class="page">
-        <div class="eyebrow">자동고객등록 <span class="dot"></span><span class="of">1 / 3</span></div>
+        <div class="eyebrow">자동고객등록(유선) <span class="dot"></span><span class="of">1 / 3</span></div>
         <h1 class="title">올바른 양식 작성</h1>
         <p class="lead">양식만 빠짐없이 쓰면, 붙여넣는 순간 <b>모든 칸이 자동으로 채워집니다.</b> 자동등록의 성패는 이 단계에서 결정됩니다.</p>
 
@@ -766,7 +782,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h3><svg class="ic"><use href="#i-spark"/></svg>핵심만</h3>
           <ul>
             <li><svg class="ic"><use href="#i-check"/></svg><span>정해진 양식을 <b>항목 하나 빠짐없이</b> 채웁니다</span></li>
-            <li><svg class="ic"><use href="#i-check"/></svg><span>자동등록은 <b>유선 · 유선+OSS</b>만 됩니다 — 유심동판은 <a href="#" data-go="s6">고객등록(수동)</a>으로</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>이 탭은 <b>유선 · 유선+OSS</b> 등록입니다 — 유심동판은 <a href="#" data-go="u1">자동고객등록(유심동판)</a>으로</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>여러 고객도 양식을 <b>아래로 이어 붙여</b> 한 번에 등록할 수 있습니다</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span><b>SK 결합</b>은 양식에 적어도 아직 자동으로 들어가지 않습니다 — 검토 화면에서 <b>직접 선택</b></span></li>
           </ul>
@@ -866,7 +882,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <details class="qa"><summary><span class="q">Q</span>양식 항목을 비워두면 어떻게 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">필수 항목은 <b>빨간 칸</b>으로 표시되어 등록되지 않습니다. 단, <b>■자동이체</b>는 빨간 칸이 되지 않습니다. 비우면 검토 화면 납부 칸에 <b>지로납부</b>로 표시되고, 계좌가 틀리면 등록할 때 <b>예금주 조회 실패 팝업</b>이 뜬 뒤 지로납부로 등록됩니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>유심동판도 자동등록이 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">아직 개발 중입니다. 지금은 <b>고객등록(수동)</b>으로 진행하세요.</div></details>
+              <div class="a">됩니다. 유선을 먼저 등록한 뒤 <a href="#" data-go="u1"><b>자동고객등록(유심동판)</b></a>에서 업체를 통신사 유심(KT · SKT · SKB · LG)으로 골라 등록하세요.</div></details>
           </div>
         </div>
 
@@ -880,7 +896,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     <!-- ================= 자동고객등록 2 ================= -->
     <section class="step" id="a2">
       <div class="page">
-        <div class="eyebrow">자동고객등록 <span class="dot"></span><span class="of">2 / 3</span></div>
+        <div class="eyebrow">자동고객등록(유선) <span class="dot"></span><span class="of">2 / 3</span></div>
         <h1 class="title">붙여넣고 검토</h1>
         <p class="lead">원문 칸에 양식을 붙여넣으면 <b>버튼을 누르지 않아도 바로</b> 읽혀서 칸이 채워집니다. <b>빨간 칸만</b> 손보면 됩니다.</p>
 
@@ -1010,7 +1026,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     <!-- ================= 자동고객등록 3 ================= -->
     <section class="step" id="a3">
       <div class="page">
-        <div class="eyebrow">자동고객등록 <span class="dot"></span><span class="of">3 / 3</span></div>
+        <div class="eyebrow">자동고객등록(유선) <span class="dot"></span><span class="of">3 / 3</span></div>
         <h1 class="title">등록</h1>
         <p class="lead"><b>"등록 준비됨"</b>이 뜨면 원문과 한 번 대조하고 <span class="ui">선택한 N건 등록하기</span>를 누릅니다.</p>
 
@@ -1072,6 +1088,238 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="pager">
           <button class="pg" data-go="a2"><span class="l">이전</span><span class="w"><svg class="ic"><use href="#i-left"/></svg>붙여넣고 검토</span></button>
+          <button class="pg next" data-go="home"><span class="l">완료</span><span class="w">홈으로<svg class="ic"><use href="#i-right"/></svg></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 자동고객등록(유심동판) 1 ================= -->
+    <section class="step" id="u1">
+      <div class="page">
+        <div class="eyebrow">자동고객등록(유심동판) <span class="dot"></span><span class="of">1 / 3</span></div>
+        <h1 class="title">올바른 양식 작성</h1>
+        <p class="lead"><b>유선을 먼저 등록</b>한 뒤, 통신사별 유심 양식을 채워 붙여넣으면 고객 정보 · 금액 · 계좌가 자동으로 채워집니다.</p>
+
+        <div class="keys">
+          <h3><svg class="ic"><use href="#i-spark"/></svg>핵심만</h3>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>유선 고객을 먼저 등록</b>한 뒤 유심을 등록합니다 — <a href="#" data-go="a1">자동고객등록(유선)</a> 또는 <a href="#" data-go="s0">고객등록(수동)</a></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>통신사별 유심 양식을 <b>항목 하나 빠짐없이</b> 채웁니다</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>유선동판 명의자</b>와 상품 줄의 <b>옵션 · 약정 · 할인탭</b>은 검토 화면에서 직접 넣습니다</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>한 번에 여러 건은 <b>같은 통신사끼리만</b> 됩니다</span></li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <h2>양식 복사 <small>웹전산의 [빈 ○○ 유심 양식 불러오기]와 같은 양식입니다</small></h2>
+          <div class="tabs" data-tabs>
+            <button class="on" data-pane="pu-kt">KT 유심</button>
+            <button data-pane="pu-sk">SK 유심</button>
+            <button data-pane="pu-lg">LG 유심</button>
+          </div>
+          <div class="pane on" id="pu-kt">
+            <div class="code">
+              <div class="code-h"><span class="nm">KT 유심 MNP 접수양식</span><button class="cbtn" data-copy="f-kt"><svg class="ic"><use href="#i-copy"/></svg>복사</button></div>
+              <pre data-mirror="f-kt"></pre>
+            </div>
+          </div>
+          <div class="pane" id="pu-sk">
+            <div class="code">
+              <div class="code-h"><span class="nm">SK 유심 MNP 접수양식<small>업체 SKT 유심 · SKB 유심</small></span><button class="cbtn" data-copy="f-skt"><svg class="ic"><use href="#i-copy"/></svg>복사</button></div>
+              <pre data-mirror="f-skt"></pre>
+            </div>
+          </div>
+          <div class="pane" id="pu-lg">
+            <div class="code">
+              <div class="code-h"><span class="nm">LG 유심 MNP 접수양식</span><button class="cbtn" data-copy="f-lg"><svg class="ic"><use href="#i-copy"/></svg>복사</button></div>
+              <pre data-mirror="f-lg"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>이것만 지키세요</h2>
+          <div class="fields two">
+            <div class="f"><div class="f-n">기존통신사</div><div class="f-v">고객이 <b>지금 쓰는 통신사</b>를 적습니다 — 인증통신사로 들어갑니다
+              <span class="hint">KT · SK 양식은 첫 줄 (기존통신사) 자리 <span class="muted">(예: LG - KT)</span>, LG 양식은 ■ 기존통신사</span></div></div>
+            <div class="f"><div class="f-n">고객명 · 주민번호 · 연락처</div><div class="f-v">유선과 같습니다 — 주민번호는 <b>13자리 전체</b></div></div>
+            <div class="f hl"><div class="f-n">자동이체</div><div class="f-v"><b>은행 · 계좌번호 · 예금주를 정확히.</b> 등록할 때 예금주 조회를 합니다
+              <span class="hint">조회에 실패하면 <b>팝업</b>으로 알려주고 지로납부로 등록됩니다</span></div></div>
+            <div class="f"><div class="f-n">사은계좌</div><div class="f-v">예금주 조회 없이 <b>적힌 그대로</b> 저장됩니다</div></div>
+            <div class="f"><div class="f-n">유심수령주소</div><div class="f-v">검토 화면 <b>주소</b>로 들어갑니다 <span class="muted">· 고칠 땐 주소 칸 오른쪽 검색</span></div></div>
+            <div class="f"><div class="f-n">사은품</div><div class="f-v">검토 화면 <b>현금</b>으로 들어가고, 등록하면 <b>모바일 행</b>에 기재됩니다 <span class="muted">(예: 20만원 → 200,000)</span></div></div>
+            <div class="f"><div class="f-n">요금제 · 선택약정 · 결합종류</div><div class="f-v">양식에는 그대로 적고, 상품 줄의 <b>약정 · 할인탭</b>은 검토 화면에서 직접 고릅니다
+              <span class="hint">통신사마다 고를 내용이 달라 자동으로 들어가지 않습니다</span></div></div>
+          </div>
+          <div class="co co-warn"><svg class="ic"><use href="#i-alert"/></svg><div><b>한 번에 여러 건은 같은 통신사끼리만</b> 됩니다. 업체에서 고른 통신사로 자동 설정되기 때문에 KT와 LG처럼 다른 통신사를 섞어 붙여넣을 수 없습니다.</div></div>
+        </div>
+
+        <div class="sec">
+          <h2>자주 묻는 질문</h2>
+          <div class="qas">
+            <details class="qa"><summary><span class="q">Q</span>유선과 유심을 한 번에 등록할 수 있나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">아니요. <b>유선을 먼저 등록</b>한 뒤 유심을 등록합니다. 유심은 검토 화면의 <b>유선동판 명의자</b>(유선 고객명)로 유선 고객과 묶입니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>KT 유심과 LG 유심을 같이 붙여넣어도 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">안 됩니다. 업체에서 고른 통신사로 자동 설정되므로 <b>같은 통신사끼리만</b> 여러 건을 한 번에 등록할 수 있습니다. 통신사가 다르면 업체를 바꿔 따로 등록하세요.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>요금제 · 결합종류를 적었는데 약정 · 할인탭이 비어 있어요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">정상입니다. 약정 · 할인탭은 <b>통신사마다 고를 내용이 달라서</b>(요금제군, 결합, 약정기간 등) 검토 화면에서 직접 고릅니다. 양식에 적은 요금제 · 선택약정 · 결합종류를 보고 고르세요.</div></details>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="pg" data-go="home"><span class="l">이전</span><span class="w"><svg class="ic"><use href="#i-left"/></svg>홈</span></button>
+          <button class="pg next" data-go="u2"><span class="l">다음</span><span class="w">붙여넣고 검토<svg class="ic"><use href="#i-right"/></svg></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 자동고객등록(유심동판) 2 ================= -->
+    <section class="step" id="u2">
+      <div class="page">
+        <div class="eyebrow">자동고객등록(유심동판) <span class="dot"></span><span class="of">2 / 3</span></div>
+        <h1 class="title">붙여넣고 검토</h1>
+        <p class="lead">업체에서 <b>통신사 유심</b>을 고르고 양식을 붙여넣습니다. 그다음 <b>유선동판 명의자</b>와 상품 줄의 <b>옵션 · 약정 · 할인탭</b>을 직접 넣으면 됩니다.</p>
+
+        <div class="sec">
+          <h2>들어가는 곳 <small>유선과 같습니다</small></h2>
+          <div class="path">
+            <span class="crumb">고객관리</span><span class="ar">›</span>
+            <span class="crumb">개인 고객관리</span><span class="or">또는</span><span class="crumb">협력점 고객관리</span><span class="ar">›</span>
+            <span class="crumb on">자동고객등록</span>
+          </div>
+          <div class="ubar">고객 리스트 화면 맨 오른쪽 <span class="ui">고객등록</span><span class="ui on">자동고객등록</span></div>
+        </div>
+
+        <div class="sec">
+          <h2>순서</h2>
+          <ol class="steps card">
+            <li><div><b>업체</b>에서 통신사 유심을 고릅니다 — <span class="v">KT 유심</span> <span class="v">SKT 유심</span> <span class="v">SKB 유심</span> <span class="v">LG 유심</span>
+              <img class="popup" src="../assets/usim/usim-1-company.png" alt="업체 목록 — 유선, 유선+OSS, KT 유심, SKT 유심, SKB 유심, LG 유심" loading="lazy" width="337" height="366" style="max-width:240px"></div></li>
+            <li><div>가운데 <b>원문 칸에 양식을 붙여넣습니다</b> <span class="kbd">Ctrl V</span>
+              <span class="hint">양식이 없으면 <span class="ui ghost">빈 ○○ 유심 양식 불러오기</span>로 그 통신사 양식을 불러와 바로 채워도 됩니다</span></div></li>
+            <li><div>오른쪽 <b>유선동판 명의자</b>에 <b>유선 고객명</b>을 넣습니다
+              <span class="hint">고객명으로 유선 고객을 찾아 묶으니, 유선 등록 때 쓴 고객명과 <b>똑같이</b> 적어 주세요</span></div></li>
+            <li><div>상품 줄의 <b>옵션 · 약정 · 할인탭</b>을 고릅니다 <span class="hint">빨간 <b>⚠선택</b>으로 표시됩니다 — 아래 표 참고</span></div></li>
+            <li><div>그 밖에 <b>빨간 테두리 칸</b>이 있으면 채웁니다 <span class="hint">유선과 같은 방식입니다 · <a href="#" data-go="a2">빨간 · 노란 테두리 설명</a></span></div></li>
+          </ol>
+        </div>
+
+        <div class="sec">
+          <h2>이런 화면이에요 <small>KT 유심 — 옵션 · 약정 · 할인탭을 고르기 전</small></h2>
+          <div class="shot-card">
+            <div class="shot-bar"><i></i><i></i><i></i><span>자동 고객등록 — KT 유심</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
+            <div class="shot"><img src="../assets/usim/usim-2-review.png" alt="유심 검토 화면 — 업체 KT 유심, 모바일 · MNP · 단독 자동, 채워야 등록됩니다 상품옵션, 유선동판명의자 칸, 옵션 · 약정 · 할인탭 선택" loading="lazy" width="1212" height="868"><span class="pin" style="left:15.3%;top:3.5%">1</span><span class="pin" style="left:51.2%;top:53.7%">2</span><span class="pin" style="left:94.9%;top:17.9%">3</span><span class="pin" style="left:79.2%;top:77.0%">4</span><span class="pin" style="left:56.9%;top:91.6%">5</span></div>
+            <div class="shot-cap">
+              <ol class="pins">
+                <li>업체 — <b>통신사 유심</b> 선택</li>
+                <li>자동으로 채워짐 — 가입통신사 <b>모바일</b> · 지역 <b>MNP</b> · 셋트 <b>단독</b></li>
+                <li><b>채워야 등록됩니다</b> — 아직 안 고른 칸을 알려줍니다 <span class="muted">(예: 상품옵션)</span></li>
+                <li><b>유선동판 명의자</b> — 유선 고객명을 직접 입력</li>
+                <li>상품 줄 <b>옵션 · 약정 · 할인탭</b> — 직접 선택</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>직접 넣는 칸</h2>
+          <div class="rule">
+            <div class="head"><span>칸</span><span>넣을 것</span></div>
+            <div><span class="if"><b>유선동판 명의자</b></span><span class="then">이미 등록한 <b>유선 고객의 고객명</b> <span class="muted">· 빨간 칸이 아니어도 꼭</span></span></div>
+            <div><span class="if"><b>옵션</b></span><span class="then">어떤 유선상품과의 동판인지 <span class="v">동판-○○</span> 또는 <span class="v">가족동판</span></span></div>
+            <div><span class="if"><b>약정 · 할인탭</b></span><span class="then">통신사마다 다름 — 요금제군 · 결합 · 약정기간 등 <span class="muted">· 양식의 요금제 · 선택약정 · 결합종류를 보고</span></span></div>
+          </div>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>자동으로 채워지는 것</b> — 가입통신사 모바일 · 지역 MNP · 셋트 단독 · 상품(고른 통신사) · 본인인증 1.미인증 · 현금(■사은품) · 주소(■유심수령주소) · 인증통신사(기존통신사) · 회사(접속한 아이디의 소속 협력점)</div></div>
+        </div>
+
+        <div class="sec">
+          <h2>자주 묻는 질문</h2>
+          <div class="qas">
+            <details class="qa"><summary><span class="q">Q</span>"채워야 등록됩니다 상품옵션"이 떠요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">상품 줄의 <b>옵션</b>을 아직 고르지 않은 것입니다. 유선상품과 연계된 <b>동판-○○</b> 또는 <b>가족동판</b>을 고르고, 약정 · 할인탭도 함께 골라 주세요.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>유선동판 명의자는 왜 적어요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">유심은 <b>고객명으로 유선 고객과 일치 여부</b>를 판단합니다. 유선동판 명의자에 유선 등록 때 쓴 고객명을 똑같이 적어야 같은 고객으로 묶입니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>약정 · 할인탭은 뭘 골라요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">통신사마다 목록이 다릅니다. 양식의 <b>요금제 · 선택약정 · 결합종류</b>에 맞는 항목을 고르세요. 예를 들어 할인탭은 (통합)69↑, 61군, F_79(89)처럼 통신사별 요금제군으로 나옵니다.</div></details>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="pg" data-go="u1"><span class="l">이전</span><span class="w"><svg class="ic"><use href="#i-left"/></svg>양식 작성</span></button>
+          <button class="pg next" data-go="u3"><span class="l">다음</span><span class="w">등록<svg class="ic"><use href="#i-right"/></svg></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 자동고객등록(유심동판) 3 ================= -->
+    <section class="step" id="u3">
+      <div class="page">
+        <div class="eyebrow">자동고객등록(유심동판) <span class="dot"></span><span class="of">3 / 3</span></div>
+        <h1 class="title">등록</h1>
+        <p class="lead">원문과 한 번 대조하고 <span class="ui">선택한 N건 등록하기</span>를 누릅니다. 등록하면 개인 고객관리에 <b>모바일 행</b>으로 들어갑니다.</p>
+
+        <div class="sec">
+          <h2>등록 전 대조</h2>
+          <div class="check" data-check>
+            <label class="ck"><input type="checkbox"><span><b>유선</b>을 먼저 등록했나요?</span></label>
+            <label class="ck"><input type="checkbox"><span><b>유선동판 명의자</b>가 유선 고객명과 똑같나요?</span></label>
+            <label class="ck"><input type="checkbox"><span><b>옵션</b>이 맞나요? <span class="muted">동판-○○ / 가족동판</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>약정 · 할인탭</b>이 양식의 요금제 · 선택약정 · 결합종류와 맞나요?</span></label>
+            <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
+            <label class="ck"><input type="checkbox"><span><b>납부</b>가 맞나요? <span class="muted">지로납부로 보이면 자동이체가 빈 것</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>사은계좌</b>가 정확한가요? <span class="muted">적힌 그대로 저장됨</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>주소</b>(유심수령주소)가 맞나요?</span></label>
+            <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 8 확인</span><button type="button">전체 해제</button></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>등록하기</h2>
+          <ol class="steps card">
+            <li><div>왼쪽 목록에서 등록할 건이 <b>체크</b>됐는지 확인 <span class="hint">같은 통신사 여러 건이면 목록 위 <b>전체 선택</b></span></div></li>
+            <li><div><span class="ui">선택한 N건 등록하기</span> 클릭 <span class="hint">자동이체 계좌는 이때 예금주 조회를 합니다 — 실패하면 팝업으로 알려줍니다</span></div></li>
+            <li><div>끝. <b>개인 고객관리 리스트</b>에 <b>모바일 행</b>으로 추가되고, 사은품 금액도 <b>모바일 행</b>에 기재됩니다</div></li>
+          </ol>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div><b>예금주 조회에 실패하면 팝업으로 바로 알려줍니다.</b> 유선과 같습니다. 그 건은 지로납부로 등록되니 팝업에 나온 고객의 자동이체 계좌번호를 확인하세요. 사은계좌는 적힌 그대로 저장됩니다.
+            <img class="popup" src="../assets/auto/auto-6-giro-popup.png" alt="예금주 조회에 실패해 1건이 지로납부로 등록됐습니다. 자동이체 계좌번호를 확인해 주세요. 사은계좌는 적힌 그대로 저장됐습니다." loading="lazy" width="450" height="230"></div></div>
+        </div>
+
+        <div class="sec">
+          <h2>등록 결과 <small>개인 고객관리</small></h2>
+          <div class="shot-card">
+            <div class="shot-bar"><i></i><i></i><i></i><span>고객관리 ▸ 개인 고객관리</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
+            <div class="shot"><img src="../assets/usim/usim-3-list.png" alt="개인 고객관리 — 정책지역 MNP, 통신사 모바일, 상품명 KT · LG · SKB · SKT, 옵션 동판 · 가족동판, 현금 200,000" loading="lazy" width="1420" height="288"><span class="pin" style="left:29.6%;top:4.2%">1</span><span class="pin" style="left:38.0%;top:4.2%">2</span><span class="pin" style="left:81.8%;top:4.2%">3</span></div>
+            <div class="shot-cap">
+              <ol class="pins">
+                <li>정책지역 <b>MNP</b> · 통신사 <b>모바일</b> · 상품명에 <b>유심 통신사</b></li>
+                <li>옵션 — 고른 <b>동판-○○ / 가족동판</b></li>
+                <li>사은품 금액(현금)도 <b>모바일 행</b>에</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>등록한 뒤</h2>
+          <div class="rule">
+            <div class="head"><span>이럴 땐</span><span>이렇게</span></div>
+            <div><span class="if">빠진 내용이나 <b>추가할 내용</b>이 있을 때</span><span class="then">이력등록 <span class="v b">상부요청</span> <span class="muted">· 모바일 행 고객명에서 · <a href="#" data-go="i1">이력등록</a></span></span></div>
+            <div><span class="if">사은품 <b>입금요청</b></span><span class="then"><b>모바일 행</b> 체크 → <span class="ui pay">입금요청(협력점)</span> <span class="muted">· <a href="#" data-go="i4">입금요청</a></span></span></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>자주 묻는 질문</h2>
+          <div class="qas">
+            <details class="qa"><summary><span class="q">Q</span>등록한 뒤에 빠진 내용이 생각났어요.<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">따로 다시 등록할 필요 없이, 개인 고객관리에서 <b>모바일 행의 고객명</b>을 눌러 <b>이력등록 ▸ 상부요청</b>으로 누락 · 추가 내용을 올리면 됩니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>유심 사은품 금액은 어느 행에 들어가요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">유심 자동등록으로 등록한 건은 사은품 금액이 <b>모바일 행</b>에 기재됩니다. 입금요청도 모바일 행을 체크해서 합니다.</div></details>
+          </div>
+        </div>
+
+        <div class="pager">
+          <button class="pg" data-go="u2"><span class="l">이전</span><span class="w"><svg class="ic"><use href="#i-left"/></svg>붙여넣고 검토</span></button>
           <button class="pg next" data-go="home"><span class="l">완료</span><span class="w">홈으로<svg class="ic"><use href="#i-right"/></svg></span></button>
         </div>
       </div>
@@ -1461,6 +1709,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="eyebrow">고객등록(수동) <span class="dot"></span><span class="of">6 / 8</span></div>
         <h1 class="title">번호이동 <span class="t t-usim" style="vertical-align:8px">유심동판 시에만</span></h1>
         <p class="lead">유심동판을 함께 접수할 때만 작성합니다. <b>유선만 접수라면 건너뛰고</b> <a href="#" data-go="s7">7단계</a>로 가세요.</p>
+        <div class="co co-info" style="margin-top:20px;"><svg class="ic"><use href="#i-info"/></svg><div>유심동판은 <a href="#" data-go="u1"><b>자동고객등록(유심동판)</b></a>으로 양식을 붙여넣어 더 빠르게 등록할 수 있습니다. 아래는 수동으로 등록할 때의 방법입니다.</div></div>
 
         <div class="sec">
           <h2>유심동판 접수 순서 <small>유선 접수를 마친 뒤</small></h2>
@@ -2107,7 +2356,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
   /* ---------- 구성 ---------- */
   var SECTIONS = {
     home:   { steps:['home'], wide:true },
-    auto:   { steps:['a1','a2','a3'], name:'자동고객등록' },
+    auto:   { steps:['a1','a2','a3'], name:'자동고객등록(유선)' },
+    usim:   { steps:['u1','u2','u3'], name:'자동고객등록(유심동판)' },
     jeopsu: { steps:['s0','s1','s2','s3','s4','s5','s6','s7','s8'], name:'고객등록(수동)' },
     iryeok: { steps:['i1','i2','i3','i4'], name:'이력등록' },
     faq:    { steps:['fq'], wide:true, name:'FAQ' }
@@ -2256,7 +2506,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     }
     var hot = $$('.step:not(#fq):not(#home) details.qa[data-featured]').map(function(qa){ return cloneQa(qa, qa.closest('.step').id); });
     if(hot.length) group('hot', '많이 찾는 질문', [{ items: hot }]);
-    [['auto','자동고객등록'],['jeopsu','고객등록(수동)'],['iryeok','이력등록']].forEach(function(g){
+    [['auto','자동고객등록(유선)'],['usim','자동고객등록(유심동판)'],['jeopsu','고객등록(수동)'],['iryeok','이력등록']].forEach(function(g){
       var list = [];
       SECTIONS[g[0]].steps.forEach(function(id){
         var items = $$('#' + id + ' details.qa').map(function(qa){ return cloneQa(qa, id); });

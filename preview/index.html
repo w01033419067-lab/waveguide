@@ -2174,6 +2174,12 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="fq-chips" id="fqChips"></div>
         <p class="fq-none" id="fqNone" hidden>찾는 질문이 없습니다. 위쪽 <b>무엇이든 검색</b>으로 가이드 전체에서 찾아보세요.</p>
         <div id="faqAll"></div>
+        <template id="fqExtra">
+          <details class="qa"><summary><span class="q">Q</span>웹전산에서 오류를 발견하면 어떻게 신고해요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+            <div class="a">화면 오른쪽 아래 빨간 <b>오류신고</b> 버튼을 누르세요. 지금 보고 있는 화면이 <b>바로 캡처</b>되고, "어떤 문제가 있었나요?"에 내용을 적어 <b>신고 접수</b>를 누르면 됩니다. 오류뿐 아니라 <b>수정되어야 할 부분</b>이 있을 때도 같은 방법으로 신고하세요.
+              <span class="hint">신고하면 현재 화면과 최근 오류 정보가 함께 저장되어 관리자가 원인 파악에 활용합니다</span>
+              <img class="popup" src="../assets/etc/error-report.png" alt="오류신고 창 — 현재 화면 캡처, 어떤 문제가 있었나요?, 신고 접수 버튼" loading="lazy" width="504" height="573" style="max-width:300px"></div></details>
+        </template>
       </div>
     </section>
 
@@ -2546,6 +2552,11 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       });
       if(list.length) group(g[0], g[1], list);
     });
+    var tpl = $('#fqExtra');
+    if(tpl){
+      var ex = Array.prototype.slice.call(tpl.content.querySelectorAll('details.qa')).map(function(q){ return document.importNode(q, true); });
+      if(ex.length) group('etc', '웹전산 이용', [{ items: ex }]);
+    }
 
     var find = $('#fqFind'), none = $('#fqNone'), tog = $('#fqToggle');
     function all(){ return $$('details.qa', box).filter(function(d){ return !d.hidden; }); }

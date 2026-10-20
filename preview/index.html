@@ -261,9 +261,14 @@ h1.title{margin:8px 0 0; font-size:34px; line-height:1.28; font-weight:820; lett
 .cbtn.light.done{background:var(--ok-50); color:var(--ok);}
 
 /* 탭 */
-.tabs{display:inline-flex; gap:4px; padding:4px; border-radius:12px; background:var(--surface-3); margin-bottom:12px; flex-wrap:wrap;}
-.tabs button{border:none; background:none; padding:7px 15px; border-radius:9px; font-size:14px; font-weight:700; color:var(--ink-2); cursor:pointer;}
-.tabs button.on{background:#fff; color:var(--ink); box-shadow:var(--sh-1);}
+.tabs{display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; align-items:center;}
+.tabs button{display:inline-flex; align-items:center; gap:7px; border:1.5px solid var(--line); background:#fff; padding:8px 15px 8px 12px; border-radius:10px; font:inherit; font-size:14px; font-weight:700; color:var(--ink-2); cursor:pointer; box-shadow:var(--sh-1); transition:border-color .15s, background .15s, color .15s;}
+.tabs button::before{content:""; width:14px; height:14px; border-radius:50%; border:2px solid #c3cad3; background:#fff; flex-shrink:0; box-sizing:border-box;}
+.tabs button:hover{border-color:#a9c9f5; color:var(--ink);}
+.tabs button.on{background:#eef5ff; border-color:var(--brand); color:var(--brand-700);}
+.tabs button.on::before{border:4px solid var(--brand);}
+.tabs-cap{display:flex; align-items:center; gap:6px; margin:0 0 8px; font-size:13px; font-weight:650; color:var(--ink-3);}
+.tabs-cap .ic{width:15px; height:15px;}
 .pane{display:none;}
 .pane.on{display:block;}
 
@@ -846,6 +851,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="sec">
           <h2>양식 복사 <small>웹전산의 [빈 양식 불러오기]와 같은 양식입니다</small></h2>
+          <p class="tabs-cap"><svg class="ic"><use href="#i-file"/></svg>양식을 눌러 고르면 아래에 그 양식이 나옵니다</p>
           <div class="tabs" data-tabs>
             <button class="on" data-pane="pa-wired">유선</button>
             <button data-pane="pa-wired-oss">유선 + OSS</button>
@@ -982,7 +988,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <h2>순서</h2>
           <ol class="steps card">
             <li><div>고객관리 ▸ 개인 고객관리 ▸ 오른쪽 위 <span class="ui">자동고객등록</span></div></li>
-            <li><div><b>업체</b>를 고르고 — <span class="v">유선</span> 또는 <span class="v">유선+OSS</span> — 원문 칸에 <b>양식을 붙여넣습니다</b> <span class="kbd">Ctrl V</span></div></li>
+            <li><div><b>업체</b>를 고르고 — <span class="v">유선</span> 또는 <span class="v">유선+OSS</span> — 원문 칸에 <b>작성 완료된 양식</b>을 붙여넣습니다 <span class="kbd">Ctrl V</span></div></li>
             <li><div><span class="cdot r"></span><b>빨간 칸</b>만 채웁니다 <span class="hint"><span class="cdot y"></span>노란 칸은 비어도 등록됩니다 — 한 번 확인만</span></div></li>
             <li><div><span class="cr skt" style="height:20px;font-size:11.5px;">SK</span> 결합이 필요하면 <b>인터넷 행 ▸ 부가서비스</b>에서 직접 고릅니다</div></li>
           </ol>
@@ -1214,6 +1220,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="sec">
           <h2>양식 복사 <small>웹전산의 [빈 ○○ 유심 양식 불러오기]와 같은 양식입니다</small></h2>
+          <p class="tabs-cap"><svg class="ic"><use href="#i-file"/></svg>양식을 눌러 고르면 아래에 그 양식이 나옵니다</p>
           <div class="tabs" data-tabs>
             <button class="on" data-pane="pu-kt">KT 유심</button>
             <button data-pane="pu-sk">SK 유심</button>
@@ -1298,7 +1305,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="sec sm">
           <h2>순서</h2>
           <ol class="steps card">
-            <li><div>유선과 같은 <span class="ui">자동고객등록</span> 화면에서 <b>업체</b>를 통신사 유심으로 고르고 원문 칸에 <b>양식을 붙여넣습니다</b> <span class="hint">SKT 유심 · SKB 유심은 같은 SK 유심 양식</span></div></li>
+            <li><div>유선과 같은 <span class="ui">자동고객등록</span> 화면에서 <b>업체</b>를 통신사 유심으로 고르고 원문 칸에 <b>작성 완료된 양식</b>을 붙여넣습니다 <span class="hint">SKT 유심 · SKB 유심은 같은 SK 유심 양식</span></div></li>
             <li><div><span class="cdot y"></span><b>유선동판 명의자</b>에 <b>유선 고객명</b>을 똑같이 적습니다 <span class="hint">노란 칸이라 비어도 등록되지만 꼭</span></div></li>
             <li><div><span class="cdot r"></span>상품 줄의 <b>옵션 · 약정 · 할인탭</b>을 고릅니다 <span class="hint">통신사마다 목록이 달라 직접 선택</span></div></li>
           </ol>

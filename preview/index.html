@@ -304,9 +304,16 @@ body.vm-simple .simple-nocap .shot-cap{display:none;}
 body.vm-simple .code pre{max-height:220px;}
 body:not(.vm-simple) .sm{display:none !important;}
 .ebrow{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
-.vmsw{display:inline-flex; padding:3px; border-radius:11px; background:var(--surface-3); border:1px solid var(--line);}
-.vmsw button{border:0; background:none; font:inherit; font-size:13px; font-weight:700; color:var(--ink-3); padding:5px 12px; border-radius:8px; cursor:pointer;}
-.vmsw button.on{background:#fff; color:var(--brand-600); box-shadow:0 1px 3px rgba(16,24,40,.08);}
+.vmbar{display:flex; align-items:center; gap:14px; margin-top:20px; padding:10px 10px 10px 18px; border-radius:16px; background:linear-gradient(135deg,#eef6ff,#f5f0ff); border:1.5px solid #c9ddfb; box-shadow:0 2px 10px rgba(49,130,246,.10);}
+.vmbar-l{display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:800; color:var(--brand-700); white-space:nowrap;}
+.vmbar-l .ic{width:18px; height:18px;}
+.vmsw{display:flex; flex:1; gap:6px; padding:4px; border-radius:12px; background:#fff; border:1px solid #d6e5fa;}
+.vmsw button{flex:1; display:flex; flex-direction:column; align-items:center; gap:1px; border:0; background:none; font:inherit; color:var(--ink-3); padding:8px 12px; border-radius:9px; cursor:pointer; transition:background .15s, color .15s;}
+.vmsw button b{font-size:15px; font-weight:800;}
+.vmsw button small{font-size:12px; font-weight:600; opacity:.85;}
+.vmsw button:hover{background:var(--surface-3); color:var(--ink);}
+.vmsw button.on{background:var(--brand); color:#fff; box-shadow:0 2px 8px rgba(49,130,246,.35);}
+@media (max-width:640px){ .vmbar{flex-direction:column; align-items:stretch; gap:8px; padding:12px;} .vmbar-l{justify-content:center;} }
 .gold{margin-top:24px; padding:24px 26px; border-radius:var(--r-lg); background:linear-gradient(135deg,#eef6ff 0%,#eefbf4 100%); border:1px solid #d6e9ff;}
 .gold .g1{margin:0; font-size:24px; font-weight:820; letter-spacing:-.035em; color:var(--ink);}
 .gold .g1 b{color:var(--brand-600);}
@@ -2697,12 +2704,13 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     if(save){ try{ localStorage.setItem(VM_KEY, v); }catch(e){} }
   }
   SECTIONS.auto.steps.concat(SECTIONS.usim.steps).forEach(function(id){
-    var eb = $('#' + id + ' .eyebrow'); if(!eb) return;
-    var row = document.createElement('div'); row.className = 'ebrow';
-    eb.parentNode.insertBefore(row, eb); row.appendChild(eb);
-    var sw = document.createElement('div'); sw.className = 'vmsw'; sw.setAttribute('role','group'); sw.setAttribute('aria-label','보기 방식');
-    sw.innerHTML = '<button type="button" data-vm="simple">간단히</button><button type="button" data-vm="detail">자세히</button>';
-    row.appendChild(sw);
+    var lead = $('#' + id + ' .lead'); if(!lead) return;
+    var bar = document.createElement('div'); bar.className = 'vmbar';
+    bar.innerHTML = '<span class="vmbar-l"><svg class="ic"><use href="#i-eye"/></svg>보기 방식</span>'
+      + '<div class="vmsw" role="group" aria-label="보기 방식">'
+      + '<button type="button" data-vm="simple"><b>간단히</b><small>핵심만</small></button>'
+      + '<button type="button" data-vm="detail"><b>자세히</b><small>예외 · 캡처 · FAQ까지</small></button></div>';
+    lead.parentNode.insertBefore(bar, lead.nextSibling);
   });
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-vm]'); if(!b) return;

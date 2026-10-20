@@ -75,13 +75,25 @@ button{font-family:inherit; letter-spacing:inherit;}
          background:linear-gradient(135deg,#4f8dff 0%,#1b64da 100%); box-shadow:0 4px 10px rgba(49,130,246,.35);}
 .logo-tx{font-size:16px; font-weight:800; letter-spacing:-.03em; white-space:nowrap;}
 .logo-tx span{color:var(--ink-3); font-weight:600;}
-.nav{display:flex; gap:2px; min-width:0;}
-.nav button{border:none; background:none; color:var(--ink-2); font-size:15px; font-weight:650; padding:8px 13px; border-radius:10px;
-            cursor:pointer; white-space:nowrap; transition:background .15s, color .15s;}
-.nav button:hover{background:var(--surface-3); color:var(--ink);}
-.nav button.on{background:var(--brand-50); color:var(--brand-600);}
+.nav{display:flex; gap:2px; min-width:0; padding:4px; background:var(--surface-3); border:1px solid var(--line); border-radius:14px;}
+.nav button{--c:var(--brand); display:inline-flex; align-items:center; gap:6px; flex-shrink:0; border:none; background:none; color:var(--ink-2); font:inherit; font-size:14.5px; font-weight:650;
+            padding:6px 11px 6px 8px; border-radius:10px; cursor:pointer; white-space:nowrap; transition:background .15s, color .15s, box-shadow .15s;}
+.nav button .nvi{display:grid; place-items:center; width:24px; height:24px; border-radius:7px; background:#fff; color:var(--c); box-shadow:0 0 0 1px var(--line);}
+.nav button .nvi .ic{width:14px; height:14px; stroke-width:2.4;}
+.nav button:hover{background:rgba(255,255,255,.7); color:var(--ink);}
+.nav button.on{background:#fff; color:var(--c); box-shadow:0 1px 3px rgba(16,24,40,.08), 0 0 0 1px var(--line);}
+.nav button.on .nvi{background:var(--c); color:#fff; box-shadow:none;}
+.nav .nv-usim{--c:var(--violet);} .nav .nv-man{--c:#e8590c;} .nav .nv-hist{--c:#0ca678;} .nav .nv-faq{--c:#495057;}
 .nav .ns{display:none;}
-@media (max-width:1240px){ .nav .nl{display:none;} .nav .ns{display:inline;} }
+@media (max-width:1500px){ .nav .nl{display:none;} .nav .ns{display:inline;} }
+@media (max-width:1200px) and (min-width:761px){
+  .hd .sbtn{width:40px; padding:0; justify-content:center;} .hd .sbtn .grow, .hd .sbtn .kbd{display:none;}
+  .logo-tx span{display:none;}
+}
+@media (max-width:960px) and (min-width:761px){
+  .nav button .nvi{display:none;} .nav button{padding:7px 11px;}
+  .hd .btn-pri .lbl{display:none;} .hd .btn-pri{width:40px; padding:0;}
+}
 .hd-sp{flex:1;}
 .sbtn{display:flex; align-items:center; gap:9px; width:236px; height:40px; padding:0 10px 0 13px; border:1px solid var(--line);
       border-radius:12px; background:var(--surface-2); color:var(--ink-3); font-size:14px; cursor:pointer; transition:border-color .15s, background .15s;}
@@ -547,9 +559,12 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
   .sbtn .grow, .sbtn .kbd{display:none;}
   .hd .btn-pri .lbl{display:none;}
   .hd .btn-pri{width:40px; padding:0;}
-  .nav{position:fixed; left:0; right:0; top:auto; bottom:0; z-index:120; justify-content:space-around; gap:0; padding:6px 6px calc(6px + env(safe-area-inset-bottom));
-       background:rgba(255,255,255,.96); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--line);}
-  .nav button{flex:1; padding:9px 4px; font-size:13px; border-radius:10px;}
+  .nav{position:fixed; left:0; right:0; top:auto; bottom:0; z-index:120; justify-content:space-around; gap:2px; padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+       background:rgba(255,255,255,.97); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:none; border-top:1px solid var(--line); border-radius:0;}
+  .nav button{flex:1; flex-direction:column; gap:4px; padding:7px 2px 6px; font-size:11.5px; border-radius:10px;}
+  .nav button .nvi{width:28px; height:28px; border-radius:9px; background:var(--surface-3); box-shadow:none;}
+  .nav button .nvi .ic{width:16px; height:16px;}
+  .nav button.on{box-shadow:none; background:transparent;}
   body{padding-bottom:64px;}
   .wrap{padding:16px 16px 60px;}
   .side{margin:-16px -16px 0; padding:10px 16px;}
@@ -597,6 +612,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
   <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
   <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-sim" viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><rect x="8.5" y="11" width="7" height="7" rx="1.2"/><path d="M12 11v7M8.5 14.5h7"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4M12 17h.01"/></symbol>
@@ -617,11 +633,11 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       <span class="logo-tx">웨이브넷 <span>웹전산 가이드</span></span>
     </button>
     <nav class="nav" aria-label="가이드 구분">
-      <button data-sec="auto"><span class="nl">자동고객등록(유선)</span><span class="ns">자동(유선)</span></button>
-      <button data-sec="usim"><span class="nl">자동고객등록(유심동판)</span><span class="ns">자동(유심)</span></button>
-      <button data-sec="jeopsu"><span class="nl">고객등록(수동)</span><span class="ns">수동등록</span></button>
-      <button data-sec="iryeok">이력등록</button>
-      <button data-sec="faq">FAQ</button>
+      <button data-sec="auto" class="nv-auto"><span class="nvi"><svg class="ic"><use href="#i-zap"/></svg></span><span class="nl">자동고객등록(유선)</span><span class="ns">자동(유선)</span></button>
+      <button data-sec="usim" class="nv-usim"><span class="nvi"><svg class="ic"><use href="#i-sim"/></svg></span><span class="nl">자동고객등록(유심동판)</span><span class="ns">자동(유심)</span></button>
+      <button data-sec="jeopsu" class="nv-man"><span class="nvi"><svg class="ic"><use href="#i-pen"/></svg></span><span class="nl">고객등록(수동)</span><span class="ns">수동등록</span></button>
+      <button data-sec="iryeok" class="nv-hist"><span class="nvi"><svg class="ic"><use href="#i-msg"/></svg></span><span>이력등록</span></button>
+      <button data-sec="faq" class="nv-faq"><span class="nvi"><svg class="ic"><use href="#i-help"/></svg></span><span>FAQ</span></button>
     </nav>
     <div class="hd-sp"></div>
     <button class="sbtn" id="openSearch" aria-label="검색">

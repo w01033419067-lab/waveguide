@@ -288,6 +288,14 @@ details[open] > summary .chev{transform:rotate(180deg);}
 details.acc > summary .ic:first-child{color:var(--brand);}
 .acc-b{padding:2px 18px 18px;}
 .qas{display:grid; gap:8px;}
+.notice{display:flex; align-items:center; gap:14px; width:100%; margin-top:14px; padding:14px 18px; border-radius:var(--r-lg); background:#fff8f1; border:1px solid #f5c89a; text-align:left; font:inherit; color:inherit; cursor:pointer;}
+.notice:hover{box-shadow:var(--sh-2);}
+.notice .nt-b{flex-shrink:0; padding:4px 10px; border-radius:7px; background:#e8590c; color:#fff; font-size:12.5px; font-weight:800;}
+.notice .nt-t{flex:1; display:flex; flex-direction:column; gap:3px; font-size:15.5px;}
+.notice .nt-t small{font-size:13.5px; color:var(--ink-2); line-height:1.6;}
+.notice .go{display:inline-flex; align-items:center; gap:4px; font-size:13.5px; font-weight:750; color:#c2410c; white-space:nowrap;}
+.notice .go .ic{width:15px; height:15px;}
+@media (max-width:640px){ .notice{flex-wrap:wrap;} .notice .go{display:none;} }
 /* 간단히 / 자세히 보기 */
 body.vm-simple .dt{display:none !important;}
 body.vm-simple .simple-nocap .shot-cap{display:none;}
@@ -738,6 +746,12 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <span class="go">사용법 보기 <svg class="ic"><use href="#i-right"/></svg></span>
         </button>
 
+        <button class="notice" data-go="s1">
+          <span class="nt-b">KT 중요공지</span>
+          <span class="nt-t"><b>KT 접수 시 고객 이메일 필수 — 양식의 ■청구매체에 적어 주세요</b><small>KT 사은품이 상품권 없이 전액 현금으로 바뀌면서 생긴 기준입니다. 누락 시 KT 휴대폰 고객은 문자청구서, 그 외 통신사는 임의 메일로 진행(개통 후 고객이 고객센터에 청구서 변경 요청) · 유심동판은 ■청구매체에 문자청구서 또는 상부요청</small></span>
+          <span class="go">자세히 <svg class="ic"><use href="#i-right"/></svg></span>
+        </button>
+
         <div class="hsec">
           <div class="hsec-h"><div><h2>무엇을 하시나요?</h2><p>하려는 일을 고르면 단계별로 안내합니다</p></div></div>
           <div class="paths">
@@ -821,6 +835,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="gold sm">
           <p class="g1">양식 그대로, <b>빈칸 없이 · 바르게</b>.</p>
           <p class="g2">정해진 접수양식의 항목을 빠짐없이 정확하게 채우기만 하면 됩니다. 빠지거나 틀린 칸은 붙여넣을 때 화면이 알려줍니다.</p>
+          <p class="g2"><b>KT · LG</b>는 <b>■청구매체</b>에 고객 <b>이메일</b>을 꼭 적어 주세요.</p>
           <p class="g3">유선 · 유선+OSS 전용입니다 — 유심동판은 <a href="#" data-go="u1">자동고객등록(유심동판)</a></p>
         </div>
 
@@ -853,6 +868,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">■주민번호</div><div class="f-v"><b>13자리 전체.</b> 자릿수가 틀리면 "주민번호 못읽음"이 뜹니다</div></div>
             <div class="f"><div class="f-n">■현금지급처 · 사은품 금액</div><div class="f-v"><span class="v">웨이브넷지급</span>이 미리 적혀 있고, 이때는 <b>사은품 금액이 필수</b>입니다 <span class="muted">(52만원처럼 써도 520,000으로 읽힘)</span>
               <span class="hint">유치자 직접지급이면 지우고 <b>유치자지급</b>으로 고쳐 씁니다</span></div></div>
+            <div class="f hl"><div class="f-n">■청구매체</div><div class="f-v"><b>KT · LG</b>는 고객 <b>이메일</b>을 적습니다 <span class="muted">(예: ■청구매체: abc@naver.com)</span>
+              <span class="hint">KT는 사은품이 상품권 없이 <b>전액 현금</b>으로 바뀌어 이메일이 필수입니다 (■상품권은 비워둠) · 누락 시 처리 기준은 <a href="#" data-go="s1">고객등록(수동) 1단계</a></span></div></div>
             <div class="f"><div class="f-n">■본인인증</div><div class="f-v">괄호 안내문 자리에 고객이 쓰는 휴대폰 <b>통신사</b>를 적습니다 <span class="muted">(예: LG)</span> — 인증통신사에 들어가고, 본인인증은 <span class="v">1.미인증</span>으로 자동 설정
               <span class="hint"><b>안 적으면</b> 인증통신사가 빨간 칸이 되어 등록되지 않습니다 · KT 접점등록 후 협력점이 <b>직접 인증</b>했다면 검토 화면에서 본인인증만 <b>2.인증완료</b>로 바꿉니다</span></div></div>
             <div class="f hl"><div class="f-n">■자동이체</div><div class="f-v"><b>은행 · 계좌번호 · 예금주를 정확히.</b> 등록할 때 예금주 조회를 거쳐 납부정보에 들어갑니다
@@ -1531,7 +1548,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <ul>
             <li><svg class="ic"><use href="#i-check"/></svg><span>주민번호는 <b>13자리 전체</b> → <b>불량고객 체크</b>로 접수 가능 여부 확인</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>고객인증 · 접수경로 · 주소증빙 <span class="v">0.협력점★</span> · 물류관리 <span class="v">0.해당없음★</span></span></li>
-            <li><svg class="ic"><use href="#i-check"/></svg><span>개통기한 <span class="v">익월 말일</span> · 이미징처리 <span class="v">1.미인증</span> · <b>LG는 이메일 필수</b></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>개통기한 <span class="v">익월 말일</span> · 이미징처리 <span class="v">1.미인증</span> · <b>KT · LG는 이메일 필수</b></span></li>
           </ul>
         </div>
 
@@ -1549,7 +1566,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">명의자 연락처<i class="req"></i></div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">반드시 <b>고객 명의</b>의 연락처</div></div>
             <div class="f dim"><div class="f-n">기타연락처 1·2</div><div class="f-t"><span class="t t-skip">비움</span></div><div class="f-v">비워둠</div></div>
             <div class="f"><div class="f-n">이메일<i class="req"></i></div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">주소 입력 후 <b>도메인 선택</b>
-              <span class="hint">문자청구서면 이메일 대신 명의자 전화번호 가능 (도메인 선택 불필요)</span></div></div>
+              <span class="hint"><b>KT · LG는 필수</b> — 양식의 ■청구매체에 적힌 이메일 · 그 외 통신사는 문자청구서면 이메일 대신 명의자 전화번호 가능 (도메인 선택 불필요)</span></div></div>
             <div class="f"><div class="f-n">고객인증</div><div class="f-t"><span class="t t-fix">고정</span></div><div class="f-v"><span class="v">0.협력점★</span> + 고객 명의 휴대폰 <b>통신사</b> 기재</div></div>
             <div class="f"><div class="f-n">접수경로</div><div class="f-t"><span class="t t-fix">고정</span></div><div class="f-v"><span class="v">0.협력점★</span> <span class="muted">· 판매점이면 "판매점"</span></div></div>
             <div class="f"><div class="f-n">물류관리</div><div class="f-t"><span class="t t-fix">고정</span></div><div class="f-v"><span class="v">0.해당없음★</span> <span class="muted">· 유심동판이어도 동일</span></div></div>
@@ -1558,7 +1575,13 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">이미징처리</div><div class="f-t"><span class="t t-pick">선택</span></div><div class="f-v">기본 <span class="v">1.미인증</span>
               <span class="hint">KT 접점등록 후 전용 인증링크로 <b>직접 인증한 경우만</b> 2.인증완료</span></div></div>
           </div>
-          <div class="co co-danger"><svg class="ic"><use href="#i-alert"/></svg><div><b>LG는 이메일이 필수입니다.</b> 비워두면 접수되지 않습니다.</div></div>
+          <div class="co co-danger" id="kt-email"><svg class="ic"><use href="#i-alert"/></svg><div><b>KT · LG는 고객 이메일이 필수입니다.</b> LG는 비워두면 접수되지 않습니다. KT는 사은품이 상품권 없이 <b>전액 현금</b>으로 바뀌면서 이메일이 필수가 되었습니다.</div></div>
+          <div class="rule" style="margin-top:12px;">
+            <div class="head"><span>KT 접수인데 이메일이 빠지면</span><span>처리 기준</span></div>
+            <div><span class="if">고객이 <b>KT 휴대폰</b> 사용 중</span><span class="then"><b>문자청구서</b>로 진행</span></div>
+            <div><span class="if"><b>그 외 통신사</b> 휴대폰 사용 중</span><span class="then"><b>임의 메일</b>로 진행 → 개통 후 고객이 <b>고객센터</b>에 직접 청구서 변경 요청</span></div>
+            <div><span class="if"><b>유심동판</b> 고객</span><span class="then">■청구매체에 <b>문자청구서</b>라고 적거나, 유심 개통 후 <b>상부요청</b>으로 청구서 변경</span></div>
+          </div>
         </div>
 
         <div class="sec">
@@ -1568,8 +1591,10 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
               <div class="a">기본은 <b>1.미인증</b>입니다. <b>KT에 한하여</b> 접점등록이 완료되면 전용 인증링크가 전달되는데, 그 링크로 직접 인증한 경우에만 <b>2.인증완료</b>를 선택합니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>물류관리는 뭘로 선택해요? 유심동판인데도요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">항상 <b>0.해당없음</b>입니다. 유심동판 고객이어도 동일하며, 상태 변경은 웨이브넷이 처리합니다.</div></details>
-            <details class="qa"><summary><span class="q">Q</span>LG인데 이메일을 꼭 넣어야 하나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">네. <b>LG는 이메일 등록이 필수</b>이며, 미기재 시 접수가 불가합니다.</div></details>
+            <details class="qa" data-featured><summary><span class="q">Q</span>KT · LG는 이메일을 꼭 넣어야 하나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">네. <b>KT · LG 모두 고객 이메일이 필수</b>입니다. LG는 미기재 시 접수가 불가합니다.</div></details>
+            <details class="qa"><summary><span class="q">Q</span>KT 접수인데 이메일을 못 받았어요. 청구서는 어떻게 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+              <div class="a">고객이 <b>KT 휴대폰</b>을 쓰면 <b>문자청구서</b>로 진행합니다. <b>그 외 통신사</b> 휴대폰이면 <b>임의 메일</b>로 진행되고, 개통 후 고객이 <b>고객센터</b>를 통해 직접 청구서 변경을 요청해야 합니다. <b>유심동판 고객</b>은 양식 ■청구매체에 <b>문자청구서</b>라고 적거나, 유심 개통 후 <b>이력등록 ▸ 상부요청</b>으로 청구서 변경을 요청하면 됩니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>개통기한은 며칠로 잡아요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a"><b>전 통신사 모두 익월 말일</b>로 설정합니다. (KT · SKT · SKB · LG 동일)</div></details>
           </div>
@@ -1950,7 +1975,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <label class="ck"><input type="checkbox"><span><b>이미징처리</b> — 1.미인증인가요? <span class="muted">KT 직접인증 시만 2.인증완료</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>개통기한</b> — 익월 말일로 설정했나요?</span></label>
             <label class="ck"><input type="checkbox"><span><b>정책 구분</b> — 전국인가요? <span class="muted">SKB만 도매/소매 구분</span></span></label>
-            <label class="ck"><input type="checkbox"><span><b>LG</b> 접수라면 이메일을 넣었나요?</span></label>
+            <label class="ck"><input type="checkbox"><span><b>KT · LG</b> 접수라면 고객 이메일을 넣었나요?</span></label>
             <label class="ck"><input type="checkbox"><span><b>사은품 금액</b>이 인터넷(상품1) 행에만 있나요? <span class="muted">중복 기재 시 중복지급</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>사은품 지급처</b>를 골랐나요? <span class="muted">웨이브넷지급 / 유치자지급</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>부가상품(OSS)</b>을 같이 접수한다면 DPS+1 등 +숫자를 골랐나요?</span></label>

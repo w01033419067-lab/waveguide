@@ -773,7 +773,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <button class="notice" data-go="s1">
           <span class="nt-b">KT 중요공지</span>
-          <span class="nt-t"><b>KT 접수 시 고객 이메일 필수</b><small>누락 시 KT 휴대폰 고객은 문자청구서, 그 외 통신사는 임의 메일로 진행 — 개통 후 고객이 고객센터에 청구서 변경 요청 · 유심동판은 유심 개통 후 웨이브넷에 요청</small></span>
+          <span class="nt-t"><b>KT 접수 시 고객 이메일 필수 — 양식의 ■청구매체에 적어 주세요</b><small>KT 사은품이 상품권 없이 전액 현금으로 바뀌면서 생긴 기준입니다. 누락 시 KT 휴대폰 고객은 문자청구서, 그 외 통신사는 임의 메일로 진행(개통 후 고객이 고객센터에 청구서 변경 요청) · 유심동판은 ■청구매체에 문자청구서 또는 상부요청</small></span>
           <span class="go">자세히 <svg class="ic"><use href="#i-right"/></svg></span>
         </button>
 
@@ -860,6 +860,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="gold sm">
           <p class="g1">양식 그대로, <b>빈칸 없이 · 바르게</b>.</p>
           <p class="g2">정해진 접수양식의 항목을 빠짐없이 정확하게 채우기만 하면 됩니다. 빠지거나 틀린 칸은 붙여넣을 때 화면이 알려줍니다.</p>
+          <p class="g2"><b>KT · LG</b>는 <b>■청구매체</b>에 고객 <b>이메일</b>을 꼭 적어 주세요.</p>
           <p class="g3">유선 · 유선+OSS 전용입니다 — 유심동판은 <a href="#" data-go="u1">자동고객등록(유심동판)</a></p>
         </div>
 
@@ -892,6 +893,8 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">■주민번호</div><div class="f-v"><b>13자리 전체.</b> 자릿수가 틀리면 "주민번호 못읽음"이 뜹니다</div></div>
             <div class="f"><div class="f-n">■현금지급처 · 사은품 금액</div><div class="f-v"><span class="v">웨이브넷지급</span>이 미리 적혀 있고, 이때는 <b>사은품 금액이 필수</b>입니다 <span class="muted">(52만원처럼 써도 520,000으로 읽힘)</span>
               <span class="hint">유치자 직접지급이면 지우고 <b>유치자지급</b>으로 고쳐 씁니다</span></div></div>
+            <div class="f hl"><div class="f-n">■청구매체</div><div class="f-v"><b>KT · LG</b>는 고객 <b>이메일</b>을 적습니다 <span class="muted">(예: ■청구매체: abc@naver.com)</span>
+              <span class="hint">KT는 사은품이 상품권 없이 <b>전액 현금</b>으로 바뀌어 이메일이 필수입니다 · 누락 시 처리 기준은 <a href="#" data-go="s1">고객등록(수동) 1단계</a></span></div></div>
             <div class="f"><div class="f-n">■본인인증</div><div class="f-v">괄호 안내문 자리에 고객이 쓰는 휴대폰 <b>통신사</b>를 적습니다 <span class="muted">(예: LG)</span> — 인증통신사에 들어가고, 본인인증은 <span class="v">1.미인증</span>으로 자동 설정
               <span class="hint"><b>안 적으면</b> 인증통신사가 빨간 칸이 되어 등록되지 않습니다 · KT 접점등록 후 협력점이 <b>직접 인증</b>했다면 검토 화면에서 본인인증만 <b>2.인증완료</b>로 바꿉니다</span></div></div>
             <div class="f hl"><div class="f-n">■자동이체</div><div class="f-v"><b>은행 · 계좌번호 · 예금주를 정확히.</b> 등록할 때 예금주 조회를 거쳐 납부정보에 들어갑니다
@@ -1588,7 +1591,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">명의자 연락처<i class="req"></i></div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">반드시 <b>고객 명의</b>의 연락처</div></div>
             <div class="f dim"><div class="f-n">기타연락처 1·2</div><div class="f-t"><span class="t t-skip">비움</span></div><div class="f-v">비워둠</div></div>
             <div class="f"><div class="f-n">이메일<i class="req"></i></div><div class="f-t"><span class="t t-in">입력</span></div><div class="f-v">주소 입력 후 <b>도메인 선택</b>
-              <span class="hint"><b>KT · LG는 필수</b> · 그 외 통신사는 문자청구서면 이메일 대신 명의자 전화번호 가능 (도메인 선택 불필요)</span></div></div>
+              <span class="hint"><b>KT · LG는 필수</b> — 양식의 ■청구매체에 적힌 이메일 · 그 외 통신사는 문자청구서면 이메일 대신 명의자 전화번호 가능 (도메인 선택 불필요)</span></div></div>
             <div class="f"><div class="f-n">고객인증</div><div class="f-t"><span class="t t-fix">고정</span></div><div class="f-v"><span class="v">0.협력점★</span> + 고객 명의 휴대폰 <b>통신사</b> 기재</div></div>
             <div class="f"><div class="f-n">접수경로</div><div class="f-t"><span class="t t-fix">고정</span></div><div class="f-v"><span class="v">0.협력점★</span> <span class="muted">· 판매점이면 "판매점"</span></div></div>
             <div class="f"><div class="f-n">물류관리</div><div class="f-t"><span class="t t-fix">고정</span></div><div class="f-v"><span class="v">0.해당없음★</span> <span class="muted">· 유심동판이어도 동일</span></div></div>
@@ -1597,12 +1600,12 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <div class="f"><div class="f-n">이미징처리</div><div class="f-t"><span class="t t-pick">선택</span></div><div class="f-v">기본 <span class="v">1.미인증</span>
               <span class="hint">KT 접점등록 후 전용 인증링크로 <b>직접 인증한 경우만</b> 2.인증완료</span></div></div>
           </div>
-          <div class="co co-danger" id="kt-email"><svg class="ic"><use href="#i-alert"/></svg><div><b>KT · LG는 고객 이메일이 필수입니다.</b> LG는 비워두면 접수되지 않습니다.</div></div>
+          <div class="co co-danger" id="kt-email"><svg class="ic"><use href="#i-alert"/></svg><div><b>KT · LG는 고객 이메일이 필수입니다.</b> LG는 비워두면 접수되지 않습니다. KT는 사은품이 상품권 없이 <b>전액 현금</b>으로 바뀌면서 이메일이 필수가 되었습니다.</div></div>
           <div class="rule" style="margin-top:12px;">
             <div class="head"><span>KT 접수인데 이메일이 빠지면</span><span>처리 기준</span></div>
             <div><span class="if">고객이 <b>KT 휴대폰</b> 사용 중</span><span class="then"><b>문자청구서</b>로 진행</span></div>
             <div><span class="if"><b>그 외 통신사</b> 휴대폰 사용 중</span><span class="then"><b>임의 메일</b>로 진행 → 개통 후 고객이 <b>고객센터</b>에 직접 청구서 변경 요청</span></div>
-            <div><span class="if"><b>유심동판</b> 고객</span><span class="then">유심 개통 후 <b>웨이브넷에 요청</b>하면 청구서 변경 가능</span></div>
+            <div><span class="if"><b>유심동판</b> 고객</span><span class="then">■청구매체에 <b>문자청구서</b>라고 적거나, 유심 개통 후 <b>상부요청</b>으로 청구서 변경</span></div>
           </div>
         </div>
 
@@ -1616,7 +1619,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <details class="qa" data-featured><summary><span class="q">Q</span>KT · LG는 이메일을 꼭 넣어야 하나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a">네. <b>KT · LG 모두 고객 이메일이 필수</b>입니다. LG는 미기재 시 접수가 불가합니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>KT 접수인데 이메일을 못 받았어요. 청구서는 어떻게 되나요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-              <div class="a">고객이 <b>KT 휴대폰</b>을 쓰면 <b>문자청구서</b>로 진행합니다. <b>그 외 통신사</b> 휴대폰이면 <b>임의 메일</b>로 진행되고, 개통 후 고객이 <b>고객센터</b>를 통해 직접 청구서 변경을 요청해야 합니다. <b>유심동판 고객</b>은 유심 개통 후 웨이브넷에 요청하면 청구서를 변경할 수 있습니다.</div></details>
+              <div class="a">고객이 <b>KT 휴대폰</b>을 쓰면 <b>문자청구서</b>로 진행합니다. <b>그 외 통신사</b> 휴대폰이면 <b>임의 메일</b>로 진행되고, 개통 후 고객이 <b>고객센터</b>를 통해 직접 청구서 변경을 요청해야 합니다. <b>유심동판 고객</b>은 양식 ■청구매체에 <b>문자청구서</b>라고 적거나, 유심 개통 후 <b>이력등록 ▸ 상부요청</b>으로 청구서 변경을 요청하면 됩니다.</div></details>
             <details class="qa"><summary><span class="q">Q</span>개통기한은 며칠로 잡아요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
               <div class="a"><b>전 통신사 모두 익월 말일</b>로 설정합니다. (KT · SKT · SKB · LG 동일)</div></details>
           </div>

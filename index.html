@@ -1141,7 +1141,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <label class="ck"><input type="checkbox"><span><b>현금 · 지급처</b>가 맞나요?</span></label>
             <label class="ck"><input type="checkbox"><span><b>납부</b>가 맞나요? <span class="muted">지로납부로 보이면 자동이체가 빈 것</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>SK 결합</b>이 필요하면 골랐나요?</span></label>
-            <label class="ck"><input type="checkbox"><span><b>본인인증</b> — KT 직접 인증 건만 2.인증완료</span></label>
+            <label class="ck"><input type="checkbox"><span><b>본인인증</b>(코드 · 지역 칸)이 맞나요? <span class="muted">기본 1.미인증 · KT 직접 인증 건만 2.인증완료 — 아래 그림 참고</span></span></label>
             <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 5 확인</span><button type="button">전체 해제</button></div>
           </div>
         </div>
@@ -1158,9 +1158,24 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <label class="ck"><input type="checkbox"><span><b>SKB</b>라면 <b>지역</b>에서 도매 / 소매를 골랐나요?</span></label>
             <label class="ck"><input type="checkbox"><span><b>SK 결합</b> 요청 건이라면 <b>인터넷 행 부가서비스</b>에서 결합을 골랐나요? <span class="muted">자동으로 안 들어감</span></span></label>
             <label class="ck"><input type="checkbox"><span><b>속성</b>이 필요하면 적었나요? <span class="muted">동판 · OSS · 도매 · 소매 등 · 유선만이면 유선동판 명의자는 비워둠</span></span></label>
-            <label class="ck"><input type="checkbox"><span><b>본인인증</b>이 맞나요? <span class="muted">기본 1.미인증 · KT 직접 인증 건만 2.인증완료</span></span></label>
+            <label class="ck"><input type="checkbox"><span><b>본인인증</b>(코드 · 지역 칸)이 맞나요? <span class="muted">아래 그림 참고 · 기본 1.미인증 · KT 직접 인증 건만 2.인증완료</span></span></label>
             <div class="check-f"><span class="meter"><i></i></span><span class="cnt">0 / 10 확인</span><button type="button">전체 해제</button></div>
           </div>
+        </div>
+
+        <div class="sec" id="auth-where">
+          <h2>대조할 '본인인증'은 여기 <small>검토 화면 › 코드 · 지역</small></h2>
+          <div class="shot-card" style="max-width:620px;">
+            <div class="shot-bar"><i></i><i></i><i></i><span>자동 고객등록 — 검토 화면</span><span class="zoom"><svg class="ic"><use href="#i-zoom"/></svg>누르면 크게</span></div>
+            <div class="shot"><img src="assets/auto/auto-9-auth.png" alt="검토 화면 — 고객 정보의 인증통신사, 코드 · 지역의 본인인증 1.미인증(빨간 네모)" loading="lazy" width="697" height="490"><span class="pin" style="left:23.0%;top:42.2%">1</span><span class="pin" style="left:15.8%;top:92.2%">2</span></div>
+            <div class="shot-cap">
+              <ol class="pins">
+                <li><b>인증통신사</b> — 양식의 <b>■본인인증</b>(휴대폰 통신사)이 들어가는 칸</li>
+                <li><b>본인인증</b> — 대조할 칸. 기본 <b>1.미인증</b>으로 자동 설정되고, <b>KT 접점등록 후 협력점이 직접 인증</b>한 건만 눌러서 <b>2.인증완료</b>로 바꿉니다</li>
+              </ol>
+            </div>
+          </div>
+          <div class="co co-info"><svg class="ic"><use href="#i-info"/></svg><div>양식의 <b>■본인인증</b> 칸(통신사 기재)과 검토 화면의 <b>본인인증</b>(1.미인증 / 2.인증완료)은 <b>다른 칸</b>입니다. 양식에 적은 통신사는 ① 인증통신사로 들어가고, ② 본인인증은 인증 여부만 고릅니다.</div></div>
         </div>
 
         <div class="sec">

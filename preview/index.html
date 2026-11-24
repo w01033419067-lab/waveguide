@@ -465,6 +465,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 .fc-row:nth-child(4) .n{background:var(--ok-50); color:var(--ok);}
 
 .hsec{margin-top:56px;}
+.avail{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:22px; align-items:center; margin-top:14px; padding:22px 24px; border-radius:var(--r-xl); background:linear-gradient(135deg,#eef6ff 0%,#f5f0ff 100%); border:1px solid #d6e5fa;}
+.avail h3{margin:0; font-size:19px; font-weight:820; letter-spacing:-.03em;}
+.avail p{margin:8px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.65;}
+.avail .flow{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:12px; font-size:13.5px; font-weight:650; color:var(--ink-2);}
+.avail .flow .ar{color:var(--ink-4);}
+.avail img{display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line); box-shadow:var(--sh-2); background:#fff;}
+.avail .nb{display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:6px; background:var(--brand); color:#fff; font-size:11.5px; font-weight:800; letter-spacing:.04em; margin-right:8px; vertical-align:2px;}
+@media (max-width:760px){ .avail{grid-template-columns:1fr;} }
 .newf{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:20px; width:100%; margin-top:20px; padding:22px 24px; border-radius:var(--r-xl); background:linear-gradient(135deg,#ecfdf3 0%,#f0f7ff 100%); border:1px solid #cfeedd; text-align:left; cursor:pointer; font:inherit; color:inherit; transition:transform .15s, box-shadow .15s;}
 .newf:hover{transform:translateY(-2px); box-shadow:var(--sh-2);}
 .newf .nb{display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:6px; background:#12b76a; color:#fff; font-size:11.5px; font-weight:800; letter-spacing:.04em; margin-right:8px; vertical-align:2px;}
@@ -771,6 +779,16 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <span class="go">사용법 보기 <svg class="ic"><use href="#i-right"/></svg></span>
         </button>
 
+        <div class="avail" id="avail">
+          <div>
+            <h3><span class="nb">NEW</span>인터넷 가용조회, 주소 넣고 Enter</h3>
+            <p>웹전산 <b>맨 위 오른쪽</b> '주소 넣고 Enter' 칸에 고객 주소를 넣고 <b>Enter</b>를 누르면 <b>통신사별 설치 가능 여부와 최대 속도</b>가 바로 나옵니다. 접수 전에 먼저 확인하세요.</p>
+            <span class="flow"><span>주소 입력</span><span class="ar">›</span><span class="ui">Enter</span><span class="ar">›</span><span>KT · SK · LG · 헬로 결과 확인</span></span>
+            <p style="font-size:13.5px;color:var(--ink-3);"><b style="color:#16a34a">가능 · 최대 1G</b>처럼 초록이면 설치 가능, <b style="color:#dc2626">불가 지역</b>이면 그 통신사는 접수할 수 없습니다.</p>
+          </div>
+          <div class="shot" style="margin:0"><img src="../assets/etc/avail-result.png" alt="인터넷 가용조회 결과 — KT 가능 최대 500M, SK 가능 최대 1G, LG 가능 최대 1G, 헬로 불가 지역" loading="lazy" width="442" height="236"></div>
+        </div>
+
         <button class="notice" data-go="s1">
           <span class="nt-b">KT 중요공지</span>
           <span class="nt-t"><b>KT 접수 시 고객 이메일 필수 — 양식의 ■청구매체에 적어 주세요</b><small>KT 사은품이 상품권 없이 전액 현금으로 바뀌면서 생긴 기준입니다. 누락 시 KT 휴대폰 고객은 문자청구서, 그 외 통신사는 임의 메일로 진행(개통 후 고객이 고객센터에 청구서 변경 요청) · 유심동판은 ■청구매체에 문자청구서 또는 상부요청</small></span>
@@ -854,6 +872,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
             <li><svg class="ic"><use href="#i-check"/></svg><span>이 탭은 <b>유선 · 유선+OSS</b> 등록입니다 — 유심동판은 <a href="#" data-go="u1">자동고객등록(유심동판)</a>으로</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>여러 고객도 양식을 <b>아래로 이어 붙여</b> 한 번에 등록할 수 있습니다</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span><b>SK 결합</b>은 양식에 적어도 자동으로 들어가지 않습니다 — 필요하면 검토 화면에서 <b>직접 선택</b></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>접수 전 웹전산 맨 위 <b>가용조회</b>(주소 넣고 Enter)로 설치 가능 여부부터 확인</span></li>
           </ul>
         </div>
 
@@ -861,6 +880,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           <p class="g1">양식 그대로, <b>빈칸 없이 · 바르게</b>.</p>
           <p class="g2">정해진 접수양식의 항목을 빠짐없이 정확하게 채우기만 하면 됩니다. 빠지거나 틀린 칸은 붙여넣을 때 화면이 알려줍니다.</p>
           <p class="g2"><b>KT · LG</b>는 <b>■청구매체</b>에 고객 <b>이메일</b>을 꼭 적어 주세요.</p>
+          <p class="g2" style="font-size:14px;">접수 전, 웹전산 맨 위 <b>가용조회</b>(주소 넣고 Enter)로 고객 주소의 <b>설치 가능 여부</b>를 먼저 확인하세요.</p>
           <p class="g3">유선 · 유선+OSS 전용입니다 — 유심동판은 <a href="#" data-go="u1">자동고객등록(유심동판)</a></p>
         </div>
 
@@ -1519,6 +1539,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div class="keys">
           <h3><svg class="ic"><use href="#i-spark"/></svg>핵심만</h3>
           <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>접수 전 웹전산 맨 위 <b>가용조회</b>(주소 넣고 Enter)로 설치 가능 여부부터 확인</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>양식을 채워 <b>비고 사항 ▸ 기타 내용</b>에 먼저 붙여넣기</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>그다음 <b>1단계부터 순서대로</b> 양식을 보며 칸 채우기</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>유심동판은 유선 접수 후 <b>6단계</b>에서 이어서</span></li>
@@ -2335,6 +2356,9 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <p class="fq-none" id="fqNone" hidden>찾는 질문이 없습니다. 위쪽 <b>무엇이든 검색</b>으로 가이드 전체에서 찾아보세요.</p>
         <div id="faqAll"></div>
         <template id="fqExtra">
+          <details class="qa"><summary><span class="q">Q</span>인터넷 설치가 되는 주소인지 어떻게 확인해요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
+            <div class="a">웹전산 <b>맨 위 오른쪽</b> '주소 넣고 Enter' 칸에 고객 주소를 넣고 <b>Enter</b>(또는 <b>가용조회</b>)를 누르세요. <b>KT · SK · LG · 헬로</b> 통신사별로 <b>가능 · 최대 속도</b> 또는 <b>불가 지역</b>이 바로 나옵니다. 접수 전에 먼저 확인하세요.
+              <img class="popup" src="../assets/etc/avail-result.png" alt="인터넷 가용조회 결과 — KT 가능 최대 500M, SK 가능 최대 1G, LG 가능 최대 1G, 헬로 불가 지역" loading="lazy" width="442" height="236" style="max-width:340px"></div></details>
           <details class="qa"><summary><span class="q">Q</span>웹전산에서 오류를 발견하면 어떻게 신고해요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
             <div class="a">화면 오른쪽 아래 빨간 <b>오류신고</b> 버튼을 누르세요. 지금 보고 있는 화면이 <b>바로 캡처</b>되고, "어떤 문제가 있었나요?"에 내용을 적어 <b>신고 접수</b>를 누르면 됩니다. 오류뿐 아니라 <b>수정되어야 할 부분</b>이 있을 때도 같은 방법으로 신고하세요.
               <span class="hint">신고하면 현재 화면과 최근 오류 정보가 함께 저장되어 관리자가 원인 파악에 활용합니다</span>

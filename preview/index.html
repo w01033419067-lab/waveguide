@@ -479,6 +479,18 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 .nf-tabs button.on b{color:var(--brand-700);}
 .nf-ic{display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:#fff; color:var(--c); box-shadow:0 0 0 1px var(--line); flex-shrink:0;}
 .nf-ic .ic{width:17px; height:17px;}
+.nf-rail{position:relative;}
+.nf-rail::before, .nf-rail::after{content:""; position:absolute; top:0; bottom:8px; width:56px; pointer-events:none; opacity:0; transition:opacity .15s; z-index:1;}
+.nf-rail::before{left:0; background:linear-gradient(90deg,#fff 30%,rgba(255,255,255,0));}
+.nf-rail::after{right:0; background:linear-gradient(270deg,#fff 30%,rgba(255,255,255,0));}
+.nf-rail.has-prev::before, .nf-rail.has-next::after{opacity:1;}
+.nf-arr{position:absolute; top:50%; margin-top:-22px; z-index:2; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff; box-shadow:var(--sh-2); display:grid; place-items:center; cursor:pointer; color:var(--ink-2);}
+.nf-arr:hover{color:var(--brand-600); border-color:#a9c9f5;}
+.nf-arr .ic{width:18px; height:18px;}
+.nf-arr.prev{left:-6px;} .nf-arr.next{right:-6px;}
+.nf-arr[hidden]{display:none;}
+.nf-tabs{scrollbar-width:none;} .nf-tabs::-webkit-scrollbar{display:none;}
+.nf-latest{display:inline-block; margin-left:4px; padding:0 6px; border-radius:5px; background:#12b76a; color:#fff; font-style:normal; font-size:11px; font-weight:800; line-height:18px; vertical-align:1px;}
 .nf-pane{display:none; margin-top:8px;}
 .nf-pane.on{display:block;}
 .nf-pane .avail, .nf-pane .newf{margin-top:0;}
@@ -790,9 +802,14 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 
         <div class="nf" id="news">
           <div class="nf-h"><h2><span class="nb">NEW</span>새 기능</h2><p>제목을 누르면 자세한 내용이 보입니다</p></div>
+          <!-- 새 기능은 항상 맨 앞(왼쪽)에 추가: 이전 기능은 오른쪽으로 밀림 -->
+          <div class="nf-rail">
+          <button type="button" class="nf-arr prev" aria-label="이전 기능 보기" hidden><svg class="ic"><use href="#i-left"/></svg></button>
           <div class="nf-tabs" role="tablist" aria-label="새 기능">
-            <button type="button" class="on" data-nf="avail" role="tab" aria-selected="true"><span class="nf-ic" style="--c:#3182f6"><svg class="ic"><use href="#i-search"/></svg></span><span><b>인터넷 가용조회</b><small>주소 넣고 Enter</small></span></button>
+            <button type="button" class="on" data-nf="avail" role="tab" aria-selected="true"><span class="nf-ic" style="--c:#3182f6"><svg class="ic"><use href="#i-search"/></svg></span><span><b>인터넷 가용조회 <em class="nf-latest">최신</em></b><small>주소 넣고 Enter</small></span></button>
             <button type="button" data-nf="pay" role="tab" aria-selected="false"><span class="nf-ic" style="--c:#12b76a"><svg class="ic"><use href="#i-zap"/></svg></span><span><b>사은품 입금요청</b><small>버튼 한 번 딸깍!</small></span></button>
+          </div>
+          <button type="button" class="nf-arr next" aria-label="다음 기능 보기" hidden><svg class="ic"><use href="#i-right"/></svg></button>
           </div>
           <div class="nf-pane on" id="nf-avail" role="tabpanel">
             <div class="avail">
@@ -2822,6 +2839,23 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
     var t = e.target.closest('[data-nf]'); if(!t) return;
     $$('.nf-tabs [data-nf]').forEach(function(b){ var on = b === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
     $$('.nf-pane').forEach(function(pn){ pn.classList.toggle('on', pn.id === 'nf-' + t.dataset.nf); });
+  });
+
+  /* 새 기능 제목 줄: 넘칠 때만 좌우 화살표 + 가장자리 흐림 */
+  $$('.nf-rail').forEach(function(rail){
+    var row = $('.nf-tabs', rail), prev = $('.nf-arr.prev', rail), next = $('.nf-arr.next', rail);
+    function upd(){
+      var max = row.scrollWidth - row.clientWidth;
+      var hp = row.scrollLeft > 4, hn = row.scrollLeft < max - 4;
+      prev.hidden = !hp; next.hidden = !hn;
+      rail.classList.toggle('has-prev', hp); rail.classList.toggle('has-next', hn);
+    }
+    function step(d){ row.scrollBy({ left: d * Math.max(220, row.clientWidth * 0.7), behavior: 'smooth' }); }
+    prev.addEventListener('click', function(){ step(-1); });
+    next.addEventListener('click', function(){ step(1); });
+    row.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    upd(); setTimeout(upd, 300);
   });
 
   /* ---------- 간단히 / 자세히 보기 ---------- */

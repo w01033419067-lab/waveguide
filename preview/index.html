@@ -465,6 +465,24 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
 .fc-row:nth-child(4) .n{background:var(--ok-50); color:var(--ok);}
 
 .hsec{margin-top:56px;}
+.nf{margin-top:28px; padding:20px; border-radius:var(--r-xl); background:#fff; border:1px solid var(--line); box-shadow:var(--sh-1);}
+.nf-h{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
+.nf-h h2{margin:0; font-size:20px; font-weight:820; letter-spacing:-.03em; display:flex; align-items:center;}
+.nf-h p{margin:0; font-size:13.5px; color:var(--ink-3);}
+.nf-h .nb{display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:6px; background:#12b76a; color:#fff; font-size:11.5px; font-weight:800; letter-spacing:.04em; margin-right:8px;}
+.nf-tabs{display:flex; gap:10px; overflow-x:auto; padding:2px 2px 8px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;}
+.nf-tabs button{flex:0 0 auto; scroll-snap-align:start; display:flex; align-items:center; gap:10px; min-width:210px; padding:10px 14px; border-radius:12px; border:1.5px solid var(--line); background:#fff; font:inherit; text-align:left; cursor:pointer; color:var(--ink-2); transition:border-color .15s, background .15s;}
+.nf-tabs button b{display:block; font-size:14.5px; font-weight:800; color:var(--ink);}
+.nf-tabs button small{display:block; font-size:12.5px; color:var(--ink-3);}
+.nf-tabs button:hover{border-color:#a9c9f5;}
+.nf-tabs button.on{border-color:var(--brand); background:#eef5ff;}
+.nf-tabs button.on b{color:var(--brand-700);}
+.nf-ic{display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:#fff; color:var(--c); box-shadow:0 0 0 1px var(--line); flex-shrink:0;}
+.nf-ic .ic{width:17px; height:17px;}
+.nf-pane{display:none; margin-top:8px;}
+.nf-pane.on{display:block;}
+.nf-pane .avail, .nf-pane .newf{margin-top:0;}
+.nf-list{margin:12px 0 0; padding-left:18px; display:grid; gap:6px; font-size:14px; color:var(--ink-2); line-height:1.6;}
 .avail{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:22px; align-items:center; margin-top:14px; padding:22px 24px; border-radius:var(--r-xl); background:linear-gradient(135deg,#eef6ff 0%,#f5f0ff 100%); border:1px solid #d6e5fa;}
 .avail h3{margin:0; font-size:19px; font-weight:820; letter-spacing:-.03em;}
 .avail p{margin:8px 0 0; font-size:14.5px; color:var(--ink-2); line-height:1.65;}
@@ -770,23 +788,38 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
           </div>
         </div>
 
-        <button class="newf" data-go="i4" style="margin-top:28px;">
-          <span>
-            <h3><span class="nb">NEW</span>사은품 입금요청은 버튼 한 번 딸깍!</h3>
-            <p>개인 고객관리 리스트에서 <b>사은품 금액이 적힌 행만 체크</b>하고 <b>입금요청(협력점)</b>을 누르면 끝. 상부요청 · 사은품요청 이력이나 청약톡방 요청이 필요 없습니다.</p>
-            <span class="flow"><span>사은품 금액 행 체크</span><span class="ar">›</span><span class="ui pay">입금요청(협력점)</span><span class="ar">›</span><span>요청 완료</span></span>
-          </span>
-          <span class="go">사용법 보기 <svg class="ic"><use href="#i-right"/></svg></span>
-        </button>
-
-        <div class="avail" id="avail">
-          <div>
-            <h3><span class="nb">NEW</span>인터넷 가용조회, 주소 넣고 Enter</h3>
-            <p>웹전산 <b>맨 위 오른쪽</b> '주소 넣고 Enter' 칸에 고객 주소를 넣고 <b>Enter</b>를 누르면 <b>통신사별 설치 가능 여부와 최대 속도</b>가 바로 나옵니다. 접수 전에 먼저 확인하세요.</p>
-            <span class="flow"><span>주소 입력</span><span class="ar">›</span><span class="ui">Enter</span><span class="ar">›</span><span>KT · SK · LG · 헬로 결과 확인</span></span>
-            <p style="font-size:13.5px;color:var(--ink-3);"><b style="color:#16a34a">가능 · 최대 1G</b>처럼 초록이면 설치 가능, <b style="color:#dc2626">불가 지역</b>이면 그 통신사는 접수할 수 없습니다.</p>
+        <div class="nf" id="news">
+          <div class="nf-h"><h2><span class="nb">NEW</span>새 기능</h2><p>제목을 누르면 자세한 내용이 보입니다</p></div>
+          <div class="nf-tabs" role="tablist" aria-label="새 기능">
+            <button type="button" class="on" data-nf="avail" role="tab" aria-selected="true"><span class="nf-ic" style="--c:#3182f6"><svg class="ic"><use href="#i-search"/></svg></span><span><b>인터넷 가용조회</b><small>주소 넣고 Enter</small></span></button>
+            <button type="button" data-nf="pay" role="tab" aria-selected="false"><span class="nf-ic" style="--c:#12b76a"><svg class="ic"><use href="#i-zap"/></svg></span><span><b>사은품 입금요청</b><small>버튼 한 번 딸깍!</small></span></button>
           </div>
-          <div class="shot" style="margin:0"><img src="../assets/etc/avail-result.png" alt="인터넷 가용조회 결과 — KT 가능 최대 500M, SK 가능 최대 1G, LG 가능 최대 1G, 헬로 불가 지역" loading="lazy" width="442" height="236"></div>
+          <div class="nf-pane on" id="nf-avail" role="tabpanel">
+            <div class="avail">
+              <div>
+                <h3>인터넷 가용조회, 주소 넣고 Enter</h3>
+                <p>웹전산 <b>맨 위 오른쪽</b> '주소 넣고 Enter' 칸에 고객 주소를 넣고 <b>Enter</b>를 누르면 <b>통신사별 설치 가능 여부와 최대 속도</b>가 바로 나옵니다. 접수 전에 먼저 확인하세요.</p>
+                <span class="flow"><span>주소 입력</span><span class="ar">›</span><span class="ui">Enter</span><span class="ar">›</span><span>KT · SK · LG · 헬로 결과 확인</span></span>
+                <ul class="nf-list">
+                  <li><b>주소</b>: 도로명 · 지번 모두 됩니다. 동 · 호수는 넣어도, 안 넣어도 됩니다.</li>
+                  <li><b style="color:#16a34a">가능 · 최대 1G</b>면 설치 가능, <b style="color:#dc2626">불가 지역</b>이면 그 통신사는 설치가 안 됩니다.</li>
+                  <li><span class="ui ghost">복사</span> 고객 안내 문구가 복사됩니다 — 붙여넣으면 <span class="muted">"최대 500M 설치 가능 / 정확한 설치 가능여부는 기사님 내방하셔야 확인 가능합니다."</span></li>
+                  <li><span class="ui ghost">↗</span> 그 통신사의 가용조회 페이지로 이동합니다.</li>
+                </ul>
+              </div>
+              <div class="shot" style="margin:0"><img src="../assets/etc/avail-result.png" alt="인터넷 가용조회 결과 — KT 가능 최대 500M, SK 가능 최대 1G, LG 가능 최대 1G, 헬로 불가 지역" loading="lazy" width="442" height="236"></div>
+            </div>
+          </div>
+          <div class="nf-pane" id="nf-pay" role="tabpanel">
+            <button class="newf" data-go="i4">
+              <span>
+                <h3>사은품 입금요청은 버튼 한 번 딸깍!</h3>
+                <p>개인 고객관리 리스트에서 <b>사은품 금액이 적힌 행만 체크</b>하고 <b>입금요청(협력점)</b>을 누르면 끝. 상부요청 · 사은품요청 이력이나 청약톡방 요청이 필요 없습니다.</p>
+                <span class="flow"><span>사은품 금액 행 체크</span><span class="ar">›</span><span class="ui pay">입금요청(협력점)</span><span class="ar">›</span><span>요청 완료</span></span>
+              </span>
+              <span class="go">사용법 보기 <svg class="ic"><use href="#i-right"/></svg></span>
+            </button>
+          </div>
         </div>
 
         <button class="notice" data-go="s1">
@@ -2357,7 +2390,7 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
         <div id="faqAll"></div>
         <template id="fqExtra">
           <details class="qa"><summary><span class="q">Q</span>인터넷 설치가 되는 주소인지 어떻게 확인해요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
-            <div class="a">웹전산 <b>맨 위 오른쪽</b> '주소 넣고 Enter' 칸에 고객 주소를 넣고 <b>Enter</b>(또는 <b>가용조회</b>)를 누르세요. <b>KT · SK · LG · 헬로</b> 통신사별로 <b>가능 · 최대 속도</b> 또는 <b>불가 지역</b>이 바로 나옵니다. 접수 전에 먼저 확인하세요.
+            <div class="a">웹전산 <b>맨 위 오른쪽</b> '주소 넣고 Enter' 칸에 고객 주소를 넣고 <b>Enter</b>(또는 <b>가용조회</b>)를 누르세요. <b>KT · SK · LG · 헬로</b> 통신사별로 <b>가능 · 최대 속도</b> 또는 <b>불가 지역</b>이 바로 나옵니다. 접수 전에 먼저 확인하세요. 주소는 도로명 · 지번 모두 되고, 동 · 호수는 넣지 않아도 됩니다. <b>복사</b>를 누르면 "최대 ○○ 설치 가능 / 정확한 설치 가능여부는 기사님 내방하셔야 확인 가능합니다." 안내 문구가 복사되고, <b>↗</b>는 그 통신사의 가용조회 페이지로 이동합니다.
               <img class="popup" src="../assets/etc/avail-result.png" alt="인터넷 가용조회 결과 — KT 가능 최대 500M, SK 가능 최대 1G, LG 가능 최대 1G, 헬로 불가 지역" loading="lazy" width="442" height="236" style="max-width:340px"></div></details>
           <details class="qa"><summary><span class="q">Q</span>웹전산에서 오류를 발견하면 어떻게 신고해요?<svg class="ic chev"><use href="#i-down"/></svg></summary>
             <div class="a">화면 오른쪽 아래 빨간 <b>오류신고</b> 버튼을 누르세요. 지금 보고 있는 화면이 <b>바로 캡처</b>되고, "어떤 문제가 있었나요?"에 내용을 적어 <b>신고 접수</b>를 누르면 됩니다. 오류뿐 아니라 <b>수정되어야 할 부분</b>이 있을 때도 같은 방법으로 신고하세요.
@@ -2783,6 +2816,13 @@ details.qa .a .where:hover{background:var(--brand-50); color:var(--brand-600);}
       home.appendChild(cloneQa(qa, qa.closest('.step').id));
     });
   })();
+
+  /* ---------- 새 기능 ---------- */
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-nf]'); if(!t) return;
+    $$('.nf-tabs [data-nf]').forEach(function(b){ var on = b === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    $$('.nf-pane').forEach(function(pn){ pn.classList.toggle('on', pn.id === 'nf-' + t.dataset.nf); });
+  });
 
   /* ---------- 간단히 / 자세히 보기 ---------- */
   var VM_KEY = 'wg-view';
